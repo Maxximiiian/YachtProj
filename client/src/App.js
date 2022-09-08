@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Auth from './components/auth/Auth';
-import NotAuth from './components/auth/NotAuth';
 import Registration from './components/auth/Registration';
 import Main from './components/main/Main';
 import Navbar from './components/navbar/Navbar';
@@ -36,7 +35,6 @@ function App() {
         <Route path="*" element={<Main />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/registration" element={<Registration />} />
-        <Route path="/notauth" element={<NotAuth />} />
       </Routes>
     </>
 
