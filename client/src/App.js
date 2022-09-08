@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Auth from './components/auth/Auth';
 import Registration from './components/auth/Registration';
+import PersonalPage from './components/main/LK/PersonalPage';
 import Main from './components/main/Main';
 import Navbar from './components/navbar/Navbar';
 import { setAuth } from './redux/actions/authActions';
@@ -35,6 +36,8 @@ function App() {
         <Route path="*" element={<Main />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/registration" element={<Registration />} />
+        <Route path="/persPage" element={<PersonalPage />} />
+
       </Routes>
     </>
 
