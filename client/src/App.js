@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Auth from './components/auth/Auth';
 import Registration from './components/auth/Registration';
+import Info from './components/info/Info';
 import Main from './components/main/Main';
 import NavBar from './components/navbar/NavBar';
 import SideBarFormLogIn from './components/SideBarFormLogIn/SideBarFormLogIn';
@@ -32,6 +33,7 @@ function App() {
     <>
       <NavBar />
       <Routes>
+        <Route path="/" element={<Info />} />
         <Route path="*" element={<Main />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/registration" element={<Registration />} />
