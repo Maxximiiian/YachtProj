@@ -1,0 +1,276 @@
+.App {
+    text-align: center;
+  }
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .App-link {
+    color: #61dafb;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Jost:wght@200;300&family=Russo+One&display=swap');
+  
+  body{
+      background: white url('https://static.tildacdn.com/tild6434-3863-4364-b364-653131323965/2.jpg'); 
+      /* https://i.gifer.com/9Na.gif */
+      background-attachment: fixed; /*Фон страницы фиксируется */
+      background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
+      background-position: center center;
+      background-size:cover; 
+  }
+  
+  .bgimg {
+      background-image: url('https://i.gifer.com/9Na.gif');
+  }
+  .del{
+      text-decoration: line-through; 
+      }
+  /* .container{
+      display:flexbox;
+      justify-content: center;
+      position: relative;
+  
+  }
+  
+  .col-sm{
+      position: absolute;
+      top: 250px;
+      padding: 20px;
+  
+  } */
+  .player{
+      position: absolute;
+      top: 200px;
+      left: 20px;
+      height: 50;
+  }
+  .btnplyer{
+      position: absolute;
+      top: 100px;
+      left: 20px;
+      text-align: center; 
+      padding: 8px 10px; 
+      font-family: 'Jost', sans-serif;
+      background-color: coral;
+      border-radius: 10px;
+      color: aliceblue;
+  }
+  .btnplyer:default{
+      background-color:coral;;
+  }
+  .btnplyer:hover {
+      /* color: #fff; */
+      background-color:aqua;
+      border: solid 1px #777777;
+  }
+  
+  .item {
+      opacity: .88;
+      transition: .3s ease;
+  }
+  
+  .item:hover {
+      opacity: 1;
+  }
+  
+  h2 {
+      color: coral;
+  }
+  
+  .col {
+      color: aqua;
+  }
+  
+  .registr {
+      background-color: #4520ab;
+  }
+  
+  .middle {
+      position: relative;
+      left: 400px;
+  }
+  
+  
+  .navbar{
+  background-color: #4520ab;
+  position: fixed;
+  top: 0;
+  
+  }
+  
+  .navbar-brand {
+      color: aqua;
+      font-family: 'Russo One', sans-serif;
+      font-size: 25px;
+  }
+  
+  .nav-link:hover {
+      color: aqua;
+  }
+  
+  .nav-link {
+      color: coral;
+      position: relative;
+  
+  }
+  
+  .lk {
+      position: relative;
+      left: 420px;
+  }
+  
+  .out {
+      position: relative;
+      left: -10px;
+  }
+  
+  .form-control:hover {
+      border: solid 2px blue;
+  }
+  
+  .mb-3 {
+      font-family: 'Jost', sans-serif;
+      font-weight: bolder;
+  }
+  
+  .charnews:hover {
+      color: aqua;
+  }
+  
+  
+  .zal {
+      background-color: #ffffff;
+  }
+  
+  .zal-dark {
+      background-color: #000000;
+  }
+  
+  .btn {
+      text-align: center;
+      padding: 8px 10px;
+      font-family: 'Jost', sans-serif;
+  }
+  
+  /* .btn:default {
+      background-color: coral;
+  } */
+  
+  .btn:hover {
+      /* color: #fff; */
+      /* background-color: aqua; */
+      border: solid 1px #777777;
+  }
+  
+  
+  
+  .hover-effect-btn {
+      position: relative;
+      width: 100%;
+      padding-left: 15%;
+  }
+  
+  .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      /* Настройка цвета и прозрачности для блока с заголовком */
+      transition: background 0.5s ease;
+  }
+  
+  .hover-effect-btn:hover .overlay {
+      display: block;
+      background: rgba(0, 0, 0, 0.9);
+      /* Настройка цвета и прозрачности для блока с заголовком при наведении */
+  }
+  
+  .hover-effect-btn:hover .title {
+      top: 0%;
+      /* Отступ сверху при наведении */
+  }
+  
+  .button {
+      position: relative;
+      /* left: 70%; */
+      top: 0%;
+      /* Отступ сверху */
+      text-align: center;
+      opacity: 0;
+      /* transition: opacity .35s ease; */
+  
+      padding: 8px 10px;
+      font-family: 'Jost', sans-serif;
+      background-color: coral;
+      border-radius: 5px;
+      margin-left: 10px;
+  }
+  
+  .hover-effect-btn:hover .button {
+      opacity: 1;
+      background-color: coral;
+      border: solid 1px #777777;
+  }
+  
+  .picture {
+      width: 350px;
+  }
+  
+  .divBG {
+      width: 100%;
+      min-height: 1000px;
+      height: 100%;
+      background: url('https://i.imgur.com/B12BKld.jpg');
+      background-attachment: fixed; /*Фон страницы фиксируется */
+      background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
+      background-position: center center;
+      background-size:cover; 
+  }
+  
+  .hg {
+      min-height: 1000px;
+  }
+  
+  .w33 {
+      width: 33%;
+  }
+  
+  .w67 {
+      width: 67%;
+  }
+  
+  .w120 {
+      width: 120%;
+  }
