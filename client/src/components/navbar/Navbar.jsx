@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { logout } from '../../redux/actions/authActions';
+import SideBarFormLogIn from '../SideBarFormLogIn/SideBarFormLogIn';
 
 export default function Navbar() {
   // const { auth } = useSelector((state) => state);
@@ -24,6 +25,7 @@ export default function Navbar() {
           <NavLink to="/" className="navbar-brand">SAILING CLUB</NavLink>
           <NavLink to="/auth" className="nav-link middle">Auth</NavLink>
           <NavLink to="/registration" className="nav-link right">Registration</NavLink>
+          <NavLink to="/" className="side-bar"><SideBarFormLogIn /></NavLink>
         </div>
       </nav>
     </div>
