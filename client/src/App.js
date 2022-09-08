@@ -5,7 +5,7 @@ import './App.css';
 import Auth from './components/auth/Auth';
 import Registration from './components/auth/Registration';
 import Main from './components/main/Main';
-import Navbar from './components/navbar/Navbar';
+import NavBar from './components/navbar/NavBar';
 import SideBarFormLogIn from './components/SideBarFormLogIn/SideBarFormLogIn';
 import { setAuth } from './redux/actions/authActions';
 import { unsetLoad } from './redux/actions/loadActions';
@@ -29,10 +29,8 @@ function App() {
   // }, []);
 
   return (
-
     <>
-      <Navbar />
-      <SideBarFormLogIn />
+      <NavBar />
       <Routes>
         <Route path="*" element={<Main />} />
         <Route path="/auth" element={<Auth />} />
