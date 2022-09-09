@@ -7,11 +7,12 @@ import Typography from '@mui/material/Typography';
 const image = {
   url: '/static/images/buttons/breakfast.jpg',
   title: 'Оствавить заявку',
-  width: '100%'
+  width: '100px'
 };
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
   position: 'relative',
-  height: 200,
+  height: 100,
+  // width: 1050,
   [theme.breakpoints.down('sm')]: {
     width: '100% !important', // Overrides inline-style
     height: 100
@@ -55,19 +56,21 @@ const Image = styled('span')(({ theme }) => ({
 const ImageBackdrop = styled('span')(({ theme }) => ({
   position: 'absolute',
   borderRadius: '21px',
-  left: 0,
+  justifyContent: 'center',
+  left: 360,
   right: 0,
   top: 0,
   bottom: 0,
-  backgroundColor: '#282b18d1',
+  backgroundColor: 'black',
   opacity: 0.4,
-  transition: theme.transitions.create('opacity')
+  transition: theme.transitions.create('opacity'),
+  width: 240
 }));
 
 const ImageMarked = styled('span')(({ theme }) => ({
   height: 3,
   width: 18,
-  backgroundColor: '#f8f9fa',
+  // backgroundColor: '#f8f9fa',
   position: 'absolute',
   bottom: -2,
   left: 'calc(50% - 9px)',
