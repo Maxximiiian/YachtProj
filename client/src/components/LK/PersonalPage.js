@@ -8,6 +8,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import EditIcon from '@mui/icons-material/Edit';
 import './PersPage.css';
+import EditForm from './EditForm';
 // import { useSelector } from 'react-redux';
 
 export default function PersonalPage() {
@@ -23,7 +24,7 @@ export default function PersonalPage() {
     <Container
       maxWidth="sm"
       sx={{
-        padding: 15,
+        padding: 7,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
@@ -39,7 +40,7 @@ export default function PersonalPage() {
         <h3>Andrey Baranov</h3>
 
       </div>
-
+      {editFormState ? <EditForm /> : null}
       <div>
         <Accordion>
           <AccordionSummary
@@ -51,15 +52,18 @@ export default function PersonalPage() {
           </AccordionSummary>
           <AccordionDetails>
             <Typography className="Typography">
-              <HighlightOffIcon focused className="HighlightOffIcon" />
+              <IconButton onClick={clickEditForm} className="deleteIconButton" aria-label="add an alarm">
+                <HighlightOffIcon focused className="HighlightOffIcon" />
+              </IconButton>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
               malesuada lacus ex, sit amet blandit leo lobortis eget.
             </Typography>
             <Typography
               className="Typography"
             >
-              <HighlightOffIcon focused className="HighlightOffIcon" />
-
+              <IconButton onClick={clickEditForm} className="deleteIconButton" aria-label="add an alarm">
+                <HighlightOffIcon focused className="HighlightOffIcon" />
+              </IconButton>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
               malesuada lacus ex, sit amet blandit leo lobortis eget.
             </Typography>
@@ -78,8 +82,9 @@ export default function PersonalPage() {
             <Typography
               className="Typography"
             >
-              <HighlightOffIcon focused className="HighlightOffIcon" />
-
+              <IconButton onClick={clickEditForm} className="deleteIconButton" aria-label="add an alarm">
+                <HighlightOffIcon focused className="HighlightOffIcon" />
+              </IconButton>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
               malesuada lacus ex, sit amet blandit leo lobortis eget.
             </Typography>
