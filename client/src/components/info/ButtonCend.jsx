@@ -11,7 +11,7 @@ const image = {
 };
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
   position: 'relative',
-  height: 200,
+  height: 70,
   [theme.breakpoints.down('sm')]: {
     width: '100% !important', // Overrides inline-style
     height: 100
@@ -75,6 +75,9 @@ const ImageMarked = styled('span')(({ theme }) => ({
 }));
 
 export default function ButtonForm({ onClickBut }) {
+  // clickHand = () => {
+  //   console.log('yurik');
+  // };
   return (
     <Box sx={{
       display: 'flex', borderRadius: '10%', flexWrap: 'wrap', minWidth: 300, left: '30%', top: '50%'
@@ -88,7 +91,7 @@ export default function ButtonForm({ onClickBut }) {
           width: '100%'
         }}
       >
-        <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+        {/* <ImageSrc style={{ backgroundImage: `url(${image.url})` }} /> */}
         <ImageBackdrop className="MuiImageBackdrop-root" />
         <Image>
           <Typography
