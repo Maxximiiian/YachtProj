@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import BlogPosts from '../BlogPosts./BlogPosts';
 // import './Map.css';
 
 const { ymaps } = window;
@@ -32,7 +34,9 @@ export default function Map() {
 
   return (
     <div>
-      <div id="map" className="mapContainer" />
+      <div id="map" className="mapContainer">
+        <NavLink to="/map"><BlogPosts /></NavLink>
+      </div>
     </div>
   );
 }

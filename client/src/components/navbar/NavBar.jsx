@@ -16,7 +16,7 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import SideBarFormLogIn from '../SideBarFormLogIn/SideBarFormLogIn';
 
-const pages = ['Points', 'Ways', 'Blog'];
+const pages = ['Points', 'Ways', 'Blog', 'Admin'];
 const settings = ['Personal Area', 'Logout']; // 'Dashboard','Profile'
 
 function NavBar() {
@@ -62,7 +62,7 @@ function NavBar() {
           >
             SAILING CLUB
           </Typography>
-          {!person ? (
+          {person ? (
             <>
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
@@ -106,6 +106,7 @@ function NavBar() {
                     key={page}
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: 'white', display: 'block' }}
+                    href="/map"
                   >
                     {page}
                   </Button>
