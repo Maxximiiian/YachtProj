@@ -56,7 +56,8 @@ const Image = styled('span')(({ theme }) => ({
 const ImageBackdrop = styled('span')(({ theme }) => ({
   position: 'absolute',
   borderRadius: '21px',
-  left: 225,
+  justifyContent: 'center',
+  left: 360,
   right: 0,
   top: 0,
   bottom: 0,
