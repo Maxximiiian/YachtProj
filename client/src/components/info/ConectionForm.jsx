@@ -10,16 +10,16 @@ export default function ConectionForm() {
       component="form"
       sx={{
         '& > :not(style)': {
-          m: 1, top: '75%', display: 'flex', flexDirection: 'column', color: 'white'
+          mt: 3, top: '75%', display: 'flex', flexDirection: 'column', color: 'white', backgroundColor: '#282b186b', borderRadius: '5px', padding: '10px '
         }
       }}
       noValidate
       autoComplete="off"
     >
-      <Input defaultValue="Hello world" inputProps={ariaLabel} />
-      <Input placeholder="Placeholder" inputProps={ariaLabel} />
-      <Input disabled defaultValue="Disabled" inputProps={ariaLabel} />
-      <Input defaultValue="Error" error inputProps={ariaLabel} />
+      <Input defaultValue="Имя" inputProps={ariaLabel} />
+      <Input defaultValue="Телефон" inputProps={ariaLabel} />
+      <Input defaultValue="e-mail" inputProps={ariaLabel} />
+      <Input defaultValue="Прочая информация" inputProps={ariaLabel} />
     </Box>
   );
 }

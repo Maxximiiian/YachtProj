@@ -2,6 +2,8 @@ import { Box } from '@mui/material';
 import React from 'react';
 import ButtonForm from './ButtonForm';
 import ConectionForm from './ConectionForm';
+import ButtonCend from './ButtonCend';
+
 import './Info.css';
 
 export default function Info() {
@@ -10,7 +12,7 @@ export default function Info() {
   };
   return (
     <Box sx={{
-      width: '50%', display: 'flex', flexFlow: 'column', color: 'white', gap: 1, margin: '5rem auto'
+      width: '50%', display: 'flex', flexFlow: 'column', color: 'white', gap: 6, margin: '10rem auto'
     }}
     >
       <div className="about">
@@ -21,6 +23,7 @@ export default function Info() {
       </div>
       <ButtonForm onClickBut={onClickBut} />
       <ConectionForm />
+      <ButtonCend />
     </Box>
   );
 }

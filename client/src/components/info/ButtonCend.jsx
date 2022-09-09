@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 
 const image = {
   url: '/static/images/buttons/breakfast.jpg',
-  title: 'Оствавить заявку',
+  title: 'Отправить обращение',
   width: '100%'
 };
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
