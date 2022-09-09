@@ -125,6 +125,7 @@
   background-color: #4520ab;
   position: fixed;
   top: 0;
+  overflow: hidden;
   
   }
   
