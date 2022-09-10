@@ -8,9 +8,10 @@ const FileStore = require('session-file-store')(session);
 const bcrypt = require('bcrypt');
 const { send } = require('process');
 const {
-  PotentialUser,
+  PotentialUser, User,
 } = require('./db/models');
 const postsRoutes = require('./Routes/postsRoutes');
+
 
 const app = express();
 
@@ -95,6 +96,23 @@ app.get('/logout', async (req, res) => {
   } catch (error) {
     res.json(error);
   }
+});
+app.get('/getAllRegUsers', async (req, res) => {
+  console.log('00000000');
+  try {
+    const allUser = await User.findAll();
+    res.json(allUser);
+  } catch (error) {
+    res.json(error);
+  }
+});
+app.delete('/userDel', async (req, res) => {
+  console.log('start dellllll');
+  const { id } = req.body;
+  console.log(id, 'idddddddd');
+  User.destroy({ where: { id } });
+  console.log('=======end dellllll');
+  res.sendStatus(200);
 });
 
 app.use('/api/v1', postsRoutes);

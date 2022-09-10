@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import AdminPage from './components/adminPage/AdminPage';
 import Auth from './components/auth/Auth';
 import Registration from './components/auth/Registration';
 import Info from './components/info/Info';
@@ -37,7 +38,7 @@ function App() {
       <Routes>
         <Route path="/main" element={<Main />} />
         <Route path="/auth" element={<Auth />} />
-        <Route path="/admin" element={<Registration />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="/map" element={<Map />} />
         <Route path="/perspage" element={<PersonalPage />} />
         <Route path="/info" element={<Info />} />
