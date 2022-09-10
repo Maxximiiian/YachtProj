@@ -13,10 +13,17 @@ import DoubleArrowSharpIcon from '@mui/icons-material/DoubleArrowSharp';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import SendIcon from '@mui/icons-material/Send';
 import './BlogPosts.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { AddPostsThunk, getAllPostsThunk } from '../../redux/actions/postsAction';
 
 export default function BlogPosts() {
   const [state, setState] = React.useState({ right: false });
   const [addPost, setAddPost] = React.useState(false);
+  const [input, setInput] = useState({});
+  const dispatch = useDispatch();
+  const posts = useSelector((store) => store.posts);
+  console.log('ppppp', posts);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -29,6 +36,27 @@ export default function BlogPosts() {
 
     setState({ ...state, [anchor]: open });
   };
+
+  const handleTextTitleInputChange = (e) => {
+    console.log(e.target.title, e.target.value);
+    setInput((prev) => ({ ...prev, title: e.target.value }));
+  };
+
+  const handleTextBodyInputChange = (e) => {
+    console.log(e.target.body, e.target.value);
+    setInput((prev) => ({ ...prev, body: e.target.value }));
+  };
+  console.log(input);
+
+  const submitHandler = (e) => {
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    e.preventDefault();
+    dispatch(AddPostsThunk(input));
+  };
+
+  useEffect(() => {
+    dispatch(getAllPostsThunk());
+  }, []);
 
   const list = (anchor) => (
     <Box
@@ -50,16 +78,17 @@ export default function BlogPosts() {
       </Box>
       {!addPost ? null
         : (
-          <Box>
+          <Box component="form" onSubmit={submitHandler}>
             <CardContent>
-              <TextField className="TextField" fullWidth size="small" placeholder="Заголовок" color="info" />
-              <TextField className="TextField" fullWidth size="large" placeholder="Текст" sx={{ marginTop: '2rem', textColor: 'primary' }} />
+              <TextField className="TextField" name="title" value={input.title} onChange={handleTextTitleInputChange} fullWidth size="small" placeholder="Заголовок" color="info" />
+              <TextField className="TextField" name="body" value={input.body} onChange={handleTextBodyInputChange} fullWidth size="large" placeholder="Текст" sx={{ marginTop: '2rem', textColor: 'primary' }} />
+              <Button type="submit" onClick={submitHandler} sx={{ backgroundColor: 'transparent', color: 'azure', marginLeft: '40%' }} endIcon={<SendIcon />}>
+                Добавить
+              </Button>
             </CardContent>
-            <Button sx={{ backgroundColor: 'transparent', color: 'azure', marginLeft: '40%' }} endIcon={<SendIcon />}>
-              Добавить
-            </Button>
           </Box>
         )}
+
       <Box sx={{
         backgroundColor: '#f8f9fa24',
         borderRadius: '25px',
