@@ -10,6 +10,8 @@ const { send } = require('process');
 const {
   PotentialUser, User,
 } = require('./db/models');
+const postsRoutes = require('./Routes/postsRoutes');
+
 
 const app = express();
 
@@ -112,6 +114,8 @@ app.delete('/userDel', async (req, res) => {
   console.log('=======end dellllll');
   res.sendStatus(200);
 });
+
+app.use('/api/v1', postsRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log('server start ', process.env.PORT);
