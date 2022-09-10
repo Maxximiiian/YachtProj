@@ -6,9 +6,11 @@ const path = require('path');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const bcrypt = require('bcrypt');
+const { send } = require('process');
 const {
-  User,
+  PotentialUser,
 } = require('./db/models');
+const postsRoutes = require('./Routes/postsRoutes');
 
 const app = express();
 
@@ -48,18 +50,19 @@ app.get('/auth', async (req, res) => {
   }, 1000);
 });
 
-app.post('/registration', async (req, res) => {
-  const { email, name, password } = req.body;
+app.post('/potentionalRegistration', async (req, res) => {
+  const {
+    email, name, phone, about,
+  } = req.body;
   try {
-    const currUser = await User.findOne({ where: { email } });
-    if (!currUser) {
-      const hashPassword = await bcrypt.hash(password, 10);
-      const newUser = await User.create({ email, name, password: hashPassword });
-      req.session.userId = newUser.id;
-      req.session.name = newUser.name;
-      return res.json({ userId: newUser.id, name: newUser.name });
+    const potentionalUser = await PotentialUser.create({
+      email, name, phone, about,
+    });
+    if (potentionalUser) {
+      res.sendStatus(200);
+    } else {
+      res.status(400).json({ message: 'That name already exists' });
     }
-    res.status(400).json({ message: 'That name already exists' });
   } catch (err) {
     console.error(err);
   }
@@ -93,6 +96,8 @@ app.get('/logout', async (req, res) => {
     res.json(error);
   }
 });
+
+app.use('/api/v1', postsRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log('server start ', process.env.PORT);

@@ -1,0 +1,34 @@
+/* .input{
+        background-color: #53555830;
+        border-radius: 21px;
+        display: flex;
+        flex-direction: column;
+        text-align: center; 
+} */
+
+.css-xn6ruc {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    .css-1160xiw-MuiPaper-root-MuiDrawer-paper{
+        background-color: #070705bd !important;
+        
+    }
+    .css-83ijpv-MuiTypography-root{
+        color: azure !important;
+    }
+    .TextField{
+        margin: 10px;
+        height: 100%;
+        background-color: #f8f9faa1;
+        
+        border-radius: 5px;
+        
+    }
+
+    /* .TextField:{
+        background-color: #f8f9fa8e;
+
+    } */
+

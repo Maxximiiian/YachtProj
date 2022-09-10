@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import './Map.css';
+import BlogPosts from '../BlogPosts/BlogPosts';
 
 const { ymaps } = window;
 
@@ -254,7 +256,6 @@ export default function Map() {
   return (
     <div>
       <div id="map" className="mapContainer">
-        {/* <NavLink to="/map"><BlogPosts /></NavLink> */}
         <button type="button" id="set-balloon-header" className="btn">Задать заголовок балуна</button>
         <button type="button" id="set-balloon-content" className="btn">Задать содержимое балуна</button>
       </div>
