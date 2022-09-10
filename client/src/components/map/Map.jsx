@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import './Map.css';
+import BlogPosts from '../BlogPosts/BlogPosts';
 
 const { ymaps } = window;
 
@@ -92,7 +94,7 @@ export default function Map() {
   return (
     <div>
       <div id="map" className="mapContainer">
-        {/* <NavLink to="/map"><BlogPosts /></NavLink> */}
+        <NavLink to="/map"><BlogPosts /></NavLink>
       </div>
     </div>
   );
