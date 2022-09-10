@@ -4,7 +4,6 @@ import loadingReducer from './loadingReducer';
 import postsReducer from './postsReducer';
 
 const rootReducer = combineReducers({
-
   auth: authReducer,
   loading: loadingReducer,
   posts: postsReducer

@@ -35,6 +35,7 @@ function App() {
     <>
       <Navbar />
       <Routes>
+        <Route path="/" element={<Info />} />
         <Route path="/main" element={<Main />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/admin" element={<Registration />} />

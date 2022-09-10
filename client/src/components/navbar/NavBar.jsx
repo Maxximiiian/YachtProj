@@ -61,7 +61,7 @@ function NavBar() {
           >
             SAILING CLUB
           </Typography>
-          {person ? (
+          {!person ? (
             <>
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
