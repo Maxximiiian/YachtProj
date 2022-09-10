@@ -11,6 +11,7 @@ const {
   PotentialUser, User,
 } = require('./db/models');
 const postsRoutes = require('./Routes/postsRoutes');
+const authRoutes = require('./Routes/authRoutes');
 
 
 const app = express();
@@ -40,82 +41,9 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 
-app.get('/auth', async (req, res) => {
-  setTimeout(async () => {
-    try {
-      const result = await User.findByPk(req.session.userId);
-      res.json(result);
-    } catch (error) {
-      res.json(error);
-    }
-  }, 1000);
-});
-
-app.post('/potentionalRegistration', async (req, res) => {
-  const {
-    email, name, phone, about,
-  } = req.body;
-  try {
-    const potentionalUser = await PotentialUser.create({
-      email, name, phone, about,
-    });
-    if (potentionalUser) {
-      res.sendStatus(200);
-    } else {
-      res.status(400).json({ message: 'That name already exists' });
-    }
-  } catch (err) {
-    console.error(err);
-  }
-});
-
-app.post('/auth', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ where: { email } });
-    if (user) {
-      const compare = await bcrypt.compare(password, user.password);
-      if (compare) {
-        req.session.userName = user.name;
-        req.session.userId = user.id;
-        return res.json(user);
-      }
-    } else {
-      res.status(400).json({ message: 'something went wrong' });
-    }
-  } catch (error) {
-    return res.json(error);
-  }
-});
-
-app.get('/logout', async (req, res) => {
-  try {
-    req.session.destroy();
-    res.clearCookie('mega-cookie');
-    res.sendStatus(200);
-  } catch (error) {
-    res.json(error);
-  }
-});
-app.get('/getAllRegUsers', async (req, res) => {
-  console.log('00000000');
-  try {
-    const allUser = await User.findAll();
-    res.json(allUser);
-  } catch (error) {
-    res.json(error);
-  }
-});
-app.delete('/userDel', async (req, res) => {
-  console.log('start dellllll');
-  const { id } = req.body;
-  console.log(id, 'idddddddd');
-  User.destroy({ where: { id } });
-  console.log('=======end dellllll');
-  res.sendStatus(200);
-});
 
 app.use('/api/v1', postsRoutes);
+app.use('/api/v1', authRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log('server start ', process.env.PORT);

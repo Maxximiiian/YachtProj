@@ -67,7 +67,6 @@ export default function BlogPosts() {
         boxShadow: 'none',
         height: '100%',
         color: 'azure'
-
       }}
     >
       <Button sx={{ backgroundColor: 'transparent', color: 'burlywood' }} href="/points" onClick={() => setState((prev) => ({ ...prev, [anchor]: false }))}><DoubleArrowSharpIcon /></Button>
