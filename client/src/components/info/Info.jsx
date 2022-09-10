@@ -23,7 +23,7 @@ export default function Info() {
       </div>
       <ButtonForm onClickBut={onClickBut} />
       <ConectionForm />
-      <ButtonCend />
+      <ButtonCend onClickBut={onClickBut} />
     </Box>
   );
 }
