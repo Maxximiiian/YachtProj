@@ -8,10 +8,11 @@ const FileStore = require('session-file-store')(session);
 const bcrypt = require('bcrypt');
 const { send } = require('process');
 const {
-  PotentialUser,
+  PotentialUser, User,
 } = require('./db/models');
 const postsRoutes = require('./Routes/postsRoutes');
 const authRoutes = require('./Routes/authRoutes');
+
 
 const app = express();
 
@@ -39,6 +40,7 @@ const sessionConfig = {
 };
 
 app.use(session(sessionConfig));
+
 
 app.use('/api/v1', postsRoutes);
 app.use('/api/v1', authRoutes);
