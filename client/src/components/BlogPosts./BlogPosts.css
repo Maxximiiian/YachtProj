@@ -1,0 +1,13 @@
+/* .input{
+        background-color: #53555830;
+        border-radius: 21px;
+        display: flex;
+        flex-direction: column;
+        text-align: center; 
+} */
+
+.css-xn6ruc {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }

@@ -12,12 +12,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import SailingIcon from '@mui/icons-material/Sailing';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import SideBarFormLogIn from '../SideBarFormLogIn/SideBarFormLogIn';
 
-const pages = ['Points', 'Ways', 'Blog'];
-const settings = ['Personal Area', 'Logout']; // 'Dashboard','Profile'
+const pages = ['Points', 'Ways', 'Admin'];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -62,7 +61,7 @@ function NavBar() {
           >
             SAILING CLUB
           </Typography>
-          {!person ? (
+          {person ? (
             <>
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
@@ -101,15 +100,30 @@ function NavBar() {
                 </Menu>
               </Box>
               <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                {pages.map((page) => (
-                  <Button
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
-                  >
-                    {page}
-                  </Button>
-                ))}
+                <Button
+                  component={Link}
+                  to="/map"
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  Points
+                </Button>
+                <Button
+                  component={Link}
+                  to="/perspage"
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  Ways
+                </Button>
+                <Button
+                  component={Link}
+                  to="/admin"
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  Admin
+                </Button>
               </Box>
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
@@ -133,11 +147,16 @@ function NavBar() {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">{setting}</Typography>
-                    </MenuItem>
-                  ))}
+                  <MenuItem component={Link} to="/perspage" onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                      Personal Area
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem key={<Link to="/" />} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                      Logout
+                    </Typography>
+                  </MenuItem>
                 </Menu>
               </Box>
             </>

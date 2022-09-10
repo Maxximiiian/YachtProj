@@ -91,8 +91,9 @@ export default function Map() {
 
   return (
     <div>
-
-      <div id="map" className="mapContainer" />
+      <div id="map" className="mapContainer">
+        {/* <NavLink to="/map"><BlogPosts /></NavLink> */}
+      </div>
     </div>
   );
 }
