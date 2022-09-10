@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import ButtonForm from './ButtonForm';
 import ConectionForm from './ConectionForm';
 import ButtonCend from './ButtonCend';
@@ -7,8 +7,19 @@ import ButtonCend from './ButtonCend';
 import './Info.css';
 
 export default function Info() {
+  const [getForm, setGetForm] = useState(false);
+  const [inputOne, setInputOne] = useState('');
+  const [inputTwo, setInputTwo] = useState('');
+  const [inputThree, setInputThree] = useState('');
+  const [inputFour, setInputFour] = useState('');
+  console.log(inputOne, inputTwo, inputThree, inputFour);
   const onClickBut = () => {
-    console.log('oiiiiiiiiiiiiiii');
+    setGetForm(!getForm);
+  };
+  const onClickCend = (inputOne, inputTwo, inputThree, inputFour) => {
+    const arrCend = {
+      name: inputOne, phone: inputTwo, email: inputThree, about: inputFour
+    };
   };
   return (
     <Box sx={{
@@ -22,8 +33,13 @@ export default function Info() {
         </div>
       </div>
       <ButtonForm onClickBut={onClickBut} />
-      <ConectionForm />
-      <ButtonCend />
+      {getForm === true ? (
+        <div>
+          <ConectionForm />
+          <ButtonCend />
+        </div>
+      ) : (<div />) }
+
     </Box>
   );
 }

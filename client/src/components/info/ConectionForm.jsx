@@ -2,6 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Input from '@mui/material/Input';
 import { display } from '@mui/system';
+import { useState } from 'react';
 
 const ariaLabel = { 'aria-label': 'description' };
 export default function ConectionForm() {
@@ -16,10 +17,10 @@ export default function ConectionForm() {
       noValidate
       autoComplete="off"
     >
-      <Input defaultValue="Имя" inputProps={ariaLabel} />
-      <Input defaultValue="Телефон" inputProps={ariaLabel} />
-      <Input defaultValue="e-mail" inputProps={ariaLabel} />
-      <Input defaultValue="Прочая информация" inputProps={ariaLabel} />
+      <Input type="text" name="name" value={inputOne} onChange={(event) => setInputOne(event.target.value)} placeholder="Имя" inputProps={ariaLabel} />
+      <Input type="text" name="phone" value={inputTwo} onChange={(event) => setInputTwo(event.target.value)} placeholder="Телефон" inputProps={ariaLabel} />
+      <Input type="text" name="email" value={inputThree} onChange={(event) => setInputThree(event.target.value)} placeholder="e-mail" inputProps={ariaLabel} />
+      <Input type="text" name="about" value={inputFour} onChange={(event) => setInputFour(event.target.value)} placeholder="Прочая информация" inputProps={ariaLabel} />
     </Box>
   );
 }
