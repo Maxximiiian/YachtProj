@@ -5,10 +5,10 @@ module.exports = {
         name: 'Bob', userId: 1, createdAt: new Date(), updatedAt: new Date(),
       },
     ];
-    await queryInterface.bulkInsert('Locations', waysArr, {});
+    await queryInterface.bulkInsert('Ways', waysArr, {});
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Locations', null, {});
+    await queryInterface.bulkDelete('Ways', null, {});
   },
 };
