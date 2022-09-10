@@ -80,8 +80,25 @@ const ImageMarked = styled('span')(({ theme }) => ({
 
 const ariaLabel = { 'aria-label': 'description' };
 export default function ConectionForm() {
-  const clickHand = () => {
-    console.log('yurik');
+  const [inpState, setInpState] = React.useState({
+    name: '', phone: '', email: '', about: ''
+  });
+  const inpHandler = (e) => setInpState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+
+  const submitPotentionalUser = async () => {
+    console.log(inpState);
+    const response = await fetch('http://localhost:3002/potentionalRegistration', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify(inpState)
+    });
+    if (response.ok) {
+      // const data = await response.json();
+      alert('Ваша заявка принята');
+    }
   };
   return (
     <Box
@@ -94,11 +111,10 @@ export default function ConectionForm() {
       noValidate
       autoComplete="on"
     >
-
-      <Input placeholder="Имя" inputProps={ariaLabel} />
-      <Input placeholder="Телефон" inputProps={ariaLabel} />
-      <Input placeholder="e-mail" inputProps={ariaLabel} />
-      <Input placeholder="Прочая информация" inputProps={ariaLabel} />
+      <Input name="name" onChange={inpHandler} placeholder="Имя" inputProps={ariaLabel} />
+      <Input name="phone" onChange={inpHandler} placeholder="Телефон" inputProps={ariaLabel} />
+      <Input name="email" onChange={inpHandler} placeholder="e-mail" inputProps={ariaLabel} />
+      <Input name="about" onChange={inpHandler} placeholder="Прочая информация" inputProps={ariaLabel} />
       <Box sx={{
         display: 'flex', borderRadius: '10%', flexWrap: 'wrap', minWidth: 300, left: '30%', top: '50%'
       }}
@@ -115,7 +131,7 @@ export default function ConectionForm() {
           <ImageBackdrop className="MuiImageBackdrop-root" />
           <Image>
             <Typography
-              onClick={clickHand}
+              onClick={submitPotentionalUser}
               component="span"
               variant="subtitle1"
               color="inherit"
