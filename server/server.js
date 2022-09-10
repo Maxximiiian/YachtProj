@@ -6,10 +6,10 @@ const path = require('path');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const bcrypt = require('bcrypt');
-const {
-  PotentialUser,
-} = require('./db/models');
 const { send } = require('process');
+const {
+  PotentialUser, User,
+} = require('./db/models');
 
 const app = express();
 
@@ -50,15 +50,19 @@ app.get('/auth', async (req, res) => {
 });
 
 app.post('/potentionalRegistration', async (req, res) => {
-  const { email, name, phone, about } = req.body;
+  const {
+    email, name, phone, about,
+  } = req.body;
   try {
-      const potentionalUser = await PotentialUser.create({ email, name, phone, about });
-    if (potentionalUser){
-      res.sendStatus(200)}
-      else{    res.status(400).json({ message: 'That name already exists' });
+    const potentionalUser = await PotentialUser.create({
+      email, name, phone, about,
+    });
+    if (potentionalUser) {
+      res.sendStatus(200);
+    } else {
+      res.status(400).json({ message: 'That name already exists' });
     }
-    }
-   catch (err) {
+  } catch (err) {
     console.error(err);
   }
 });
@@ -90,6 +94,23 @@ app.get('/logout', async (req, res) => {
   } catch (error) {
     res.json(error);
   }
+});
+app.get('/getAllRegUsers', async (req, res) => {
+  console.log('00000000');
+  try {
+    const allUser = await User.findAll();
+    res.json(allUser);
+  } catch (error) {
+    res.json(error);
+  }
+});
+app.delete('/userDel', async (req, res) => {
+  console.log('start dellllll');
+  const { id } = req.body;
+  console.log(id, 'idddddddd');
+  User.destroy({ where: { id } });
+  console.log('=======end dellllll');
+  res.sendStatus(200);
 });
 
 app.listen(process.env.PORT, () => {
