@@ -1,0 +1,22 @@
+.editForm{
+background-color: #282b186b;
+border-radius: 30px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.TextField{
+    color: #F0FFFF !important;
+}
+.TextField:hover{
+    background-color: #b3b3b34b;
+}
+.buttonEdit{
+    color: #F0FFFF !important;
+    background-color: transparent; 
+}
+.buttonEdit:hover{
+    background-color: #b3b3b34b !important;
+
+}
+/* sx={{ backgroundColor: 'transparent', color: '#F0FFFF' }} */

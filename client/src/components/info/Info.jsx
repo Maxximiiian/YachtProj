@@ -7,39 +7,39 @@ import ButtonCend from './ButtonCend';
 import './Info.css';
 
 export default function Info() {
-  const [getForm, setGetForm] = useState(false);
-  const [inputOne, setInputOne] = useState('');
-  const [inputTwo, setInputTwo] = useState('');
-  const [inputThree, setInputThree] = useState('');
-  const [inputFour, setInputFour] = useState('');
-  console.log(inputOne, inputTwo, inputThree, inputFour);
+  const [viewFormState, setViewFormState] = useState(false);
   const onClickBut = () => {
-    setGetForm(!getForm);
-  };
-  const onClickCend = (inputOne, inputTwo, inputThree, inputFour) => {
-    const arrCend = {
-      name: inputOne, phone: inputTwo, email: inputThree, about: inputFour
-    };
+    setViewFormState(!viewFormState);
   };
   return (
-    <Box sx={{
-      width: '50%', display: 'flex', flexFlow: 'column', color: 'white', gap: 6, margin: '10rem auto'
-    }}
+    <Box
+      sx={{
+        width: '50%',
+        display: 'flex',
+        flexFlow: 'column',
+        gap: 6,
+        margin: '10rem auto',
+        backgroundColor: '#282b186b',
+        borderRadius: '24px'
+
+      }}
     >
       <div className="about">
-        <div><h1>О нас</h1></div>
+        <h1>О нас</h1>
         <div className="info">
           много текста
         </div>
       </div>
       <ButtonForm onClickBut={onClickBut} />
-      {getForm === true ? (
-        <div>
-          <ConectionForm />
-          <ButtonCend />
-        </div>
-      ) : (<div />) }
 
+      {viewFormState ? (
+        <div>
+
+          <ConectionForm />
+          {/* <ButtonCend /> */}
+        </div>
+
+      ) : (null)}
     </Box>
   );
 }
