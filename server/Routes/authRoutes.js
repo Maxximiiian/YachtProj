@@ -61,4 +61,11 @@ app.get('/logout', async (req, res) => {
   }
 });
 
+app.post('/check', async (req, res) => {
+  if (req.session.user) {
+    return res.json(req.session.user);
+  }
+  res.sendStatus(401);
+});
+
 module.exports = app;

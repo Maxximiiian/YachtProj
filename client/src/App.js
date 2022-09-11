@@ -10,7 +10,8 @@ import PersonalPage from './components/LK/PersonalPage';
 import Main from './components/main/Main';
 import Map from './components/map/Map';
 import Navbar from './components/navbar/NavBar';
-import { setAuth } from './redux/actions/authActions';
+import RequireAuth from './components/RequireAuth/RequireAuth';
+import { setAuth, userCheck } from './redux/actions/authActions';
 import { unsetLoad } from './redux/actions/loadActions';
 
 function App() {
@@ -32,19 +33,24 @@ function App() {
   //     });
   // }, []);
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(userCheck());
+  }, []);
+
   return (
     <>
       <Navbar />
       <Routes>
         {!user.id
         && <Route path="/" element={<Info />} />}
-        {user
+        {user.id
         && (
         <>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={(<Main />)} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<AdminPage />} />
-          <Route path="/map" element={<Map />} />
+          <Route path="/map" element={(<RequireAuth><Map /></RequireAuth>)} />
           <Route path="/perspage" element={<PersonalPage />} />
         </>
         )}

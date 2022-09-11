@@ -15,3 +15,9 @@ export const userLogOut = () => (dispatch) => {
     .then((res) => dispatch(setAuthAC({})))
     .catch((err) => console.log(err));
 };
+
+export const userCheck = () => (dispatch) => {
+  axios.post('/api/v1/check')
+    .then((res) => dispatch(setAuthAC(res.data)))
+    .catch((err) => console.log('err'));
+};
