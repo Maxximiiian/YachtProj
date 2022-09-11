@@ -2,20 +2,21 @@ const app = require('express').Router();
 const bcrypt = require('bcrypt');
 const { User } = require('../db/models');
 
-app.get('/auth', async (req, res) => {
-  setTimeout(async () => {
-    try {
-      const result = await User.findByPk(req.session.userId);
-      res.json(result);
-    } catch (error) {
-      res.json(error);
-    }
-  }, 1000);
-});
+// app.get('/auth', async (req, res) => {
+//   setTimeout(async () => {
+//     try {
+//       const result = await User.findByPk(req.session.userId);
+//       res.json(result);
+//     } catch (error) {
+//       res.json(error);
+//     }
+//   }, 1000);
+// });
 
 app.post('/auth', async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log('lllllll');
     const user = await User.findOne({ where: { email } });
     if (user) {
       const compare = await bcrypt.compare(password, user.password);
@@ -32,23 +33,23 @@ app.post('/auth', async (req, res) => {
   }
 });
 
-app.post('/potentionalRegistration', async (req, res) => {
-  const {
-    email, name, phone, about,
-  } = req.body;
-  try {
-    const potentionalUser = await PotentialUser.create({
-      email, name, phone, about,
-    });
-    if (potentionalUser) {
-      res.sendStatus(200);
-    } else {
-      res.status(400).json({ message: 'That name already exists' });
-    }
-  } catch (err) {
-    console.error(err);
-  }
-});
+// app.post('/potentionalRegistration', async (req, res) => {
+//   const {
+//     email, name, phone, about,
+//   } = req.body;
+//   try {
+//     const potentionalUser = await PotentialUser.create({
+//       email, name, phone, about,
+//     });
+//     if (potentionalUser) {
+//       res.sendStatus(200);
+//     } else {
+//       res.status(400).json({ message: 'That name already exists' });
+//     }
+//   } catch (err) {
+//     console.error(err);
+//   }
+// });
 
 app.get('/logout', async (req, res) => {
   try {

@@ -13,7 +13,6 @@ const {
 const postsRoutes = require('./Routes/postsRoutes');
 const authRoutes = require('./Routes/authRoutes');
 
-
 const app = express();
 
 app.use(cors({
@@ -40,7 +39,6 @@ const sessionConfig = {
 };
 
 app.use(session(sessionConfig));
-
 
 app.use('/api/v1', postsRoutes);
 app.use('/api/v1', authRoutes);
