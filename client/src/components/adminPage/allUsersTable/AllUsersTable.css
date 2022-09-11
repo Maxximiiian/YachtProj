@@ -1,0 +1,9 @@
+.conteiner2 {
+    display: table;
+    width: 100%;
+    color: white
+}
+.titleeH5{
+    display: flex;
+    justify-content: center
+}

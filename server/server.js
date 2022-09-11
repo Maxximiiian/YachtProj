@@ -10,6 +10,8 @@ const { send } = require('process');
 const {
   PotentialUser, User,
 } = require('./db/models');
+const postsRoutes = require('./Routes/postsRoutes');
+const authRoutes = require('./Routes/authRoutes');
 
 const app = express();
 
@@ -122,6 +124,9 @@ app.get('/logout', async (req, res) => {
     res.json(error);
   }
 });
+
+app.use('/api/v1', postsRoutes);
+app.use('/api/v1', authRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log('server start ', process.env.PORT);

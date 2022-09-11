@@ -8,7 +8,6 @@ import './Info.css';
 
 export default function Info() {
   const [viewFormState, setViewFormState] = useState(false);
-
   const onClickBut = () => {
     setViewFormState(!viewFormState);
   };
@@ -32,6 +31,7 @@ export default function Info() {
         </div>
       </div>
       <ButtonForm onClickBut={onClickBut} />
+
       {viewFormState ? (
         <div>
 
