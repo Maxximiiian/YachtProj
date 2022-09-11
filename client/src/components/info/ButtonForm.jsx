@@ -54,17 +54,19 @@ const Image = styled('span')(({ theme }) => ({
 }));
 
 const ImageBackdrop = styled('span')(({ theme }) => ({
-  position: 'absolute',
+  // position: 'absolute',
   borderRadius: '21px',
   justifyContent: 'center',
-  left: 360,
-  right: 0,
-  top: 0,
+  margin: '0 auto',
+  // left: 100,
+  // right: 0,
+  // top: 0,
   bottom: 0,
   backgroundColor: 'black',
   opacity: 0.4,
   transition: theme.transitions.create('opacity'),
-  width: 240
+  width: '35%',
+  height: '85px'
 }));
 
 const ImageMarked = styled('span')(({ theme }) => ({

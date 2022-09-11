@@ -9,6 +9,7 @@ import Info from './components/info/Info';
 import PersonalPage from './components/LK/PersonalPage';
 import Main from './components/main/Main';
 import Map from './components/map/Map';
+import AdminReg from './components/Modals/AdminReg';
 import Navbar from './components/navbar/NavBar';
 import { setAuth } from './redux/actions/authActions';
 import { unsetLoad } from './redux/actions/loadActions';

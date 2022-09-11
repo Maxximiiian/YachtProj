@@ -40,6 +40,91 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 
+app.get('/auth', async (req, res) => {
+  setTimeout(async () => {
+    try {
+      const result = await User.findByPk(req.session.userId);
+      res.json(result);
+    } catch (error) {
+      res.json(error);
+    }
+  }, 1000);
+});
+
+app.post('/potentionalRegistration', async (req, res) => {
+  const {
+    email, name, phone, about,
+  } = req.body;
+  try {
+    const potentionalUser = await PotentialUser.create({
+      email, name, phone, about,
+    });
+    if (potentionalUser) {
+      res.sendStatus(200);
+    } else {
+      res.status(400).json({ message: 'That name already exists' });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+app.post('/adminRegistration', async (req, res) => {
+  const {
+    email, name, phone, password, admin,
+  } = req.body;
+  console.log(req.body);
+
+  try {
+    const currUser = await User.findOne({ where: { email } });
+    if (!currUser) {
+      const hashPassword = await bcrypt.hash(password, 10);
+      if (admin[0] === 'Администратор') {
+        const newUser = await User.create({
+          email, name, password: hashPassword, phone, admin: true, theme: false,
+        });
+        return res.json(newUser);
+      }
+      const newUser = await User.create({
+        email, name, password: hashPassword, phone, admin: false, theme: false,
+      });
+      return res.json(newUser);
+    }
+    res.status(400).json({ message: 'That name already exists' });
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+app.post('/auth', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ where: { email } });
+    if (user) {
+      const compare = await bcrypt.compare(password, user.password);
+      if (compare) {
+        req.session.userName = user.name;
+        req.session.userId = user.id;
+        return res.json(user);
+      }
+    } else {
+      res.status(400).json({ message: 'something went wrong' });
+    }
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
+app.get('/logout', async (req, res) => {
+  try {
+    req.session.destroy();
+    res.clearCookie('mega-cookie');
+    res.sendStatus(200);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
 app.use('/api/v1', postsRoutes);
 app.use('/api/v1', authRoutes);
 
