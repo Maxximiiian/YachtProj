@@ -2,21 +2,19 @@ const app = require('express').Router();
 const bcrypt = require('bcrypt');
 const { User } = require('../db/models');
 
-// app.get('/auth', async (req, res) => {
-//   setTimeout(async () => {
-//     try {
-//       const result = await User.findByPk(req.session.userId);
-//       res.json(result);
-//     } catch (error) {
-//       res.json(error);
-//     }
-//   }, 1000);
-// });
+app.get('/auth', async (req, res) => {
+  try {
+    const result = await User.findByPk(req.session.userId);
+    res.json(result);
+  } catch (error) {
+    res.json(error);
+  }
+});
 
 app.post('/auth', async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log('lllllll');
+    console.log('lllllll', req.body);
     const user = await User.findOne({ where: { email } });
     if (user) {
       const compare = await bcrypt.compare(password, user.password);
@@ -62,8 +60,9 @@ app.get('/logout', async (req, res) => {
 });
 
 app.post('/check', async (req, res) => {
-  if (req.session.user) {
-    return res.json(req.session.user);
+  console.log(req.session.userId);
+  if (req.session.userId) {
+    return res.json(req.session);
   }
   res.sendStatus(401);
 });

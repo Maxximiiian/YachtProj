@@ -53,7 +53,7 @@ export default function AdminReg() {
     });
     if (response.ok) {
     //   const data = await response.json();
- 
+
     //   dispatch(setAuth(data));
     //   navigate('/');
     } else {
@@ -170,4 +170,3 @@ export default function AdminReg() {
     </Container>
   );
 }
-

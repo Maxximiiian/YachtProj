@@ -1,3 +1,4 @@
+/* eslint-disable prefer-rest-params */
 /* eslint-disable react/no-this-in-sfc */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-multi-assign */
@@ -282,11 +283,7 @@ export default function Map() {
       <div id="map" className="mapContainer">
         <button type="button" id="set-balloon-header" className="btn">Задать заголовок балуна</button>
         <button type="button" id="set-balloon-content" className="btn">Задать содержимое балуна</button>
-        {/* <button type="button" onClick={() => setSidebarState(!sidsebarState)}>YYYYYYY</button> */}
-        {/* {!sidebarState ? <BlogPosts /> : <div /> } */}
         <BlogPosts blogPostsState={blogPostsState} setBlogPostsState={setBlogPostsState} />
-        <BlogPosts blogPostsState={blogPostsState} setBlogPostsState={setBlogPostsState} />
-
       </div>
     </div>
   );

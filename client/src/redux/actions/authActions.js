@@ -17,7 +17,9 @@ export const userLogOut = () => (dispatch) => {
 };
 
 export const userCheck = () => (dispatch) => {
-  axios.post('/api/v1/check')
+  axios.post('/api/v1/check', {
+    credentials: 'include'
+  })
     .then((res) => dispatch(setAuthAC(res.data)))
     .catch((err) => console.log('err'));
 };

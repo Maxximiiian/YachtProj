@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { setAuth } from '../../redux/actions/authActions';
+import { setAuthAC } from '../../redux/actions/authActions';
 
 export default function Auth() {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ export default function Auth() {
       });
       if (response.ok) {
         const data = await response.json();
-        dispatch(setAuth(data));
+        dispatch(setAuthAC(data));
         navigate('/');
       } else {
         alert('Wrong input!');

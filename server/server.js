@@ -40,17 +40,6 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 
-app.get('/auth', async (req, res) => {
-  setTimeout(async () => {
-    try {
-      const result = await User.findByPk(req.session.userId);
-      res.json(result);
-    } catch (error) {
-      res.json(error);
-    }
-  }, 1000);
-});
-
 app.post('/potentionalRegistration', async (req, res) => {
   const {
     email, name, phone, about,
@@ -93,35 +82,6 @@ app.post('/adminRegistration', async (req, res) => {
     res.status(400).json({ message: 'That name already exists' });
   } catch (err) {
     console.error(err);
-  }
-});
-
-app.post('/auth', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ where: { email } });
-    if (user) {
-      const compare = await bcrypt.compare(password, user.password);
-      if (compare) {
-        req.session.userName = user.name;
-        req.session.userId = user.id;
-        return res.json(user);
-      }
-    } else {
-      res.status(400).json({ message: 'something went wrong' });
-    }
-  } catch (error) {
-    return res.json(error);
-  }
-});
-
-app.get('/logout', async (req, res) => {
-  try {
-    req.session.destroy();
-    res.clearCookie('mega-cookie');
-    res.sendStatus(200);
-  } catch (error) {
-    res.json(error);
   }
 });
 

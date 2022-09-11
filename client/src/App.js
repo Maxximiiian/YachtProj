@@ -12,11 +12,12 @@ import Map from './components/map/Map';
 import AdminReg from './components/Modals/AdminReg';
 import Navbar from './components/navbar/NavBar';
 import RequireAuth from './components/RequireAuth/RequireAuth';
-import { setAuth, userCheck } from './redux/actions/authActions';
+import { setAuthAC, userCheck } from './redux/actions/authActions';
 import { unsetLoad } from './redux/actions/loadActions';
 
 function App() {
-  const user = useSelector((store) => store.auth);
+  const { auth } = useSelector((store) => store);
+  console.log(auth);
   // const { loading } = useSelector((s) => s);
   // const dispatch = useDispatch();
   // useEffect(() => {
@@ -38,14 +39,14 @@ function App() {
   useEffect(() => {
     dispatch(userCheck());
   }, []);
-
+  
   return (
     <>
       <Navbar />
       <Routes>
-        {!user.id
+        {!auth
         && <Route path="/" element={<Info />} />}
-        {user.id
+        {auth
         && (
         <>
           <Route path="/" element={(<Main />)} />
@@ -53,6 +54,7 @@ function App() {
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/map" element={(<RequireAuth><Map /></RequireAuth>)} />
           <Route path="/perspage" element={<PersonalPage />} />
+          {/* <Route path="/adminreg" element={<PersonalPage />} /> */}
         </>
         )}
       </Routes>

@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { AddPostsThunk, getAllPostsThunk } from '../../redux/actions/postsAction';
 
-
 export default function BlogPosts({ blogPostsState, setBlogPostsState }) {
   const [state, setState] = React.useState({ right: false });
   const [add, setAdd] = useState(false);
