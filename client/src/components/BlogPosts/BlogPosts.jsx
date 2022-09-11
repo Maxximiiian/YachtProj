@@ -17,8 +17,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { AddPostsThunk, getAllPostsThunk } from '../../redux/actions/postsAction';
 
+
 export default function BlogPosts({ blogPostsState, setBlogPostsState }) {
+  const [state, setState] = React.useState({ right: false });
+  const [add, setAdd] = useState(false);
   const [addPost, setAddPost] = React.useState(false);
+  const [addLocation, setAddLocation] = React.useState(false);
   const [input, setInput] = useState({});
   const dispatch = useDispatch();
   const posts = useSelector((store) => store.posts);
@@ -36,18 +40,15 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState }) {
   };
 
   const handleTextTitleInputChange = (e) => {
-    console.log(e.target.title, e.target.value);
     setInput((prev) => ({ ...prev, title: e.target.value }));
   };
 
   const handleTextBodyInputChange = (e) => {
-    console.log(e.target.body, e.target.value);
     setInput((prev) => ({ ...prev, body: e.target.value }));
   };
   console.log(input);
 
   const submitHandler = (e) => {
-    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
     e.preventDefault();
     dispatch(AddPostsThunk(input));
   };
@@ -60,7 +61,7 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState }) {
     <Box
       sx={{
         maxWidth: 500,
-        backgroundColor: '#00000075 !important',
+        backgroundColor: '#00000000 !important',
         opacity: '0.8',
         boxShadow: 'none',
         height: '100%',
@@ -69,9 +70,21 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState }) {
     >
       <Button sx={{ backgroundColor: 'transparent', color: 'burlywood' }} href="/points" onClick={() => setBlogPostsState((prev) => ({ ...prev, [anchor]: false }))}><DoubleArrowSharpIcon /></Button>
       <Box>
-        <Button onClick={() => setAddPost(!addPost)} variant="h1" color="text.secondary" sx={{ marginLeft: '30%' }}>
-          Добавить пост
+        <Button onClick={() => setAdd(!add)} variant="h1" color="text.secondary" sx={{ marginLeft: '30%' }}>
+          Добавить
         </Button>
+        { add
+        && (
+        <>
+          <Button onClick={() => { setAddLocation(!addLocation); setAddPost(false); }} variant="h1" color="text.secondary" sx={{ marginLeft: '30%' }}>
+            Локацию
+          </Button>
+          <Button onClick={() => { setAddPost(!addPost); setAddLocation(false); }} variant="h1" color="text.secondary" sx={{ marginLeft: '35%' }}>
+            Пост
+          </Button>
+
+        </>
+        )}
       </Box>
       {!addPost ? null
         : (
@@ -85,7 +98,17 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState }) {
             </CardContent>
           </Box>
         )}
-
+      {!addLocation ? null
+        : (
+          <Box component="form" onSubmit={submitHandler}>
+            <CardContent>
+              <TextField className="TextField" name="title" value={input.name} fullWidth size="small" placeholder="Location" color="info" />
+              <Button type="submit" onClick={submitHandler} sx={{ backgroundColor: 'transparent', color: 'azure', marginLeft: '30%' }} endIcon={<SendIcon />}>
+                Добавить
+              </Button>
+            </CardContent>
+          </Box>
+        )}
       <Box sx={{
         backgroundColor: '#f8f9fa24',
         borderRadius: '25px',
