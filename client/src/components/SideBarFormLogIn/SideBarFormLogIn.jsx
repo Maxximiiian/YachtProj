@@ -25,29 +25,28 @@ export default function SideBarFormLogIn() {
     ) {
       return;
     }
-
     setState({ ...state, [anchor]: open });
   };
 
   const changeHandler = (e) => {
-    console.log(e.target.name, e.target.value);
-    setInput((prev) => ({ ...prev, name: e.target.value }));
+    setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (input.password && input.email) {
-      dispatch(userSignInThunk(input));
-      setInput({});
-      nav('/main');
-    }
+    dispatch(userSignInThunk(input));
+    setInput({});
+    toggleDrawer(false);
+    nav('/');
   };
+
+  // onClick={() => setState((prev) => ({ ...prev, [anchor]: false }))}
 
   const list = (anchor) => (
     <Box
       sx={{
         maxWidth: 500,
-        backgroundColor: '#00000075 !important',
+        backgroundColor: '#282b186b !important',
         opacity: '0.8',
         boxShadow: 'none',
         height: '100%',
@@ -63,17 +62,16 @@ export default function SideBarFormLogIn() {
           sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
           noValidate
           autoComplete="off"
-          onSubmit={submitHandler}
+          onSubmit={toggleDrawer(anchor, false)}
         >
-          <TextField className="TextField" name="name" value={input.title} onChange={changeHandler} id="outlined-basic" label="Имя участника" variant="outlined" size="large" />
-          <TextField className="TextField" name="password" value={input.title} onChange={changeHandler} id="outlined-basic" label="Пароль" variant="outlined" size="small" />
-          <Button type="submit" onClick={submitHandler} sx={{ backgroundColor: 'transparent', color: 'burlywood' }} variant="outlined" href="/main" onClick={() => setState((prev) => ({ ...prev, [anchor]: false }))}>Войти</Button>
+          <TextField className="TextField" name="email" type="email" value={input.name} onChange={changeHandler} id="outlined-basic" label="Имя участника" variant="outlined" size="large" color="warning" />
+          <TextField className="TextField" name="password" type="password" value={input.password} onChange={changeHandler} id="outlined-basic" label="Пароль" variant="outlined" size="small" color="warning" />
+          <Button type="submit" sx={{ backgroundColor: 'transparent', color: 'burlywood' }} variant="outlined" onClick={submitHandler}>Войти</Button>
           {error && <p> entered incorrect data </p>}
         </Box>
       </List>
     </Box>
   );
-
   return (
     <div style={{ width: 'max-content', marginLeft: 'auto' }}>
       {['right'].map((anchor) => (

@@ -14,6 +14,7 @@ import { setAuth } from './redux/actions/authActions';
 import { unsetLoad } from './redux/actions/loadActions';
 
 function App() {
+  const user = useSelector((store) => store.auth);
   // const { loading } = useSelector((s) => s);
   // const dispatch = useDispatch();
   // useEffect(() => {
@@ -32,20 +33,23 @@ function App() {
   // }, []);
 
   return (
-
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Info />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/map" element={<Map />} />
-        <Route path="/perspage" element={<PersonalPage />} />
-        <Route path="/info" element={<Info />} />
+        {!user.id
+        && <Route path="/" element={<Info />} />}
+        {user
+        && (
+        <>
+          <Route path="/" element={<Main />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/map" element={<Map />} />
+          <Route path="/perspage" element={<PersonalPage />} />
+        </>
+        )}
       </Routes>
     </>
-
   );
 }
 
