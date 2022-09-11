@@ -6,10 +6,10 @@ const path = require('path');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const bcrypt = require('bcrypt');
-const {
-  PotentialUser,
-} = require('./db/models');
 const { send } = require('process');
+const {
+  PotentialUser, User,
+} = require('./db/models');
 
 const app = express();
 
@@ -50,15 +50,46 @@ app.get('/auth', async (req, res) => {
 });
 
 app.post('/potentionalRegistration', async (req, res) => {
-  const { email, name, phone, about } = req.body;
+  const {
+    email, name, phone, about,
+  } = req.body;
   try {
-      const potentionalUser = await PotentialUser.create({ email, name, phone, about });
-    if (potentionalUser){
-      res.sendStatus(200)}
-      else{    res.status(400).json({ message: 'That name already exists' });
+    const potentionalUser = await PotentialUser.create({
+      email, name, phone, about,
+    });
+    if (potentionalUser) {
+      res.sendStatus(200);
+    } else {
+      res.status(400).json({ message: 'That name already exists' });
     }
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+app.post('/adminRegistration', async (req, res) => {
+  const {
+    email, name, phone, password, admin,
+  } = req.body;
+  console.log(req.body);
+
+  try {
+    const currUser = await User.findOne({ where: { email } });
+    if (!currUser) {
+      const hashPassword = await bcrypt.hash(password, 10);
+      if (admin[0] === 'Администратор') {
+        const newUser = await User.create({
+          email, name, password: hashPassword, phone, admin: true, theme: false,
+        });
+        return res.json(newUser);
+      }
+      const newUser = await User.create({
+        email, name, password: hashPassword, phone, admin: false, theme: false,
+      });
+      return res.json(newUser);
     }
-   catch (err) {
+    res.status(400).json({ message: 'That name already exists' });
+  } catch (err) {
     console.error(err);
   }
 });
