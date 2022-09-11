@@ -17,7 +17,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { AddPostsThunk, getAllPostsThunk } from '../../redux/actions/postsAction';
 
-export default function BlogPosts() {
+
+export default function BlogPosts({ blogPostsState, setBlogPostsState }) {
   const [state, setState] = React.useState({ right: false });
   const [add, setAdd] = useState(false);
   const [addPost, setAddPost] = React.useState(false);
@@ -35,8 +36,7 @@ export default function BlogPosts() {
     ) {
       return;
     }
-
-    setState({ ...state, [anchor]: open });
+    setBlogPostsState({ ...blogPostsState, [anchor]: open });
   };
 
   const handleTextTitleInputChange = (e) => {
@@ -68,7 +68,7 @@ export default function BlogPosts() {
         color: 'azure'
       }}
     >
-      <Button sx={{ backgroundColor: 'transparent', color: 'burlywood' }} href="/points" onClick={() => setState((prev) => ({ ...prev, [anchor]: false }))}><DoubleArrowSharpIcon /></Button>
+      <Button sx={{ backgroundColor: 'transparent', color: 'burlywood' }} href="/points" onClick={() => setBlogPostsState((prev) => ({ ...prev, [anchor]: false }))}><DoubleArrowSharpIcon /></Button>
       <Box>
         <Button onClick={() => setAdd(!add)} variant="h1" color="text.secondary" sx={{ marginLeft: '30%' }}>
           Добавить
@@ -158,18 +158,21 @@ export default function BlogPosts() {
       </Box>
     </Box>
   );
+
   return (
     <div style={{ width: 'max-content', marginLeft: 'auto' }}>
       {['right'].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>
+
+          {/* <Button onClick={toggleDrawer(anchor, true)}>
             <ToggleButton value="justify" key="justify">
               <FormatAlignJustifyIcon />
             </ToggleButton>
-          </Button>
+          </Button> */}
+
           <SwipeableDrawer
             anchor={anchor}
-            open={state[anchor]}
+            open={blogPostsState[anchor]}
             onClose={toggleDrawer(anchor, false)}
             onOpen={toggleDrawer(anchor, true)}
           >

@@ -1,3 +1,6 @@
+/* eslint-disable react/no-this-in-sfc */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-multi-assign */
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Map.css';
@@ -6,6 +9,20 @@ import BlogPosts from '../BlogPosts/BlogPosts';
 const { ymaps } = window;
 
 export default function Map() {
+  const [blogPostsState, setBlogPostsState] = React.useState({ right: false });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event
+            && event.type === 'keydown'
+            && (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+    setBlogPostsState({ ...blogPostsState, [anchor]: open });
+  };
+
+  const [sidebarState, setSidebarState] = useState(false);
   const center = [55.7536760175035, 37.61988016065489];
   //   const center = [20, 20];
 
@@ -105,7 +122,8 @@ export default function Map() {
       //   * @see https://api.yandex.ru/maps/doc/jsapi/2.1/ref/reference/ILayout.xml#getClientBounds
       //   * @function
       //   * @name getClientBounds
-      //   * @returns {Number[][]} Координаты левого верхнего и правого нижнего углов шаблона относительно точки привязки.
+      //   * @returns {Number[][]}
+      //   Координаты левого верхнего и правого нижнего углов шаблона относительно точки привязки.
       //   */
       getShape() {
         if (!this._isElement(this._element)) {
@@ -192,6 +210,12 @@ export default function Map() {
       if (!myMap.balloon.isOpen()) {
         const coords = e.get('coords');
         console.log(coords);
+        console.log(blogPostsState);
+        setBlogPostsState({ ...blogPostsState, right: true });
+        // toggleDrawer('right', true);
+        // setBlogPostsState({ right: true });
+        console.log(blogPostsState);
+
         myMap.balloon.open(coords, {
           contentHeader: 'Событие!',
           contentBody: '<button id="yyy">sss</button'
@@ -258,6 +282,11 @@ export default function Map() {
       <div id="map" className="mapContainer">
         <button type="button" id="set-balloon-header" className="btn">Задать заголовок балуна</button>
         <button type="button" id="set-balloon-content" className="btn">Задать содержимое балуна</button>
+        {/* <button type="button" onClick={() => setSidebarState(!sidsebarState)}>YYYYYYY</button> */}
+        {/* {!sidebarState ? <BlogPosts /> : <div /> } */}
+        <BlogPosts blogPostsState={blogPostsState} setBlogPostsState={setBlogPostsState} />
+        <BlogPosts blogPostsState={blogPostsState} setBlogPostsState={setBlogPostsState} />
+
       </div>
     </div>
   );

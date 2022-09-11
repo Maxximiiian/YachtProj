@@ -5,6 +5,7 @@ import { display } from '@mui/system';
 import { styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
+import { TextField } from '@mui/material';
 import ButtonCend from './ButtonCend';
 
 const image = {
@@ -83,6 +84,7 @@ export default function ConectionForm() {
   const [inpState, setInpState] = React.useState({
     name: '', phone: '', email: '', about: ''
   });
+  const inputStyle = { backgroundColor: 'blue' };
   const inpHandler = (e) => setInpState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const submitPotentionalUser = async () => {
@@ -109,12 +111,11 @@ export default function ConectionForm() {
         }
       }}
       noValidate
-      autoComplete="on"
     >
-      <Input name="name" onChange={inpHandler} placeholder="Имя" inputProps={ariaLabel} />
-      <Input name="phone" onChange={inpHandler} placeholder="Телефон" inputProps={ariaLabel} />
-      <Input name="email" onChange={inpHandler} placeholder="e-mail" inputProps={ariaLabel} />
-      <Input name="about" onChange={inpHandler} placeholder="Прочая информация" inputProps={ariaLabel} />
+      <TextField className="input" name="name" autoComplete="off" onChange={inpHandler} label="Имя" inputProps={inputStyle} />
+      <TextField className="input" name="phone" autoComplete="off" onChange={inpHandler} label="Телефон" inputProps={ariaLabel} />
+      <TextField className="input" name="email" autoComplete="off" onChange={inpHandler} label="e-mail" inputProps={ariaLabel} />
+      <TextField className="input" name="about" autoComplete="off" onChange={inpHandler} label="Прочая информация" inputProps={ariaLabel} />
       <Box sx={{
         display: 'flex', borderRadius: '10%', flexWrap: 'wrap', minWidth: 300, left: '30%', top: '50%'
       }}
