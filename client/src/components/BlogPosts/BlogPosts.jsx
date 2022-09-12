@@ -13,10 +13,16 @@ import DoubleArrowSharpIcon from '@mui/icons-material/DoubleArrowSharp';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import SendIcon from '@mui/icons-material/Send';
 import './BlogPosts.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { AddPostsThunk, getAllPostsThunk } from '../../redux/actions/postsAction';
 
-export default function BlogPosts() {
-  const [state, setState] = React.useState({ right: false });
+export default function BlogPosts({ blogPostsState, setBlogPostsState }) {
   const [addPost, setAddPost] = React.useState(false);
+  const [input, setInput] = useState({});
+  const dispatch = useDispatch();
+  const posts = useSelector((store) => store.posts);
+  console.log('ppppp', posts);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -26,9 +32,29 @@ export default function BlogPosts() {
     ) {
       return;
     }
-
-    setState({ ...state, [anchor]: open });
+    setBlogPostsState({ ...blogPostsState, [anchor]: open });
   };
+
+  const handleTextTitleInputChange = (e) => {
+    console.log(e.target.title, e.target.value);
+    setInput((prev) => ({ ...prev, title: e.target.value }));
+  };
+
+  const handleTextBodyInputChange = (e) => {
+    console.log(e.target.body, e.target.value);
+    setInput((prev) => ({ ...prev, body: e.target.value }));
+  };
+  console.log(input);
+
+  const submitHandler = (e) => {
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    e.preventDefault();
+    dispatch(AddPostsThunk(input));
+  };
+
+  useEffect(() => {
+    dispatch(getAllPostsThunk());
+  }, []);
 
   const list = (anchor) => (
     <Box
@@ -39,10 +65,9 @@ export default function BlogPosts() {
         boxShadow: 'none',
         height: '100%',
         color: 'azure'
-
       }}
     >
-      <Button sx={{ backgroundColor: 'transparent', color: 'burlywood' }} href="/points" onClick={() => setState((prev) => ({ ...prev, [anchor]: false }))}><DoubleArrowSharpIcon /></Button>
+      <Button sx={{ backgroundColor: 'transparent', color: 'burlywood' }} href="/points" onClick={() => setBlogPostsState((prev) => ({ ...prev, [anchor]: false }))}><DoubleArrowSharpIcon /></Button>
       <Box>
         <Button onClick={() => setAddPost(!addPost)} variant="h1" color="text.secondary" sx={{ marginLeft: '30%' }}>
           Добавить пост
@@ -50,16 +75,17 @@ export default function BlogPosts() {
       </Box>
       {!addPost ? null
         : (
-          <Box>
+          <Box component="form" onSubmit={submitHandler}>
             <CardContent>
-              <TextField className="TextField" fullWidth size="small" placeholder="Заголовок" color="info" />
-              <TextField className="TextField" fullWidth size="large" placeholder="Текст" sx={{ marginTop: '2rem', textColor: 'primary' }} />
+              <TextField className="TextField" name="title" value={input.title} onChange={handleTextTitleInputChange} fullWidth size="small" placeholder="Заголовок" color="info" />
+              <TextField className="TextField" name="body" value={input.body} onChange={handleTextBodyInputChange} fullWidth size="large" placeholder="Текст" sx={{ marginTop: '2rem', textColor: 'primary' }} />
+              <Button type="submit" onClick={submitHandler} sx={{ backgroundColor: 'transparent', color: 'azure', marginLeft: '40%' }} endIcon={<SendIcon />}>
+                Добавить
+              </Button>
             </CardContent>
-            <Button sx={{ backgroundColor: 'transparent', color: 'azure', marginLeft: '40%' }} endIcon={<SendIcon />}>
-              Добавить
-            </Button>
           </Box>
         )}
+
       <Box sx={{
         backgroundColor: '#f8f9fa24',
         borderRadius: '25px',
@@ -109,18 +135,21 @@ export default function BlogPosts() {
       </Box>
     </Box>
   );
+
   return (
     <div style={{ width: 'max-content', marginLeft: 'auto' }}>
       {['right'].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>
+
+          {/* <Button onClick={toggleDrawer(anchor, true)}>
             <ToggleButton value="justify" key="justify">
               <FormatAlignJustifyIcon />
             </ToggleButton>
-          </Button>
+          </Button> */}
+
           <SwipeableDrawer
             anchor={anchor}
-            open={state[anchor]}
+            open={blogPostsState[anchor]}
             onClose={toggleDrawer(anchor, false)}
             onOpen={toggleDrawer(anchor, true)}
           >

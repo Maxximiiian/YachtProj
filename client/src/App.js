@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import AdminPage from './components/adminPage/AdminPage';
 import Auth from './components/auth/Auth';
 import Registration from './components/auth/Registration';
 import Info from './components/info/Info';
@@ -14,6 +15,7 @@ import { setAuth } from './redux/actions/authActions';
 import { unsetLoad } from './redux/actions/loadActions';
 
 function App() {
+  const user = useSelector((store) => store.auth);
   // const { loading } = useSelector((s) => s);
   // const dispatch = useDispatch();
   // useEffect(() => {
@@ -32,21 +34,23 @@ function App() {
   // }, []);
 
   return (
-
     <>
       <Navbar />
       <Routes>
-        <Route path="*" element={<Main />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/admin" element={<Registration />} />
-        <Route path="/map" element={<Map />} />
-        <Route path="/perspage" element={<PersonalPage />} />
-        <Route path="/info" element={<Info />} />
-        <Route path="/adminReg" element={<AdminReg />} />
-
+        {!user.id
+        && <Route path="/" element={<Info />} />}
+        {user
+        && (
+        <>
+          <Route path="/" element={<Main />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/map" element={<Map />} />
+          <Route path="/perspage" element={<PersonalPage />} />
+        </>
+        )}
       </Routes>
     </>
-
   );
 }
 
