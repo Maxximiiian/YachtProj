@@ -60,11 +60,11 @@ app.get('/logout', async (req, res) => {
 });
 
 app.post('/check', async (req, res) => {
-  console.log(req.session.userId);
-  if (req.session.userId) {
-    return res.json(req.session);
+  const user = await User.findByPk(req.session?.userId);
+  if (user) {
+    return res.json(user);
   }
-  res.sendStatus(401);
+  res.status(204).json({});
 });
 
 module.exports = app;
