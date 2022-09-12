@@ -17,8 +17,7 @@ export default function AllUsersTable({ delStatePotential }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ id })
-    });
-    setDelState(Math.random());
+    }).then((r) => setDelState(Math.random()));
   };
   return (
     <div className="conteiner2">
