@@ -15,9 +15,24 @@ import SendIcon from '@mui/icons-material/Send';
 import './BlogPosts.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { AddPostsThunk, getAllPostsThunk } from '../../redux/actions/postsAction';
 
-export default function BlogPosts({ blogPostsState, setBlogPostsState }) {
+export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCoords }) {
+  // const BLYA = [...currentCoords];
+  console.log('fghfghfghfghfg', currentCoords);
+  const { auth } = useSelector((state) => state);
+  const [locationInput, setLocationInput] = useState({ coords: currentCoords, name: '', userId: auth.id });
+
+  console.log('locationInput', locationInput);
+
+  const changeLocationInputHandler = (e) => {
+    console.log('handlerInput', currentCoords);
+    setLocationInput(
+      (prev) => ({ ...prev, [e.target.name]: e.target.value, coords: currentCoords })
+    );
+  };
+
   const [state, setState] = React.useState({ right: false });
   const [add, setAdd] = useState(false);
   const [addPost, setAddPost] = React.useState(false);
@@ -50,6 +65,11 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState }) {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(AddPostsThunk(input));
+  };
+
+  const locationAddHandler = (e) => {
+    e.preventDefault();
+    axios.post('http://localhost:3002/locations', { credentials: 'include' });
   };
 
   useEffect(() => {
@@ -99,10 +119,10 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState }) {
         )}
       {!addLocation ? null
         : (
-          <Box component="form" onSubmit={submitHandler}>
+          <Box component="form">
             <CardContent>
-              <TextField className="TextField" name="title" value={input.name} fullWidth size="small" placeholder="Location" color="info" />
-              <Button type="submit" onClick={submitHandler} sx={{ backgroundColor: 'transparent', color: 'azure', marginLeft: '30%' }} endIcon={<SendIcon />}>
+              <TextField className="TextField" name="name" value={locationInput.name} onChange={changeLocationInputHandler} fullWidth size="small" placeholder="Location" color="info" />
+              <Button type="button" onClick={locationAddHandler} sx={{ backgroundColor: 'transparent', color: 'azure', marginLeft: '30%' }} endIcon={<SendIcon />}>
                 Добавить
               </Button>
             </CardContent>

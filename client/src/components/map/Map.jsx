@@ -10,8 +10,9 @@ import BlogPosts from '../BlogPosts/BlogPosts';
 const { ymaps } = window;
 
 export default function Map() {
+  const [currentCoords, setCurrentCoords] = useState(null);
   const [blogPostsState, setBlogPostsState] = React.useState({ right: false });
-
+//   console.log('cooooordsssss', currentCoords);
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event
@@ -210,12 +211,11 @@ export default function Map() {
     myMap.events.add('click', (e) => {
       if (!myMap.balloon.isOpen()) {
         const coords = e.get('coords');
-        console.log(coords);
-        console.log(blogPostsState);
+        setCurrentCoords(coords);
         setBlogPostsState({ ...blogPostsState, right: true });
         // toggleDrawer('right', true);
         // setBlogPostsState({ right: true });
-        console.log(blogPostsState);
+        // console.log(blogPostsState);
 
         myMap.balloon.open(coords, {
           contentHeader: 'Событие!',
@@ -283,7 +283,11 @@ export default function Map() {
       <div id="map" className="mapContainer">
         <button type="button" id="set-balloon-header" className="btn">Задать заголовок балуна</button>
         <button type="button" id="set-balloon-content" className="btn">Задать содержимое балуна</button>
-        <BlogPosts blogPostsState={blogPostsState} setBlogPostsState={setBlogPostsState} />
+        <BlogPosts
+          blogPostsState={blogPostsState}
+          setBlogPostsState={setBlogPostsState}
+          currentCoords={currentCoords}
+        />
       </div>
     </div>
   );
