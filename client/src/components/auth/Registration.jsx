@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { setAuth } from '../../redux/actions/authActions';
+import { setAuthAC } from '../../redux/actions/authActions';
+import './Auth.css';
 
 export default function Registration() {
   const [input, setInput] = useState({
@@ -26,7 +27,7 @@ export default function Registration() {
         });
         if (response.ok) {
           const data = await response.json();
-          dispatch(setAuth(data));
+          dispatch(setAuthAC(data));
           navigate('/');
         } else {
           alert('Такой пользователь уже существует');
@@ -53,7 +54,7 @@ export default function Registration() {
       <div style={{ height: '150px' }} />
       <form onSubmit={signUpHandler} className="container zal rounded-3 py-3 item">
         <div className="mb-3">
-          <h2>Email</h2>
+          <h2>E-mail</h2>
           <input
             onChange={changeHandler}
             type="email"
@@ -64,7 +65,7 @@ export default function Registration() {
           />
         </div>
         <div className="mb-3">
-          <h2>Your Name</h2>
+          <h2>Name</h2>
           <input
             value={input.name}
             onChange={changeHandler}
@@ -76,7 +77,19 @@ export default function Registration() {
           />
         </div>
         <div className="mb-3">
-          <h2>Your Password</h2>
+          <h2>ID</h2>
+          <input
+            // value={input.name}
+            // onChange={changeHandler}
+            type="name"
+            name="name"
+            className="form-control"
+            id="exampleInputName1"
+            placeholder="Name"
+          />
+        </div>
+        <div className="mb-3">
+          <h2>Personal Password</h2>
           <input
             value={input.password}
             onChange={changeHandler}
@@ -87,23 +100,8 @@ export default function Registration() {
             placeholder="Password"
           />
         </div>
-        <div className="mb-3">
-          <h2>Please repeat password</h2>
-          <input
-            value={input.repeat}
-            onChange={changeHandler}
-            type="password"
-            name="repeat"
-            className="form-control"
-            id="exampleInputPassword2"
-            placeholder="Repeat Password"
-          />
-        </div>
         <div>
-          <button type="submit" className="btn btn-danger">Sign Up!</button>
-          <div className="pt-3">
-            <Link to="/auth" className="btn btn-outline-danger float-left">←Back to Auth</Link>
-          </div>
+          <button style={{ marginLeft: '40%' }} type="submit" className="btn btn-danger">Sign Up!</button>
         </div>
       </form>
     </div>

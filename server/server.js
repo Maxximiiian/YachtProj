@@ -6,9 +6,14 @@ const path = require('path');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const bcrypt = require('bcrypt');
+const { send } = require('process');
 const {
-  User,
+  PotentialUser, User,
 } = require('./db/models');
+const postsRoutes = require('./Routes/postsRoutes');
+
+const authRoutes = require('./Routes/authRoutes');
+
 
 const app = express();
 
@@ -37,62 +42,85 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 
-app.get('/auth', async (req, res) => {
-  setTimeout(async () => {
-    try {
-      const result = await User.findByPk(req.session.userId);
-      res.json(result);
-    } catch (error) {
-      res.json(error);
+app.post('/potentionalRegistration', async (req, res) => {
+  const {
+    email, name, phone, about,
+  } = req.body;
+  try {
+    const potentionalUser = await PotentialUser.create({
+      email, name, phone, about,
+    });
+    if (potentionalUser) {
+      res.sendStatus(200);
+    } else {
+      res.status(400).json({ message: 'That name already exists' });
     }
-  }, 1000);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
-app.post('/registration', async (req, res) => {
-  const { email, name, password } = req.body;
+app.post('/adminRegistration', async (req, res) => {
+  const {
+    email, name, phone, password, admin,
+  } = req.body;
+  console.log(req.body);
+
   try {
     const currUser = await User.findOne({ where: { email } });
     if (!currUser) {
       const hashPassword = await bcrypt.hash(password, 10);
-      const newUser = await User.create({ email, name, password: hashPassword });
-      req.session.userId = newUser.id;
-      req.session.name = newUser.name;
-      return res.json({ userId: newUser.id, name: newUser.name });
+      if (admin[0] === 'Администратор') {
+        const newUser = await User.create({
+          email, name, password: hashPassword, phone, admin: true, theme: false,
+        });
+        return res.json(newUser);
+      }
+      const newUser = await User.create({
+        email, name, password: hashPassword, phone, admin: false, theme: false,
+      });
+      return res.json(newUser);
     }
     res.status(400).json({ message: 'That name already exists' });
   } catch (err) {
     console.error(err);
   }
 });
-
-app.post('/auth', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ where: { email } });
-    if (user) {
-      const compare = await bcrypt.compare(password, user.password);
-      if (compare) {
-        req.session.userName = user.name;
-        req.session.userId = user.id;
-        return res.json(user);
-      }
-    } else {
-      res.status(400).json({ message: 'something went wrong' });
-    }
-  } catch (error) {
-    return res.json(error);
-  }
+app.delete('/userDel', async (req, res) => {
+  const { id } = req.body;
+  User.destroy({ where: { id } });
+  res.sendStatus(200);
 });
-
-app.get('/logout', async (req, res) => {
+app.get('/getAllPotentialUsers', async (req, res) => {
   try {
-    req.session.destroy();
-    res.clearCookie('mega-cookie');
-    res.sendStatus(200);
+    const allPotentialUser = await PotentialUser.findAll();
+    res.json(allPotentialUser);
   } catch (error) {
     res.json(error);
   }
 });
+app.delete('/PotentialuserDel', async (req, res) => {
+  const { id } = req.body;
+  PotentialUser.destroy({ where: { id } });
+  res.sendStatus(200);
+});
+
+app.post('/PotentialUserAdd', async (req, res) => {
+  // console.log(req.body, 'add potential');
+  const {
+    id, name, phone, email,
+  } = req.body.elem;
+  console.log(id, name, phone, email, '11111111111');
+  console.log(req.body.elem, '2222222222222222222');
+
+  User.create({
+    id, name, phone, email,
+  });
+  res.sendStatus(200);
+});
+
+app.use('/api/v1', postsRoutes);
+app.use('/api/v1', authRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log('server start ', process.env.PORT);
