@@ -13,7 +13,7 @@ export default function EditForm() {
       role="presentation"
       className="editForm"
     >
-      <List sx={{ paddingLeft: '40px', color: '#F0FFFF' }}>Вход для участников</List>
+      <List sx={{ paddingLeft: '40px', color: '#F0FFFF' }}>Измените свои данные</List>
       <Divider />
       <List>
         <Box
@@ -24,13 +24,14 @@ export default function EditForm() {
         >
           <TextField className="TextField" id="outlined-basic" label="Измените имя" variant="outlined" size="small" />
           <TextField className="TextField" id="outlined-basic" label="Измените ваш номер" variant="outlined" size="small" />
+          <TextField className="TextField" id="outlined-basic" label="Измените ваш email" variant="outlined" size="small" />
 
           <TextField className="TextField" id="outlined-basic" label="Добавьте ссылку на фотографию" variant="outlined" size="small" />
           <Button variant="contained" component="label">
             Загрузите фотографию
             <input hidden accept="image/*" multiple type="file" />
           </Button>
-          <Button className="buttonEdit" variant="outlined" href="/main">Войти</Button>
+          <Button className="buttonEdit" variant="outlined" href="/main">Изменить</Button>
         </Box>
       </List>
     </Box>
