@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import PotentialUserItem from './PotentialUserItem';
 import './PotentialUserTable.css';
 
-export default function PotentialUserTable() {
+export default function PotentialUserTable({
+  setDelStatePotential,
+  DelStatePotential, delPotentialAddUser, delStatePotential
+}) {
   const [potentialUsres, setPotentialUsers] = useState([]);
-  const [delState, setDelState] = useState(0);
+
   useEffect(() => {
     fetch('http://localhost:3002/getAllPotentialUsers')
       .then((res) => res.json())
       .then((res) => { setPotentialUsers(res); console.log(res); });
-  }, [delState]);
+  }, [DelStatePotential, delStatePotential]);
 
   const DelUser2 = async (id) => {
     await fetch('http://localhost:3002/PotentialuserDel', {
@@ -19,16 +22,17 @@ export default function PotentialUserTable() {
       },
       body: JSON.stringify({ id })
     });
-    setDelState(Math.random());
+    setDelStatePotential(Math.random());
   };
   return (
     <div className="conteiner3">
       <div className="titleeH5"><h5>Потенциальнае пользователи</h5></div>
       {potentialUsres && potentialUsres.map((elem) => (
         <PotentialUserItem
-          key={elem.email}
+          key={elem.id}
           elem={elem}
           DelUser2={DelUser2}
+          delPotentialAddUser={delPotentialAddUser}
         />
       ))}
     </div>
