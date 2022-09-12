@@ -85,6 +85,52 @@ app.post('/adminRegistration', async (req, res) => {
   }
 });
 
+// app.get('/getAllRegUsers', async (req, res) => {
+//   const allUser = User.findAll();
+//   res.json(allUser);
+// });
+app.get('/getAllRegUsers', async (req, res) => {
+  try {
+    const allUser = await User.findAll();
+    res.json(allUser);
+  } catch (error) {
+    res.json(error);
+  }
+});
+app.delete('/userDel', async (req, res) => {
+  const { id } = req.body;
+  User.destroy({ where: { id } });
+  res.sendStatus(200);
+});
+app.get('/getAllPotentialUsers', async (req, res) => {
+  try {
+    const allPotentialUser = await PotentialUser.findAll();
+    console.log(allPotentialUser);
+    res.json(allPotentialUser);
+  } catch (error) {
+    res.json(error);
+  }
+});
+app.delete('/PotentialuserDel', async (req, res) => {
+  const { id } = req.body;
+  PotentialUser.destroy({ where: { id } });
+  res.sendStatus(200);
+});
+
+app.post('/PotentialUserAdd', async (req, res) => {
+  // console.log(req.body, 'add potential');
+  const {
+    id, name, phone, email,
+  } = req.body.elem;
+ // console.log(id, name, phone, email, '11111111111');
+ // console.log(req.body.elem, '2222222222222222222');
+
+  User.create({
+    id, name, phone, email,
+  });
+  res.sendStatus(200);
+});
+
 app.use('/api/v1', postsRoutes);
 app.use('/api/v1', authRoutes);
 
