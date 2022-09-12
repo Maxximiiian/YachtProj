@@ -14,7 +14,7 @@ app.get('/auth', async (req, res) => {
 app.post('/auth', async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log('lllllll', req.body);
+    // console.log('lllllll', req.body);
     const user = await User.findOne({ where: { email } });
     if (user) {
       const compare = await bcrypt.compare(password, user.password);
@@ -29,6 +29,23 @@ app.post('/auth', async (req, res) => {
   } catch (error) {
     return res.json(error);
   }
+});
+app.post('/auth/changeUser', async (req, res) => {
+  const { name, phone, email } = req.body;
+  console.log(req.session);
+  const { userId } = req.session;
+  console.log('========>>>>>>> prihod user change', userId, name, phone, email);
+  // console.log(req.body);
+  // console.log('!!!!!!!!!!!!!', name, isDone);
+  // const { userId } = req.session;
+
+  await User.update(
+    { name, phone, email },
+    { where: { id: userId } },
+  );
+  const result1 = await User.findByPk(req.session.userId);
+  console.log(result1);
+  res.json(result1);
 });
 
 // app.post('/potentionalRegistration', async (req, res) => {
