@@ -11,7 +11,9 @@ const {
   PotentialUser, User,
 } = require('./db/models');
 const postsRoutes = require('./Routes/postsRoutes');
+
 const authRoutes = require('./Routes/authRoutes');
+
 
 const app = express();
 
@@ -84,6 +86,33 @@ app.post('/adminRegistration', async (req, res) => {
     console.error(err);
   }
 });
+
+app.delete('/userDel', async (req, res) => {
+  // console.log('start dellllll');
+  const { id } = req.body;
+  // console.log(id, 'idddddddd');
+  User.destroy({ where: { id } });
+  // console.log('=======end dellllll');
+  res.sendStatus(200);
+});
+app.get('/getAllPotentialUsers', async (req, res) => {
+  try {
+    const allPotentialUser = await PotentialUser.findAll();
+    console.log('00000000', allPotentialUser);
+    res.json(allPotentialUser);
+  } catch (error) {
+    res.json(error);
+  }
+});
+app.delete('/PotentialuserDel', async (req, res) => {
+  // console.log('start dellllll');
+  const { id } = req.body;
+  // console.log(id, 'idddddddd');
+  PotentialUser.destroy({ where: { id } });
+  // console.log('=======end dellllll');
+  res.sendStatus(200);
+});
+
 
 app.use('/api/v1', postsRoutes);
 app.use('/api/v1', authRoutes);

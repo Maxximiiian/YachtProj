@@ -1,5 +1,13 @@
-.conteiner {
-    background-color: red;
+.conteiner3 {
     display: table;
-    width: 100%
+    width: 100%;
+    color: white
+
 }
+.userInfo {
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+/* import GroupAddIcon from '@mui/icons-material/GroupAdd'; иконка на добовление потенциального*/
+/* import PersonSearchIcon from '@mui/icons-material/PersonSearch'; на кнопку подробнее*/

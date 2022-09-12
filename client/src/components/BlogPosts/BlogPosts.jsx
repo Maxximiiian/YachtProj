@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
 import { red } from '@mui/material/colors';
 import {
-  Avatar, Box, Button, ButtonGroup, IconButton, SwipeableDrawer, TextField
+  Avatar, Box, Button, ButtonGroup, IconButton, Link, SwipeableDrawer, TextField
 } from '@mui/material';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -67,7 +67,7 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState }) {
         color: 'azure'
       }}
     >
-      <Button sx={{ backgroundColor: 'transparent', color: 'burlywood' }} href="/points" onClick={() => setBlogPostsState((prev) => ({ ...prev, [anchor]: false }))}><DoubleArrowSharpIcon /></Button>
+      <Button sx={{ backgroundColor: 'transparent', color: 'burlywood' }} component={Link} to="/points" onClick={() => setBlogPostsState((prev) => ({ ...prev, [anchor]: false }))}><DoubleArrowSharpIcon /></Button>
       <Box>
         <Button onClick={() => setAdd(!add)} variant="h1" color="text.secondary" sx={{ marginLeft: '30%' }}>
           Добавить

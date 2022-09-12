@@ -13,10 +13,13 @@ align-items: center;
 }
 .buttonEdit{
     color: #F0FFFF !important;
-    background-color: transparent; 
+    background-color:antiquewhite; 
 }
 .buttonEdit:hover{
     background-color: #b3b3b34b !important;
 
+}
+.css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input{
+    background:#aeafaf60 !important;
 }
 /* sx={{ backgroundColor: 'transparent', color: '#F0FFFF' }} */

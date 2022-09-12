@@ -4,14 +4,8 @@ import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
 import { red } from '@mui/material/colors';
 import {
-  Avatar, Box, Button, ButtonGroup, IconButton, SwipeableDrawer, TextField
+  Avatar, Box
 } from '@mui/material';
-import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import ToggleButton from '@mui/material/ToggleButton';
-import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
-import DoubleArrowSharpIcon from '@mui/icons-material/DoubleArrowSharp';
-import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
-import SendIcon from '@mui/icons-material/Send';
 import './ItemUser.css';
 import ButtonDel from '../buttonDel/ButtonDel';
 
