@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
 import {
-  Box, Button, Container, Divider, List, MenuItem, OutlinedInput, TextField,
-  makeStyles
+  Box, Button, Container, Divider, List, MenuItem, OutlinedInput, TextField
+
 } from '@mui/material';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import { MuiTelInput } from 'mui-tel-input';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 
 export default function AdminReg() {
-  // e.target.name === 'admin' ? inpState.admin :
-// import { useTheme } from '@mui/material/styles';
-// import OutlinedInput from '@mui/material/OutlinedInput';
-// import MenuItem from '@mui/material/MenuItem';
-//   const [personName, setPersonName] = useState([]);
-  const dispatch = useDispatch();
+  // const dispatch = useDispadispatchtch();
   const [phoneValue, setPhoneValue] = useState('+79');
   const [inpState, setInpState] = useState({ admin: [] });
   const inpHandler = (e) => setInpState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -25,24 +20,7 @@ export default function AdminReg() {
   };
   const adminRegistration = async (e) => {
     e.preventDefault();
-    // if (inpState.admin[0] === 'Администратор') {
-    //   setInpState((prev) => ({ ...prev, adminInBack: true }));
-    // } else {
-    //   setInpState((prev) => ({ ...prev, adminInBack: false }));
-    // }
-    // console.log('state', inpState);
-    // let sendInp = {};
-    // if (inpState.phone === '') {
-    //   sendInp = { ...inpState, phone: phoneValue };
-    //   console.log(sendInp);
-    //   if (inpState.admin[0] === 'Администратор') {
-    //     sendInp = { ...inpState, admin: true };
-    //   }
-    //   if (inpState.admin[0] === 'Пользователь') {
-    //     sendInp = { ...inpState, admin: false };
-    //   }
-    // }
-    console.log(inpState);
+
     const response = await fetch('http://localhost:3002/adminRegistration', {
       method: 'POST',
       headers: {
@@ -73,16 +51,6 @@ export default function AdminReg() {
       }
     }
   };
-  //   const handleChange = (event) => {
-  //     const {
-  //       target: { value }
-  //     } = event;
-  //     setPersonName(
-  //       // On autofill we get a stringified value.
-  //       value
-  //     );
-  //   };
-  //   console.log('!!!!', personName);
 
   const status = [
     {
@@ -95,9 +63,6 @@ export default function AdminReg() {
     }
 
   ];
-
-  //   const phoneInput = (props, ref) => {
-  //     const classes = useStyles();
 
   return (
     <Container
@@ -116,7 +81,7 @@ export default function AdminReg() {
         role="presentation"
         className="editForm"
       >
-        <List sx={{ paddingLeft: '40px', color: '#F0FFFF' }}>Вход для участников</List>
+        <List sx={{ paddingLeft: '40px', color: '#F0FFFF' }}>Регистрация пользователя</List>
         <Divider />
         <List>
           <Box
