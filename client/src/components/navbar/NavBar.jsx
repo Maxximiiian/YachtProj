@@ -12,17 +12,19 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import SailingIcon from '@mui/icons-material/Sailing';
-import { Link, NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import SideBarFormLogIn from '../SideBarFormLogIn/SideBarFormLogIn';
+import { userLogOut } from '../../redux/actions/authActions';
 
 const pages = ['Points', 'Ways', 'Admin'];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const person = useState('user');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.auth);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -39,6 +41,12 @@ function NavBar() {
     setAnchorElUser(null);
   };
 
+  const logoutClick = (e) => {
+    e.preventDefault();
+    dispatch(userLogOut());
+    navigate('/');
+  };
+
   return (
     <AppBar position="static" sx={{ boxShadow: 0, backgroundColor: '#53555830' }}>
       <Container maxWidth="100%">
@@ -48,7 +56,6 @@ function NavBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -61,7 +68,7 @@ function NavBar() {
           >
             SAILING CLUB
           </Typography>
-          {person ? (
+          {user.id ? (
             <>
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
@@ -152,7 +159,7 @@ function NavBar() {
                       Personal Area
                     </Typography>
                   </MenuItem>
-                  <MenuItem key={<Link to="/" />} onClick={handleCloseUserMenu}>
+                  <MenuItem onClick={logoutClick}>
                     <Typography textAlign="center">
                       Logout
                     </Typography>

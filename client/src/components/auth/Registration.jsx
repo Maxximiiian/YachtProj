@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { setAuth } from '../../redux/actions/authActions';
+import { setAuthAC } from '../../redux/actions/authActions';
 import './Auth.css';
 
 export default function Registration() {
@@ -27,7 +27,7 @@ export default function Registration() {
         });
         if (response.ok) {
           const data = await response.json();
-          dispatch(setAuth(data));
+          dispatch(setAuthAC(data));
           navigate('/');
         } else {
           alert('Такой пользователь уже существует');

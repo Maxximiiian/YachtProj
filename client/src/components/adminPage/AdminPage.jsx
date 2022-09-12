@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AllUsersTable from './allUsersTable/AllUsersTable';
 import PotentialUserTable from './allUsersTable/potentialUserTable/PotentialUserTable';
 import './AdminPage.css';
+import AdminReg from '../Modals/AdminReg';
 
 export default function AdminPage() {
   const [delStatePotential, setDelStatePotential] = useState(0);

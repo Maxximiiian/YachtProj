@@ -1,15 +1,13 @@
 import { SET_AUTH, LOGOUT } from '../types/types';
 
-export default (state = null, action) => {
+export default (state = {}, action) => {
   const { type, payload } = action;
-
+  console.log(payload, 'payload>>>>>>>>>>>>');
   switch (type) {
     case SET_AUTH:
       return payload;
-
     case LOGOUT:
-      return null;
-
+      return state;
     default:
       return state;
   }
