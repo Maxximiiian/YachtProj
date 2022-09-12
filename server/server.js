@@ -12,7 +12,6 @@ const {
 } = require('./db/models');
 const postsRoutes = require('./Routes/postsRoutes');
 
-
 const app = express();
 
 app.use(cors({
@@ -107,11 +106,28 @@ app.get('/getAllRegUsers', async (req, res) => {
   }
 });
 app.delete('/userDel', async (req, res) => {
-  console.log('start dellllll');
+  // console.log('start dellllll');
   const { id } = req.body;
-  console.log(id, 'idddddddd');
+  // console.log(id, 'idddddddd');
   User.destroy({ where: { id } });
-  console.log('=======end dellllll');
+  // console.log('=======end dellllll');
+  res.sendStatus(200);
+});
+app.get('/getAllPotentialUsers', async (req, res) => {
+  try {
+    const allPotentialUser = await PotentialUser.findAll();
+    console.log('00000000', allPotentialUser);
+    res.json(allPotentialUser);
+  } catch (error) {
+    res.json(error);
+  }
+});
+app.delete('/PotentialuserDel', async (req, res) => {
+  // console.log('start dellllll');
+  const { id } = req.body;
+  // console.log(id, 'idddddddd');
+  PotentialUser.destroy({ where: { id } });
+  // console.log('=======end dellllll');
   res.sendStatus(200);
 });
 
