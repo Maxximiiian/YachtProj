@@ -12,6 +12,16 @@
     flex-direction: column;
     text-align: center; 
 }
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input:hover{
+    background: rgba(189, 189, 189, 0.384) !important
+}
+/* input:-internal-autofill-selected{
+    background: none !important;
+}
+#input{
+    background: red !important
+} */
 /*
 .buttonAbout {
     position: fixed;

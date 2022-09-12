@@ -1,11 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Info from '../info/Info';
 
 export default function Main() {
-  const { auth } = useSelector((state) => state);
+  const user = useSelector((store) => store.auth);
   return (
     <div>
-      ЫЫЫЫЫ
+      {!user.id
+      && <Info />}
     </div>
   );
 }

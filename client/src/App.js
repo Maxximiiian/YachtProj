@@ -9,11 +9,15 @@ import Info from './components/info/Info';
 import PersonalPage from './components/LK/PersonalPage';
 import Main from './components/main/Main';
 import Map from './components/map/Map';
+import AdminReg from './components/Modals/AdminReg';
 import Navbar from './components/navbar/NavBar';
-import { setAuth } from './redux/actions/authActions';
+import RequireAuth from './components/RequireAuth/RequireAuth';
+import { setAuthAC, userCheck } from './redux/actions/authActions';
 import { unsetLoad } from './redux/actions/loadActions';
 
 function App() {
+  const { auth } = useSelector((store) => store);
+  console.log(auth);
   // const { loading } = useSelector((s) => s);
   // const dispatch = useDispatch();
   // useEffect(() => {
@@ -31,20 +35,30 @@ function App() {
   //     });
   // }, []);
 
-  return (
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(userCheck());
+  }, []);
 
+  return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/main" element={<Main />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/map" element={<Map />} />
-        <Route path="/perspage" element={<PersonalPage />} />
-        <Route path="/info" element={<Info />} />
+        {!auth
+        && <Route path="/" element={<Info />} />}
+        {auth
+        && (
+        <>
+          <Route path="/" element={(<Main />)} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/map" element={(<RequireAuth><Map /></RequireAuth>)} />
+          <Route path="/perspage" element={<PersonalPage />} />
+          {/* <Route path="/adminreg" element={<PersonalPage />} /> */}
+        </>
+        )}
       </Routes>
     </>
-
   );
 }
 

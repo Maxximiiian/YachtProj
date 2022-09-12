@@ -12,6 +12,9 @@ const {
 } = require('./db/models');
 const postsRoutes = require('./Routes/postsRoutes');
 
+const authRoutes = require('./Routes/authRoutes');
+
+
 const app = express();
 
 app.use(cors({
@@ -39,17 +42,6 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 
-app.get('/auth', async (req, res) => {
-  setTimeout(async () => {
-    try {
-      const result = await User.findByPk(req.session.userId);
-      res.json(result);
-    } catch (error) {
-      res.json(error);
-    }
-  }, 1000);
-});
-
 app.post('/potentionalRegistration', async (req, res) => {
   const {
     email, name, phone, about,
@@ -68,43 +60,33 @@ app.post('/potentionalRegistration', async (req, res) => {
   }
 });
 
-app.post('/auth', async (req, res) => {
+app.post('/adminRegistration', async (req, res) => {
+  const {
+    email, name, phone, password, admin,
+  } = req.body;
+  console.log(req.body);
+
   try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ where: { email } });
-    if (user) {
-      const compare = await bcrypt.compare(password, user.password);
-      if (compare) {
-        req.session.userName = user.name;
-        req.session.userId = user.id;
-        return res.json(user);
+    const currUser = await User.findOne({ where: { email } });
+    if (!currUser) {
+      const hashPassword = await bcrypt.hash(password, 10);
+      if (admin[0] === 'Администратор') {
+        const newUser = await User.create({
+          email, name, password: hashPassword, phone, admin: true, theme: false,
+        });
+        return res.json(newUser);
       }
-    } else {
-      res.status(400).json({ message: 'something went wrong' });
+      const newUser = await User.create({
+        email, name, password: hashPassword, phone, admin: false, theme: false,
+      });
+      return res.json(newUser);
     }
-  } catch (error) {
-    return res.json(error);
+    res.status(400).json({ message: 'That name already exists' });
+  } catch (err) {
+    console.error(err);
   }
 });
 
-app.get('/logout', async (req, res) => {
-  try {
-    req.session.destroy();
-    res.clearCookie('mega-cookie');
-    res.sendStatus(200);
-  } catch (error) {
-    res.json(error);
-  }
-});
-app.get('/getAllRegUsers', async (req, res) => {
-  console.log('00000000');
-  try {
-    const allUser = await User.findAll();
-    res.json(allUser);
-  } catch (error) {
-    res.json(error);
-  }
-});
 app.delete('/userDel', async (req, res) => {
   // console.log('start dellllll');
   const { id } = req.body;
@@ -131,7 +113,9 @@ app.delete('/PotentialuserDel', async (req, res) => {
   res.sendStatus(200);
 });
 
+
 app.use('/api/v1', postsRoutes);
+app.use('/api/v1', authRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log('server start ', process.env.PORT);
