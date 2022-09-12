@@ -14,7 +14,6 @@ const postsRoutes = require('./Routes/postsRoutes');
 
 const authRoutes = require('./Routes/authRoutes');
 
-
 const app = express();
 
 app.use(cors({
@@ -86,6 +85,18 @@ app.post('/adminRegistration', async (req, res) => {
     console.error(err);
   }
 });
+// app.get('/getAllRegUsers', async (req, res) => {
+//   const allUser = User.findAll();
+//   res.json(allUser);
+// });
+app.get('/getAllRegUsers', async (req, res) => {
+  try {
+    const allUser = await User.findAll();
+    res.json(allUser);
+  } catch (error) {
+    res.json(error);
+  }
+});
 app.delete('/userDel', async (req, res) => {
   const { id } = req.body;
   User.destroy({ where: { id } });
@@ -94,6 +105,7 @@ app.delete('/userDel', async (req, res) => {
 app.get('/getAllPotentialUsers', async (req, res) => {
   try {
     const allPotentialUser = await PotentialUser.findAll();
+    console.log(allPotentialUser);
     res.json(allPotentialUser);
   } catch (error) {
     res.json(error);
@@ -110,8 +122,8 @@ app.post('/PotentialUserAdd', async (req, res) => {
   const {
     id, name, phone, email,
   } = req.body.elem;
-  console.log(id, name, phone, email, '11111111111');
-  console.log(req.body.elem, '2222222222222222222');
+ // console.log(id, name, phone, email, '11111111111');
+ // console.log(req.body.elem, '2222222222222222222');
 
   User.create({
     id, name, phone, email,
