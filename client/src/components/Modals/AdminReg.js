@@ -6,6 +6,7 @@ import {
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import { MuiTelInput } from 'mui-tel-input';
+import zIndex from '@mui/material/styles/zIndex';
 // import { useDispatch } from 'react-redux';
 
 export default function AdminReg() {
@@ -71,7 +72,8 @@ export default function AdminReg() {
         padding: 7,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        position: 'absolute'
       }}
     >
       <Box
