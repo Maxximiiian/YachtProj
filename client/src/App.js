@@ -12,6 +12,7 @@ import Map from './components/map/Map';
 import AdminReg from './components/Modals/AdminReg';
 import Navbar from './components/navbar/NavBar';
 import RequireAuth from './components/RequireAuth/RequireAuth';
+import Ways from './components/Ways/Ways';
 import { setAuthAC, userCheck } from './redux/actions/authActions';
 import { unsetLoad } from './redux/actions/loadActions';
 
@@ -53,6 +54,7 @@ function App() {
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/map" element={(<RequireAuth><Map /></RequireAuth>)} />
+          <Route path="/ways" element={<Ways />} />
           <Route path="/perspage" element={<PersonalPage />} />
           {/* <Route path="/adminreg" element={<PersonalPage />} /> */}
         </>
