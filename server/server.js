@@ -13,6 +13,7 @@ const {
 const postsRoutes = require('./Routes/postsRoutes');
 
 const authRoutes = require('./Routes/authRoutes');
+const photoRoutes = require('./Routes/photoRoutes');
 
 const app = express();
 
@@ -133,6 +134,7 @@ app.post('/PotentialUserAdd', async (req, res) => {
 
 app.use('/api/v1', postsRoutes);
 app.use('/api/v1', authRoutes);
+app.use('/api/v1/photo', photoRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log('server start ', process.env.PORT);
