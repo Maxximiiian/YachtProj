@@ -111,12 +111,12 @@ export default function ConectionForm() {
       }}
       noValidate
     >
-      <TextField className="input" name="name" autoComplete="off" onChange={inpHandler} label="Имя" inputProps={inputStyle} />
+      <TextField className="input" name="name" autoComplete="off" onChange={inpHandler} style={{ labelColor: 'white' }} label="Имя" inputProps={inputStyle} />
       <TextField className="input" name="phone" autoComplete="off" onChange={inpHandler} label="Телефон" inputProps={ariaLabel} />
       <TextField className="input" name="email" autoComplete="off" onChange={inpHandler} label="e-mail" inputProps={ariaLabel} />
       <TextField className="input" name="about" autoComplete="off" onChange={inpHandler} label="Прочая информация" inputProps={ariaLabel} />
       <Box sx={{
-        display: 'flex', borderRadius: '10%', flexWrap: 'wrap', minWidth: 300, left: '30%', top: '50%'
+        display: 'flex', borderRadius: '10%', flexWrap: 'wrap', minWidth: 300, left: '30%', top: '50%', color: 'white'
       }}
       >
 
