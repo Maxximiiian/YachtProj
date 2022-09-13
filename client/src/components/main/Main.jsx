@@ -7,12 +7,12 @@ import NewsBlog from './NewsBlog';
 export default function Main() {
   const user = useSelector((store) => store.auth);
   return (
-    <div className="main-div">
+    <div className="main-div" style={{}}>
       {!user.id
       && <Info />}
       {user.id
         && (
-        <div>
+        <div className="main">
           <MainPrivate />
           {' '}
 
@@ -21,7 +21,7 @@ export default function Main() {
 
       {user.id
         && (
-        <div>
+        <div className="news">
           <NewsBlog />
         </div>
         )}

@@ -72,7 +72,8 @@ export default function AdminReg() {
         style={{
           width: '100%',
           height: '100%',
-          backgroundColor: 'rgb(187 216 255 / 31%)',
+          backdropFilter: 'blur(2.2px)',
+          backgroundColor: 'rgb(30 33 47 / 36%)',
           position: 'absolute'
 
         }}

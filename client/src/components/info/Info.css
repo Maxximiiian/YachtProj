@@ -30,3 +30,7 @@
     width: 600px;
 }
  */
+
+ .MuiFormLabel-root {
+    color: rgb(255, 255, 255) !important;
+ }
