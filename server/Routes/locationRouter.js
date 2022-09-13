@@ -7,14 +7,15 @@ router.route('/locations')
     res.json(locations);
   })
   .post(async (req, res) => {
-    console.log(req.body);
-    console.log(req.sessions);
+    const {coords, name, userId} = req.body
     try {
-    //   const post = await Location.create({ ...req.body, userId: 1, locationId: 1 });
-    //   return res.json(post);
+      const newLocation = await Location.create({coordX: coords[0], coordY: coords[1], name, userId });
+      if(newLocation) {
+          return res.json(newLocation);
+      }
     } catch (error) {
       console.log(error);
-      return res.sendStatus(500);
+      return res.sendStatus(400);
     }
   });
 

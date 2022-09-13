@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { AddPostsThunk, getAllPostsThunk } from '../../redux/actions/postsAction';
+import { addLocationAC } from '../../redux/actions/locationsAction';
 
 export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCoords }) {
   // const BLYA = [...currentCoords];
@@ -67,9 +68,19 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
     dispatch(AddPostsThunk(input));
   };
 
-  const locationAddHandler = (e) => {
+  const locationAddHandler = async (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3002/locations', { credentials: 'include' });
+    const response = await fetch('http://localhost:3002/api/v1/locations', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(locationInput)
+    });
+    if (response.ok) {
+      const data = await response.json();
+      // console.log('=====================f=DATAAA', data);
+      dispatch(addLocationAC(data));
+    }
   };
 
   useEffect(() => {
