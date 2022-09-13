@@ -22,12 +22,12 @@ export default function Map() {
   //   console.log('cooooordsssss', currentCoords);
   //   const [locations, setLocations] = useState([]);
 
-  const MyBalloonContentLayout = ymaps.templateLayoutFactory.createClass(
+  const MyBalloonContentLayout = ymaps.templateLayoutFactory?.createClass(
     '<h3 class="popover-title">$[properties.balloonHeader]</h3>'
     + '<div class="popover-content">$[properties.balloonContent]</div>'
   );
 
-  const MyBalloonLayout = ymaps.templateLayoutFactory.createClass('<div class="popover top">'
+  const MyBalloonLayout = ymaps.templateLayoutFactory?.createClass('<div class="popover top">'
         + '<a class="close" href="#">&times;</a>'
         + '<div class="arrow"></div>'
         + '<div class="popover-inner">'
