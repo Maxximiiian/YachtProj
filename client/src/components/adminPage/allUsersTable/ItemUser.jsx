@@ -27,9 +27,7 @@ export default function ItemUser({ elem, DelUser }) {
             color: 'azure'
           }}
           avatar={(
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
-            </Avatar>
+            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" src="" />
           )}
         />
         <Typography gutterBottom variant="h5" component="div">

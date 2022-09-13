@@ -5,7 +5,8 @@ export default (state = {}, action) => {
 
   switch (type) {
     case GET_USER_PHOTO:
-      return payload;
+      console.log({ payload });
+      return payload[0];
 
       // case UNSET_LOAD:
       //   return false;
