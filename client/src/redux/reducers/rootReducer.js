@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   loading: loadingReducer,
   posts: postsReducer,
-  showForm: showFormReducer
+  showForm: showFormReducer,
   photoUser: photoReducer
 });
 
