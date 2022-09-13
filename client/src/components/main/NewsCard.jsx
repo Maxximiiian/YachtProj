@@ -5,18 +5,26 @@ import './NewBlog.css';
 import { Box } from '@mui/system';
 
 export default function NewsCard({ news }) {
-  const { text } = news;
+  const {
+    text, text2, title, title1
+  } = news;
   return (
     <Box className="box2">
       <Box
         sx={{
-          backgroundColor: '#070705bd !important',
+          backgroundColor: '#07070563!important',
           borderRadius: '25px',
-          marginLeft: 'auto'
+          marginLeft: 'auto',
+          margin: '10px',
+          width: '120%',
+          height: '60%'
         }}
       >
         <Typography component="legend" />
         <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {title}
+          </Typography>
           <Typography sx={{ color: 'azure' }} gutterBottom variant="h5" component="div">
             {text}
           </Typography>
@@ -24,61 +32,21 @@ export default function NewsCard({ news }) {
       </Box>
       <Box
         sx={{
-          backgroundColor: '#070705bd !important',
+          backgroundColor: '#07070563 !important',
           borderRadius: '25px',
           margin: '10px',
-          marginLeft: 'auto'
+          marginLeft: 'auto',
+          width: '120%',
+          height: '50%'
         }}
       >
         <Typography component="legend" />
         <CardContent>
-          <Typography sx={{ color: 'azure' }} gutterBottom variant="h5" component="div">
-            {text}
+          <Typography gutterBottom variant="h5" component="div">
+            {title1}
           </Typography>
-        </CardContent>
-      </Box>
-      <Box
-        sx={{
-          backgroundColor: '#070705bd !important',
-          borderRadius: '25px',
-          margin: '10px',
-          marginLeft: 'auto'
-        }}
-      >
-        <Typography component="legend" />
-        <CardContent>
           <Typography sx={{ color: 'azure' }} gutterBottom variant="h5" component="div">
-            {text}
-          </Typography>
-        </CardContent>
-      </Box>
-      <Box
-        sx={{
-          backgroundColor: '#070705bd !important',
-          borderRadius: '25px',
-          margin: '10px',
-          marginLeft: 'auto'
-        }}
-      >
-        <Typography component="legend" />
-        <CardContent>
-          <Typography sx={{ color: 'azure' }} gutterBottom variant="h5" component="div">
-            {text}
-          </Typography>
-        </CardContent>
-      </Box>
-      <Box
-        sx={{
-          backgroundColor: '#070705bd !important',
-          borderRadius: '25px',
-          margin: '10px',
-          marginLeft: 'auto'
-        }}
-      >
-        <Typography component="legend" />
-        <CardContent>
-          <Typography sx={{ color: 'azure' }} gutterBottom variant="h5" component="div">
-            {text}
+            {text2}
           </Typography>
         </CardContent>
       </Box>
