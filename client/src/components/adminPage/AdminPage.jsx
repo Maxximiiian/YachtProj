@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import AllUsersTable from './allUsersTable/AllUsersTable';
 import PotentialUserTable from './allUsersTable/potentialUserTable/PotentialUserTable';
 import './AdminPage.css';
@@ -6,7 +7,7 @@ import AdminReg from '../Modals/AdminReg';
 
 export default function AdminPage() {
   const [delStatePotential, setDelStatePotential] = useState(0);
-
+  const { showForm } = useSelector((store) => store);
   const delPotentialAddUser = async (id, elem) => {
     console.log('function start');
     await fetch('http://localhost:3002/PotentialUserAdd', {
@@ -34,6 +35,7 @@ export default function AdminPage() {
         delPotentialAddUser={delPotentialAddUser}
       />
       <AllUsersTable delStatePotential={delStatePotential} />
+      {showForm && (<AdminReg />)}
     </div>
   );
 }
