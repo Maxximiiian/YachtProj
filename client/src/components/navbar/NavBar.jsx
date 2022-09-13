@@ -61,7 +61,8 @@ function NavBar() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -123,7 +124,7 @@ function NavBar() {
                 </Button>
                 <Button
                   component={Link}
-                  to="/perspage"
+                  to="/ways"
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
