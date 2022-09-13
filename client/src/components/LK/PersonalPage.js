@@ -15,18 +15,20 @@ import { getUserPhotoThunk } from '../../redux/actions/photoActions';
 
 export default function PersonalPage() {
   const dispatch = useDispatch();
-  const { auth } = useSelector((state) => state);
+  const auth = useSelector((state) => state.auth);
 
   const [editFormState, setEditFormState] = useState(false);
   const clickEditForm = () => {
     setEditFormState(!editFormState);
     console.log('!!', editFormState);
   };
-  const { photoUser } = useSelector((state) => state);
+  const photoUser = useSelector((state) => state.photoUser);
   useEffect(() => {
-    dispatch(getUserPhotoThunk(auth.id));
-  }, []);
-  console.log('redux photoUser in pers page', photoUser);
+    if (auth.id) {
+      dispatch(getUserPhotoThunk(auth.id));
+    }
+  }, [auth]);
+  console.log('redux photoUser in pers page', photoUser?.image, auth);
 
   //   const user = useSelector((state) => state);
   //   const photoUser = useSelector((state) => state);
@@ -46,8 +48,7 @@ export default function PersonalPage() {
           <EditIcon className="EditIcon" />
         </IconButton>
 
-        <Avatar alt="photo" src={photoUser[0]?.image || ''} sx={{ width: 250, height: 250 }} />
-
+        <Avatar alt="photo" src={photoUser?.image ? `http://localhost:3002/images/${photoUser?.image}` : ''} sx={{ width: 250, height: 250 }} />
         <h3>{auth.name || 'User Name'}</h3>
 
       </div>
