@@ -1,0 +1,12 @@
+.container-main{
+    display: flex;
+    justify-content: center;
+    margin-left: 15px;
+    margin-right: 10px;
+    margin-top: 3rem;
+    flex-flow: column-reverse;
+}
+
+.box{
+    width: 35rem;
+}

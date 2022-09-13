@@ -1,12 +1,15 @@
-import { SET_AUTH, LOGOUT } from '../types/types';
+import { GET_USER_PHOTO } from '../types/types';
 
 export default (state = {}, action) => {
   const { type, payload } = action;
+
   switch (type) {
-    case SET_AUTH:
+    case GET_USER_PHOTO:
       return payload;
-    case LOGOUT:
-      return state;
+
+      // case UNSET_LOAD:
+      //   return false;
+
     default:
       return state;
   }

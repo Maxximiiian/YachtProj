@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import ButtonForm from './ButtonForm';
 import ConectionForm from './ConectionForm';
 import ButtonCend from './ButtonCend';
-
+// #282b186b
 import './Info.css';
 
 export default function Info() {

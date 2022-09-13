@@ -34,6 +34,7 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 0,
     'jsx-a11y/label-has-associated-control': 0,
     'default-param-last': 0,
-    'import/no-extraneous-dependencies': 0
+    'import/no-extraneous-dependencies': 0,
+    camelcase: 0
   }
 };
