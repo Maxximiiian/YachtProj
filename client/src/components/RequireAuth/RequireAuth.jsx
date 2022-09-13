@@ -8,7 +8,7 @@ export default function RequireAuth({ children }) {
   const location = useLocation();
 
   if (!user.id) {
-    return <Navigate to="/" store={{ from: location }} replace />;
+    return <Navigate to="/map" store={{ from: location }} replace />;
   }
   return children;
 }

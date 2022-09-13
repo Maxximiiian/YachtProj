@@ -17,8 +17,9 @@ import { useState } from 'react';
 import ButtonDel from '../../buttonDel/ButtonDel';
 import UserAddButton from './userAddButton/UserAddButton';
 import UserAboutButton from './userAboutButton/UserAbotButton';
+import ButtunPotentialDell from './ButtunPotentialDell';
 
-export default function PotentialUserItem({ elem, DelUser2 }) {
+export default function PotentialUserItem({ elem, DelUser2, delPotentialAddUser }) {
   const [stateAbout, setStateAbout] = useState(false);
   const onClickAbout = () => {
     setStateAbout(!stateAbout);
@@ -46,8 +47,8 @@ export default function PotentialUserItem({ elem, DelUser2 }) {
             <h6>{elem.phone}</h6>
           </Typography>
           <UserAboutButton onClickAbout={onClickAbout} />
-          <UserAddButton />
-          <ButtonDel DelUser2={DelUser2} elem={elem} />
+          <UserAddButton delPotentialAddUser={delPotentialAddUser} elem={elem} />
+          <ButtunPotentialDell DelUser2={DelUser2} elem={elem} />
         </div>
         {stateAbout && (
         <div className="userAbout">

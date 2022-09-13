@@ -1,0 +1,22 @@
+.container-blog{
+    display: flex;
+    justify-content: center;
+    margin-left: 5%;
+    margin-right: 65%;
+    margin-top: 3rem;
+    flex-flow: column-reverse;
+}
+
+.box2{
+    width: 60rem;
+}
+
+.main-div {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    /* flex-wrap: nowrap; */
+    /* align-content: center; */
+    justify-content: flex-end;
+}
+
