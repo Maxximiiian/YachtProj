@@ -8,8 +8,11 @@ import './PrivatePost.css';
 
 export default function PrivatePost({ post }) {
   const {
-    title, body, locationId, userId, wayId
+    title, body, locationId, wayId, User, createdAt
   } = post;
+
+  const data = new Date(createdAt).toLocaleDateString();
+
   return (
     <Box
       className="box"
@@ -33,8 +36,8 @@ export default function PrivatePost({ post }) {
         action={(
           <IconButton aria-label="settings" />
           )}
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={User?.name}
+        subheader={data}
       />
       <CardContent>
         <Typography sx={{ color: 'azure' }} gutterBottom variant="h5" component="div">
@@ -45,9 +48,6 @@ export default function PrivatePost({ post }) {
         </Typography>
         <Typography sx={{ color: 'azure' }} variant="body2">
           {locationId}
-        </Typography>
-        <Typography sx={{ color: 'azure' }} variant="body2">
-          {userId}
         </Typography>
         <Typography sx={{ color: 'azure' }} variant="body2">
           {wayId}

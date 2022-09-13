@@ -15,10 +15,8 @@ export default function Main() {
         <div>
           <MainPrivate />
           {' '}
-
         </div>
         )}
-
       {user.id
         && (
         <div>

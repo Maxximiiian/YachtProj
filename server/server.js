@@ -6,7 +6,7 @@ const path = require('path');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const bcrypt = require('bcrypt');
-const { send } = require('process');
+// const { send } = require('process');
 const {
   PotentialUser, User,
 } = require('./db/models');
@@ -14,6 +14,7 @@ const postsRoutes = require('./Routes/postsRoutes');
 const locationRouter = require('./Routes/locationRouter');
 const authRoutes = require('./Routes/authRoutes');
 const photoRoutes = require('./Routes/photoRoutes');
+const likedRoutes = require('./Routes/likedRoutes');
 
 const app = express();
 
@@ -135,8 +136,8 @@ app.post('/PotentialUserAdd', async (req, res) => {
   const {
     id, name, phone, email,
   } = req.body.elem;
- // console.log(id, name, phone, email, '11111111111');
- // console.log(req.body.elem, '2222222222222222222');
+  // console.log(id, name, phone, email, '11111111111');
+  // console.log(req.body.elem, '2222222222222222222');
 
   User.create({
     id, name, phone, email,
@@ -145,6 +146,7 @@ app.post('/PotentialUserAdd', async (req, res) => {
 });
 
 app.use('/api/v1', postsRoutes);
+app.use('/api/v2', likedRoutes);
 app.use('/api/v1', authRoutes);
 app.use('/api/v1', locationRouter);
 app.use('/api/v1/photo', photoRoutes);

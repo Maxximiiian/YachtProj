@@ -18,6 +18,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { AddPostsThunk, getAllPostsThunk } from '../../redux/actions/postsAction';
 import { addLocationAC } from '../../redux/actions/locationsAction';
+import AllPosts from './AllPosts';
 
 export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCoords }) {
   // const BLYA = [...currentCoords];
@@ -139,52 +140,12 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
             </CardContent>
           </Box>
         )}
-      <Box sx={{
-        backgroundColor: '#f8f9fa24',
-        borderRadius: '25px',
-        margin: '10px'
-      }}
-      >
-        <Typography component="legend" sx={{ marginTop: '3rem' }} />
-        <CardHeader
-          sx={{
-            color: 'azure'
-          }}
-          avatar={(
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
-            </Avatar>
-        )}
-          action={(
-            <IconButton aria-label="settings" />
-        )}
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            A million voices
-          </Typography>
-          <Typography sx={{ color: 'azure' }} variant="body2">
-            We are the worlds people
-            Different yet were the same
-            We believe
-            We believe in a dream
-
-            Praying for peace and healing
-            I hope we can start again
-            We believe
-            We believe in a dream
-          </Typography>
-        </CardContent>
-        <ButtonGroup>
-          <IconButton color="primary" aria-label="add to shopping cart" fontSize="large">
-            <ThumbUpOffAltIcon sx={{ marginLeft: '1rem' }} />
-          </IconButton>
-          <IconButton color="primary" aria-label="add to shopping cart" fontSize="large">
-            <ThumbDownOffAltIcon sx={{ marginLeft: '1rem' }} />
-          </IconButton>
-        </ButtonGroup>
+      <Box>
+        {posts?.map((el) => (
+          <AllPosts
+            post={el}
+          />
+        ))}
       </Box>
     </Box>
   );

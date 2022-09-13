@@ -3,8 +3,8 @@
     justify-content: center;
     margin-left: 60%;
     margin-right: 10%;
-    margin-top: 3rem;
-    flex-flow: column-reverse;
+    margin-top: 1rem;
+    flex-flow: column;
 }
 
 .box{

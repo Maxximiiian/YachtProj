@@ -1,8 +1,12 @@
 import axios from 'axios';
-import { ADD_POSTS, GET_POSTS } from '../types/types';
+import {
+  ADD_LIKE, ADD_POSTS, GET_POSTS, REMOVE_LIKE
+} from '../types/types';
 
 export const addPostsAC = (payload) => ({ type: ADD_POSTS, payload });
 export const getPostsAC = (payload) => ({ type: GET_POSTS, payload });
+export const addLikeAC = (payload) => ({ type: ADD_LIKE, payload });
+export const removeLike = (payload) => ({ type: REMOVE_LIKE, payload });
 
 export const AddPostsThunk = (input) => (dispatch) => {
   axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/posts`, input)
@@ -14,4 +18,24 @@ export const getAllPostsThunk = () => (dispatch) => {
   axios.get(`${process.env.REACT_APP_BASEURL}/api/v1/posts`)
     .then((res) => dispatch(getPostsAC(res.data)))
     .catch((err) => console.log(err));
+};
+
+export const addBestPostThunk = ({ postId, userId }) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_BASEURL}/api/v2/liked`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ postId, userId })
+  }).then((res) => res.json()).then((data) => dispatch(addLikeAC(data)));
+};
+
+export const removelikeThunk = ({ postId, userId }) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_BASEURL}/api/v2/liked`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ postId, userId })
+  }).then((res) => res.json()).then((data) => dispatch(removeLike(data)));
 };
