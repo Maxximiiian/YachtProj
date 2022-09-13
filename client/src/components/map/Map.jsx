@@ -15,7 +15,7 @@ const { ymaps } = window;
 export default function Map() {
   const [myMap, setMap] = useState(null);
   const locations = useSelector((state) => state.locations);
-  console.log('locations', locations);
+  //   console.log('locations', locations);
   const dispatch = useDispatch();
   const [currentCoords, setCurrentCoords] = useState(null);
   const [blogPostsState, setBlogPostsState] = React.useState({ right: false });
@@ -150,18 +150,6 @@ export default function Map() {
     dispatch(getAllLocationsThunk());
   }, []);
 
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event
-            && event.type === 'keydown'
-            && (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return;
-    }
-    setBlogPostsState({ ...blogPostsState, [anchor]: open });
-  };
-
-  const [sidebarState, setSidebarState] = useState(false);
   const center = [55.7536760175035, 37.61988016065489];
   //   const center = [20, 20];
 
@@ -220,22 +208,6 @@ export default function Map() {
     });
 
     myMap.geoObjects.add(myPlacemark);
-
-    const myPlacemark1 = window.myPlacemark = new ymaps.Placemark([20, 20], {
-      balloonHeader: 'Заголовок балуна',
-      balloonContent: 'Контент балуна'
-    }, {
-      balloonShadow: false,
-      balloonLayout: MyBalloonLayout,
-      balloonContentLayout: MyBalloonContentLayout,
-      balloonPanelMaxMapArea: 0
-      // Не скрываем иконку при открытом балуне.
-      // hideIconOnBalloonOpen: false,
-      // И дополнительно смещаем балун, для открытия над иконкой.
-      // balloonOffset: [3, -40]
-    });
-
-    myMap.geoObjects.add(myPlacemark1);
 
     // / /////////////////////////////////////////////////////////////////////////////////
     document.querySelector('#set-balloon-header').addEventListener('click', () => {
@@ -297,6 +269,7 @@ export default function Map() {
 
     // Скрываем хинт при открытии балуна.
     myMap.events.add('balloonopen', (e) => {
+      console.log('aaaa');
       myMap.hint.close();
     });
     return null;
@@ -332,11 +305,8 @@ export default function Map() {
   //   }
 
   useEffect(() => {
-    console.log('LOCATIONS');
     if (locations.length && myMap) {
-      console.log('HITTT');
       locations.forEach((x, index) => {
-        console.log('fffffffffffffffffffffff', Number(x.coordY));
         const myPlacemark = new ymaps.Placemark([Number(x.coordX), Number(x.coordY)], {
           balloonHeader: `${x.name}`,
           balloonContent: 'Контент балуна'
