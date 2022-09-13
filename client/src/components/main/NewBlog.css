@@ -1,8 +1,8 @@
 .container-blog{
     display: flex;
     justify-content: center;
-    margin-left: 15%;
-    margin-right: 65%;
+   /* margin-left: 15%;
+    margin-right: 65%;*/
     margin-top: 3rem;
     flex-flow: column-reverse;
 }
@@ -14,11 +14,12 @@
 .main-div {
     display: flex;
     flex-direction: row-reverse;
-    align-items: center;
+   /* align-items: center;*/
     flex-wrap: wrap;
     align-content: flex-start;
+    justify-content: space-around;
     /* align-content: center; */
-    justify-content: flex-end;
+   /* justify-content: flex-end;*/
 }
 
 
