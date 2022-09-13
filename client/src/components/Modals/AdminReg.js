@@ -99,7 +99,7 @@ export default function AdminReg() {
           <List>
             <Box
               component="form"
-              sx={{ '& > :not(style)': { m: 1, width: '95%',} }}
+              sx={{ '& > :not(style)': { m: 1, width: '95%' } }}
               noValidate
               autoComplete="off"
             >
