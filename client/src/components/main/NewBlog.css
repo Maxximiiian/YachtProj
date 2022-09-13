@@ -1,0 +1,119 @@
+.container-blog{
+    display: flex;
+    justify-content: center;
+   /* margin-left: 15%;
+    margin-right: 65%;*/
+    margin-top: 3rem;
+    flex-flow: column-reverse;
+}
+
+.box2{
+    width: 60rem;
+}
+
+.main-div {
+    display: flex;
+    flex-direction: row-reverse;
+   /* align-items: center;*/
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-around;
+    /* align-content: center; */
+   /* justify-content: flex-end;*/
+}
+
+
+@property --rotate {
+    syntax: "<angle>";
+    initial-value: 132deg;
+    inherits: false;
+  }
+  
+  :root {
+    --card-height: 80vh;
+    --card-width: calc(var(--card-height) / 1);
+  }
+  
+  
+  .box2 {
+    display: flex;
+    align-content: flex-start;
+    width: var(--card-width);
+    height: var(--card-height);
+    padding: 3px;
+    position: relative;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    /* align-content: center; */
+    justify-content: flex-end;
+    font-size: 1.5em;
+    color: rgb(88 199 250 / 0%);
+    cursor: pointer;
+    font-family: cursive;
+  }
+  
+  .box2:hover {
+    color: #070705bd(88 199 250 / 100%);
+    transition: color 1s;
+  }
+  .box2:hover:before, .card:hover:after {
+    animation: none;
+    opacity: 0;
+  }
+  
+  
+  .box2::before {
+    content: "";
+    /* width: 104%;
+    height: 102%; */
+    /* border-radius: 8px; */
+    background-image: linear-gradient(
+      var(--rotate)
+      , #5ddcff, #070705bd 43%, #070705bd);
+      position: absolute;
+      z-index: -1;
+      top: -1%;
+      left: -2%;
+      animation: spin 2.5s linear infinite;
+  }
+  
+  .box2::after {
+    position: absolute;
+    content: "";
+    top: calc(var(--card-height) / 6);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    filter: blur(calc(var(--card-height) / 6));
+    background-image: linear-gradient(
+      var(--rotate)
+      , #5ddcff, #070506bd 50%, #070705bd);
+      opacity: 1;
+    transition: opacity .5s;
+    animation: spin 2.5s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      --rotate: 0deg;
+    }
+    100% {
+      --rotate: 360deg;
+    }
+  }
+/*   
+  a {
+    color: #212534;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-top: 2rem;
+  } */

@@ -11,7 +11,7 @@ const {
   PotentialUser, User,
 } = require('./db/models');
 const postsRoutes = require('./Routes/postsRoutes');
-
+const locationRouter = require('./Routes/locationRouter');
 const authRoutes = require('./Routes/authRoutes');
 const photoRoutes = require('./Routes/photoRoutes');
 
@@ -65,7 +65,6 @@ app.post('/adminRegistration', async (req, res) => {
     email, name, phone, password, admin,
   } = req.body;
   console.log(req.body);
-
   try {
     const currUser = await User.findOne({ where: { email } });
     if (!currUser) {
@@ -86,6 +85,7 @@ app.post('/adminRegistration', async (req, res) => {
     console.error(err);
   }
 });
+
 // app.get('/getAllRegUsers', async (req, res) => {
 //   const allUser = User.findAll();
 //   res.json(allUser);
@@ -103,6 +103,7 @@ app.delete('/userDel', async (req, res) => {
   User.destroy({ where: { id } });
   res.sendStatus(200);
 });
+
 app.get('/getAllPotentialUsers', async (req, res) => {
   try {
     const allPotentialUser = await PotentialUser.findAll();
@@ -112,6 +113,17 @@ app.get('/getAllPotentialUsers', async (req, res) => {
     res.json(error);
   }
 });
+
+app.get('/getAllRegUsers', async (req, res) => {
+  console.log('00000000');
+  try {
+    const allUser = await User.findAll();
+    res.json(allUser);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
 app.delete('/PotentialuserDel', async (req, res) => {
   const { id } = req.body;
   PotentialUser.destroy({ where: { id } });
@@ -134,6 +146,7 @@ app.post('/PotentialUserAdd', async (req, res) => {
 
 app.use('/api/v1', postsRoutes);
 app.use('/api/v1', authRoutes);
+app.use('/api/v1', locationRouter);
 app.use('/api/v1/photo', photoRoutes);
 
 app.listen(process.env.PORT, () => {

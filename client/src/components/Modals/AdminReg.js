@@ -6,6 +6,7 @@ import {
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import { MuiTelInput } from 'mui-tel-input';
+import zIndex from '@mui/material/styles/zIndex';
 // import { useDispatch } from 'react-redux';
 
 export default function AdminReg() {
@@ -65,73 +66,90 @@ export default function AdminReg() {
   ];
 
   return (
-    <Container
-      maxWidth="sm"
-      sx={{
-        padding: 7,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}
-    >
-      <Box
-        sx={{
-          height: '100%', margin: '15px'
+    <>
+      <div
+        className="background"
+        style={{
+          width: '100%',
+          height: '100%',
+          backdropFilter: 'blur(2.2px)',
+          backgroundColor: 'rgb(30 33 47 / 36%)',
+          position: 'absolute'
+
         }}
-        role="presentation"
-        className="editForm"
+      />
+      <Container
+        maxWidth="sm"
+        sx={{
+          padding: 7,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          position: 'absolute'
+        }}
       >
-        <List sx={{ paddingLeft: '40px', color: '#F0FFFF' }}>Регистрация пользователя</List>
-        <Divider />
-        <List>
-          <Box
-            component="form"
-            sx={{ '& > :not(style)': { m: 1, width: '95%' } }}
-            noValidate
-            autoComplete="off"
-          >
-            <TextField name="name" onChange={inpHandler} className="TextField" id="outlined-basic" label="Имя пользователя" variant="outlined" size="small" />
-            <TextField name="email" onChange={inpHandler} className="TextField" id="outlined-basic" label="Электронная почта" variant="outlined" size="small" />
-            <MuiTelInput name="phone" value={phoneValue} onChange={phoneChange} />
-            <TextField type="password" onChange={inpHandler} name="password" className="TextField" id="outlined-basic" label="Пароль" variant="outlined" size="small" />
-            <TextField type="password" onChange={inpHandler} name="repeatPassword" className="TextField" id="outlined-basic" label="Повторите пароль" variant="outlined" size="small" />
-            <div>
-              <FormControl sx={{ m: 1, width: 300, mt: 3 }}>
-                <Select
-                  multiple
-                  displayEmpty
-                  name="admin"
-                  value={inpState.admin}
-                  onChange={inpHandler}
-                  input={<OutlinedInput />}
-                  renderValue={(selected) => {
-                    if (selected.length === 0) {
-                      return <em>Статус</em>;
-                    }
-
-                    return selected;
-                  }}
-                  MenuProps={MenuProps}
-                  inputProps={{ 'aria-label': 'Without label' }}
+        <Box
+          sx={{
+            height: '100%', margin: '15px'
+          }}
+          role="presentation"
+          className="editForm"
+        >
+          <List sx={{ paddingLeft: '40px', color: '#F0FFFF' }}>Регистрация пользователя</List>
+          <Divider />
+          <List>
+            <Box
+              component="form"
+              sx={{ '& > :not(style)': { m: 1, width: '95%' } }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField name="name" onChange={inpHandler} className="TextField" id="outlined-basic" label="Имя пользователя" variant="outlined" size="small" />
+              <TextField name="email" onChange={inpHandler} className="TextField" id="outlined-basic" label="Электронная почта" variant="outlined" size="small" />
+              <MuiTelInput name="phone" value={phoneValue} onChange={phoneChange} />
+              <TextField type="password" onChange={inpHandler} name="password" className="TextField" id="outlined-basic" label="Пароль" variant="outlined" size="small" />
+              <TextField type="password" onChange={inpHandler} name="repeatPassword" className="TextField" id="outlined-basic" label="Повторите пароль" variant="outlined" size="small" />
+              <div>
+                <FormControl sx={{
+                  m: 1, width: 300, mt: 3
+                }}
                 >
+                  <Select
+                    multiple
+                    displayEmpty
+                    name="admin"
+                    value={inpState.admin}
+                    onChange={inpHandler}
+                    input={<OutlinedInput />}
+                    renderValue={(selected) => {
+                      if (selected.length === 0) {
+                        return <em>Статус</em>;
+                      }
 
-                  {status.map((el) => (
-                    <MenuItem
-                      key={el.id}
-                      value={el.name}
-                    //   style={getStyles(name, personName)}
-                    >
-                      {el.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-            <Button className="buttonEdit" onClick={adminRegistration} variant="outlined">Войти</Button>
-          </Box>
-        </List>
-      </Box>
-      {' '}
-    </Container>
+                      return selected;
+                    }}
+                    MenuProps={MenuProps}
+                    inputProps={{ 'aria-label': 'Without label' }}
+                  >
+
+                    {status.map((el) => (
+                      <MenuItem
+                        key={el.id}
+                        value={el.name}
+                      >
+                        {el.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+              <Button className="buttonEdit" onClick={adminRegistration} variant="outlined">Войти</Button>
+            </Box>
+          </List>
+        </Box>
+        {' '}
+      </Container>
+    </>
+
   );
 }

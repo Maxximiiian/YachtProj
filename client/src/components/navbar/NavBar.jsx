@@ -14,14 +14,17 @@ import MenuItem from '@mui/material/MenuItem';
 import SailingIcon from '@mui/icons-material/Sailing';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 import SideBarFormLogIn from '../SideBarFormLogIn/SideBarFormLogIn';
 import { userLogOut } from '../../redux/actions/authActions';
+import { SET_SHOW_FORM } from '../../redux/types/types';
 
 const pages = ['Points', 'Ways', 'Admin'];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  console.log(window.location.href, '000000000000000');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.auth);
@@ -46,6 +49,9 @@ function NavBar() {
     e.preventDefault();
     dispatch(userLogOut());
     navigate('/');
+  };
+  const clickShowForm = () => {
+    dispatch({ type: SET_SHOW_FORM });
   };
 
   return (
@@ -133,6 +139,18 @@ function NavBar() {
                 >
                   Admin
                 </Button>
+                {(window.location.href === 'http://localhost:3000/admin')
+                && (
+                <Button
+                  component={Link}
+                  to="/admin"
+                  onClick={clickShowForm}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  Add user
+                </Button>
+                )}
+
               </Box>
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">

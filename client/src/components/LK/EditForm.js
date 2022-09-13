@@ -30,10 +30,15 @@ export default function EditForm() {
 
     image: photoUser?.image
   });
+
   const [imgAvatar, setImgAvatart] = useState();
   const [inpFile, setInpFile] = useState(null);
-  const inpHandlerUserInfo = (e) => setInpStateUserInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  const inpHandlerUserPhoto = (e) => setInpStateUserPhoto((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const inpHandlerUserInfo = (e) => setInpStateUserInfo(
+    (prev) => ({ ...prev, [e.target.name]: e.target.value })
+  );
+  const inpHandlerUserPhoto = (e) => setInpStateUserPhoto(
+    (prev) => ({ ...prev, [e.target.name]: e.target.value })
+  );
 
   // console.log('inputi', inpStateUserInfo, inpStateUserPhoto);
 

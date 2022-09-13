@@ -11,7 +11,7 @@ export const AddPostsThunk = (input) => (dispatch) => {
 };
 
 export const getAllPostsThunk = () => (dispatch) => {
-  axios.get(`${process.env.PORT}/api/v1/posts`)
+  axios.get(`${process.env.REACT_APP_BASEURL}/api/v1/posts`)
     .then((res) => dispatch(getPostsAC(res.data)))
     .catch((err) => console.log(err));
 };
