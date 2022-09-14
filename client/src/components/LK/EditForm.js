@@ -1,19 +1,22 @@
 import {
-  Box, Button, Divider, List, TextField
+  Box, Button, CircularProgress, Divider, IconButton, List, TextField
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+
+import React, { useCallback, useEffect, useState } from 'react';
 import './editForm.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserPhotoThunk, userPhotoChange_THUNK } from '../../redux/actions/photoActions';
+import axios from 'axios';
+import { getUserPhoto, getUserPhotoThunk } from '../../redux/actions/photoActions';
 import { userInfoChange_THUNK } from '../../redux/actions/authActions';
 
 export default function EditForm() {
   const dispatch = useDispatch();
-  const { auth } = useSelector((state) => state);
+  const auth = useSelector((state) => state.auth);
   // useEffect(() => {
   //   dispatch(getUserPhotoThunk(auth.id));
   // }, []);
-  const { photoUser } = useSelector((state) => state);
+  const photoUser = useSelector((state) => state.photoUser);
 
   // console.log('photo', photoUser);
 
@@ -27,6 +30,9 @@ export default function EditForm() {
 
     image: photoUser?.image
   });
+
+  const [imgAvatar, setImgAvatart] = useState();
+  const [inpFile, setInpFile] = useState(null);
   const inpHandlerUserInfo = (e) => setInpStateUserInfo(
     (prev) => ({ ...prev, [e.target.name]: e.target.value })
   );
@@ -38,8 +44,39 @@ export default function EditForm() {
 
   const changeHandler = () => {
     dispatch(userInfoChange_THUNK(inpStateUserInfo));
-    dispatch(userPhotoChange_THUNK(inpStateUserPhoto));
+    // dispatch(userPhotoChange_THUNK(inpStateUserPhoto));
   };
+  console.log('posle knopki foto', inpStateUserPhoto);
+  const sendFile = useCallback(async () => {
+    try {
+      const data = new FormData();
+      data.append('avatar', inpStateUserPhoto.image);
+      await fetch('api/v1/photo/changePhoto', {
+        method: 'post',
+        // headers: {
+        //   'Content-Type': 'multipart/form-data'
+        // },
+        credentials: 'include',
+        body: data
+      }).then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+
+          // dispatch(getUserPhoto())
+          // const resPath = res.data.path;
+          // const fileP = resPath.split('/');
+          // setAvatar(`/Images/${fileP[fileP.length - 1]}`);
+          // dispatch(setUserImgTHUNK({ str: `/Images/${fileP[fileP.length - 1]}`, id }));
+          dispatch(getUserPhoto(res));
+        });
+      // axios.post('api/v1/photo/changePhoto', data, {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data'
+      //   }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [inpStateUserPhoto]);
 
   return (
     <Box
@@ -61,13 +98,24 @@ export default function EditForm() {
           <TextField name="name" className="TextField" id="outlined-basic" onChange={inpHandlerUserInfo} label={auth.name} variant="outlined" size="small" />
           <TextField name="phone" className="TextField" id="outlined-basic" onChange={inpHandlerUserInfo} label={auth.phone} variant="outlined" size="small" />
           <TextField name="email" className="TextField" id="outlined-basic" onChange={inpHandlerUserInfo} label={auth.email} variant="outlined" size="small" />
+          <Button className="buttonEdit" onClick={changeHandler} variant="outlined">Изменить данные</Button>
 
           <TextField name="image" className="TextField" id="outlined-basic" onChange={inpHandlerUserPhoto} label={photoUser?.image || 'Ссылка на Вашу фотографию'} variant="outlined" size="small" />
-          <Button variant="contained" component="label">
-            Загрузите фотографию
-            <input hidden accept="image/*" multiple type="file" />
+          <IconButton color="primary" aria-label="upload picture" component="label">
+            <input
+              hidden
+              accept="image/*"
+              type="file"
+              // onChange={(e) => setInpStateUserPhoto({ imageimage: e.target.files[0] })}
+              onChange={(e) => setInpStateUserPhoto({ image: e.target.files[0] })}
+
+            />
+            <PhotoCamera />
+          </IconButton>
+          <Button variant="contained" component="label" onClick={sendFile}>
+            Измените фотографию
           </Button>
-          <Button className="buttonEdit" onClick={changeHandler} variant="outlined">Изменить</Button>
+          {/* <CircularProgress /> */}
         </Box>
       </List>
     </Box>

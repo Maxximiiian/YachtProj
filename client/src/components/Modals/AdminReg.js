@@ -143,7 +143,7 @@ export default function AdminReg() {
                   </Select>
                 </FormControl>
               </div>
-              <Button className="buttonEdit" onClick={adminRegistration} variant="outlined">Войти</Button>
+              <Button className="buttonEdit" onClick={adminRegistration} variant="outlined">Зарегистрировать</Button>
             </Box>
           </List>
         </Box>

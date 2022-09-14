@@ -22,10 +22,8 @@ export default function Main() {
         <div className="main">
           <MainPrivate />
           {' '}
-
         </div>
         )}
-
       {user.id
         && (
         <div className="news">
