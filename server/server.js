@@ -8,7 +8,7 @@ const FileStore = require('session-file-store')(session);
 const bcrypt = require('bcrypt');
 const { send } = require('process');
 const {
-  PotentialUser, User,
+  PotentialUser, User, Location, Way,
 } = require('./db/models');
 const postsRoutes = require('./Routes/postsRoutes');
 const locationRouter = require('./Routes/locationRouter');
@@ -130,6 +130,36 @@ app.post('/PotentialUserAdd', async (req, res) => {
   User.create({
     id, name, phone, email,
   });
+  res.sendStatus(200);
+});
+app.post('/getAllUsersLocation', async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const allUserLocations = await Location.findAll({ where: { userId } });
+    res.json(allUserLocations);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+app.post('/getAllUsersTrips', async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const allUserTrips = await Way.findAll({ where: { userId } });
+
+    res.json(allUserTrips);
+  } catch (error) {
+    res.json(error);
+  }
+});
+app.delete('/userLocDel', async (req, res) => {
+  const { id } = req.body;
+  Location.destroy({ where: { id } });
+  res.sendStatus(200);
+});
+app.delete('/userTripDel', async (req, res) => {
+  const { id } = req.body;
+  Way.destroy({ where: { id } });
   res.sendStatus(200);
 });
 
