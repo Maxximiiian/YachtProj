@@ -43,7 +43,6 @@ export const removelikeThunk = ({ postId, userId }) => (dispatch) => {
   }).then((res) => res.json()).then((data) => dispatch(removeLike(data)));
 };
 
-
 export const getAllLocationPostsThunk = (pickedBaloon) => (dispatch) => {
   fetch(`${process.env.REACT_APP_BASEURL}/api/v1/locationposts`, {
     method: 'post',
@@ -55,6 +54,7 @@ export const getAllLocationPostsThunk = (pickedBaloon) => (dispatch) => {
     // .then((res) => console.log(res))
     .then((data) => dispatch(getPostsAC(data)))
     .catch((err) => console.log(err));
+};
 
 export const removePostThunk = (id) => (dispatch) => {
   console.log(id);
@@ -68,5 +68,4 @@ export const removePostThunk = (id) => (dispatch) => {
         dispatch(removePostAC(res));
       }
     });
-
 };

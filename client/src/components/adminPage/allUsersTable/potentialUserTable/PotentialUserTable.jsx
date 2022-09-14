@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable react/jsx-props-no-spreading */
 import { Autocomplete, Stack, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import PotentialUserItem from './PotentialUserItem';
@@ -53,14 +55,16 @@ export default function PotentialUserTable({
           )}
         />
       </Stack>
-      {potentialUsres && potentialUsres.filter((user) => (potentUserSearchState ? user.name.includes(potentUserSearchState) : true)).map((elem) => (
-        <PotentialUserItem
-          key={elem.id}
-          elem={elem}
-          DelUser2={DelUser2}
-          delPotentialAddUser={delPotentialAddUser}
-        />
-      ))}
+      {potentialUsres && potentialUsres
+        .filter((user) => (potentUserSearchState ? user.name.includes(potentUserSearchState) : true))
+        .map((elem) => (
+          <PotentialUserItem
+            key={elem.id}
+            elem={elem}
+            DelUser2={DelUser2}
+            delPotentialAddUser={delPotentialAddUser}
+          />
+        ))}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
 import './AllUsersTable.css';
 import TextField from '@mui/material/TextField';
@@ -55,13 +56,15 @@ export default function AllUsersTable({ delStatePotential }) {
         />
       </Stack>
       <div className="conteiner2">
-        {allUsers && allUsers.filter((user) => (allUserSearchState ? user.name.includes(allUserSearchState) : true)).map((elem) => (
-          <ItemUser
-            key={elem.id}
-            elem={elem}
-            DelUser={DelUser}
-          />
-        ))}
+        {allUsers && allUsers
+          .filter((user) => (allUserSearchState ? user.name.includes(allUserSearchState) : true))
+          .map((elem) => (
+            <ItemUser
+              key={elem.id}
+              elem={elem}
+              DelUser={DelUser}
+            />
+          ))}
       </div>
     </>
   );

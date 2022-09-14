@@ -34,4 +34,3 @@ export const SET_SHOW_COMPLITED = 'SET_SHOW_COMPLITED';
 export const ADD_LIKE = 'ADD_LIKE';
 export const GET_LIKE = 'GET-LIKE';
 export const REMOVE_LIKE = 'REMOVE_LIKE';
-
