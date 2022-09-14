@@ -1,12 +1,13 @@
 import axios from 'axios';
 import {
-  ADD_LIKE, ADD_POSTS, GET_POSTS, REMOVE_LIKE
+  ADD_LIKE, ADD_POSTS, GET_POSTS, REMOVE_LIKE, REMOVE_POSTS
 } from '../types/types';
 
 export const addPostsAC = (payload) => ({ type: ADD_POSTS, payload });
 export const getPostsAC = (payload) => ({ type: GET_POSTS, payload });
 export const addLikeAC = (payload) => ({ type: ADD_LIKE, payload });
 export const removeLike = (payload) => ({ type: REMOVE_LIKE, payload });
+export const removePostAC = (payload) => ({ type: REMOVE_POSTS, payload });
 
 export const AddPostsThunk = (input) => (dispatch) => {
   console.log(input);
@@ -42,6 +43,7 @@ export const removelikeThunk = ({ postId, userId }) => (dispatch) => {
   }).then((res) => res.json()).then((data) => dispatch(removeLike(data)));
 };
 
+
 export const getAllLocationPostsThunk = (pickedBaloon) => (dispatch) => {
   fetch(`${process.env.REACT_APP_BASEURL}/api/v1/locationposts`, {
     method: 'post',
@@ -53,4 +55,18 @@ export const getAllLocationPostsThunk = (pickedBaloon) => (dispatch) => {
     // .then((res) => console.log(res))
     .then((data) => dispatch(getPostsAC(data)))
     .catch((err) => console.log(err));
+
+export const removePostThunk = (id) => (dispatch) => {
+  console.log(id);
+  fetch(`${process.env.REACT_APP_BASEURL}/api/v1/posts/${id}`, {
+    method: 'delete',
+    credentials: 'include'
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res) {
+        dispatch(removePostAC(res));
+      }
+    });
+
 };

@@ -6,7 +6,9 @@ import { styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 import { TextField } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import ButtonCend from './ButtonCend';
+import { SET_SHOW_COMPLITED } from '../../redux/types/types';
 
 const image = {
   url: '/static/images/buttons/breakfast.jpg',
@@ -79,15 +81,16 @@ const ImageMarked = styled('span')(({ theme }) => ({
 }));
 
 const ariaLabel = { 'aria-label': 'description' };
-export default function ConectionForm() {
+
+export default function ConectionForm({ setViewFormState, viewFormState }) {
+  const dispatch = useDispatch();
   const [inpState, setInpState] = React.useState({
     name: '', phone: '', email: '', about: ''
   });
-  const inputStyle = { backgroundColor: 'blue' };
+  const inputStyle = { backgroundcolor: 'blue' };
   const inpHandler = (e) => setInpState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const submitPotentionalUser = async () => {
-    console.log(inpState);
     const response = await fetch('http://localhost:3002/potentionalRegistration', {
       method: 'POST',
       headers: {
@@ -97,8 +100,8 @@ export default function ConectionForm() {
       body: JSON.stringify(inpState)
     });
     if (response.ok) {
-      // const data = await response.json();
-      alert('Ваша заявка принята');
+      setViewFormState(!viewFormState);
+      dispatch({ type: SET_SHOW_COMPLITED });
     }
   };
   return (

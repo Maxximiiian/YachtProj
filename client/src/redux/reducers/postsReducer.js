@@ -18,7 +18,7 @@ const postsReducer = (state = [], action) => {
         return el;
       });
     case REMOVE_POSTS:
-      return state.filter((el) => el.id !== payload);
+      return state.filter((el) => el.id !== payload.id);
     case REMOVE_LIKE:
       return state.map((el) => {
         if (el.id === payload.postId) {

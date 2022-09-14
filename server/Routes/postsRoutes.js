@@ -35,11 +35,15 @@ router.route('/posts')
     }
   });
 
-router.route('/:id')
+router.route('/posts/:postId')
   .delete(async (req, res) => {
+    const { postId } = req.params;
     try {
-      await Post.destroy({ where: { id: req.params.id } });
-      return res.sendStatus(200);
+      const removePost = await Post.findOne({ where: { id: +postId } });
+      if (req.session.userId === removePost.userId) {
+        await removePost.destroy();
+        return res.json(removePost);
+      }
     } catch (err) {
       console.log(err);
       return res.sendStatus(500);

@@ -1,3 +1,4 @@
+import { Autocomplete, Stack, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import PotentialUserItem from './PotentialUserItem';
 import './PotentialUserTable.css';
@@ -7,6 +8,7 @@ export default function PotentialUserTable({
   DelStatePotential, delPotentialAddUser, delStatePotential
 }) {
   const [potentialUsres, setPotentialUsers] = useState([]);
+  const [potentUserSearchState, setPotentUserSearchState] = useState('');
 
   useEffect(() => {
     fetch('http://localhost:3002/getAllPotentialUsers')
@@ -24,10 +26,34 @@ export default function PotentialUserTable({
     });
     setDelStatePotential(Math.random());
   };
+  const potentUserSearch = (e) => {
+    setPotentUserSearchState(e.target.value);
+  };
   return (
     <div className="conteiner3">
       <div className="titleeH5"><h5>Потенциальнае пользователи</h5></div>
-      {potentialUsres && potentialUsres.map((elem) => (
+
+      <Stack spacing={2} sx={{ width: 500, margin: '10px' }}>
+        <Autocomplete
+          freeSolo
+          id="free-solo-2-demo"
+          disableClearable
+          options={potentialUsres.map((user) => user.name)}
+          renderInput={(params) => (
+            <TextField
+              name="name"
+              {...params}
+              label="Поиск"
+              InputProps={{
+                ...params.InputProps,
+                type: 'search'
+              }}
+              onChange={potentUserSearch}
+            />
+          )}
+        />
+      </Stack>
+      {potentialUsres && potentialUsres.filter((user) => (potentUserSearchState ? user.name.includes(potentUserSearchState) : true)).map((elem) => (
         <PotentialUserItem
           key={elem.id}
           elem={elem}

@@ -27,7 +27,11 @@ export const SET_SHOW_FORM = 'SET_SHOW_FORM';
 export const GET_USER_PHOTO = 'GET_USER_PHOTO';
 export const CHANGE_USER_PHOTO = 'CHANGE_USER_PHOTO';
 
+// SHOW STATUS FOR COMPLITED APPLICATION
+export const SET_SHOW_COMPLITED = 'SET_SHOW_COMPLITED';
+
 // LIKE
 export const ADD_LIKE = 'ADD_LIKE';
 export const GET_LIKE = 'GET-LIKE';
 export const REMOVE_LIKE = 'REMOVE_LIKE';
+

@@ -17,7 +17,7 @@ import { setAuthAC, userCheck } from './redux/actions/authActions';
 import { unsetLoad } from './redux/actions/loadActions';
 
 function App() {
-  const { auth } = useSelector((store) => store);
+  const auth = useSelector((store) => store.auth);
   console.log(auth);
   // const { loading } = useSelector((s) => s);
   // const dispatch = useDispatch();
