@@ -10,6 +10,7 @@ export const removeLike = (payload) => ({ type: REMOVE_LIKE, payload });
 export const removePostAC = (payload) => ({ type: REMOVE_POSTS, payload });
 
 export const AddPostsThunk = (input) => (dispatch) => {
+  console.log(input);
   axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/posts`, input)
     .then((res) => dispatch(addPostsAC(res.data)))
     .catch((error) => console.log(error));
@@ -17,6 +18,7 @@ export const AddPostsThunk = (input) => (dispatch) => {
 
 export const getAllPostsThunk = () => (dispatch) => {
   axios.get(`${process.env.REACT_APP_BASEURL}/api/v1/posts`)
+    .then((res) => console.log(res))
     .then((res) => dispatch(getPostsAC(res.data)))
     .catch((err) => console.log(err));
 };
@@ -41,6 +43,19 @@ export const removelikeThunk = ({ postId, userId }) => (dispatch) => {
   }).then((res) => res.json()).then((data) => dispatch(removeLike(data)));
 };
 
+
+export const getAllLocationPostsThunk = (pickedBaloon) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_BASEURL}/api/v1/locationposts`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ pickedBaloon })
+  }).then((res) => res.json())
+    // .then((res) => console.log(res))
+    .then((data) => dispatch(getPostsAC(data)))
+    .catch((err) => console.log(err));
+
 export const removePostThunk = (id) => (dispatch) => {
   console.log(id);
   fetch(`${process.env.REACT_APP_BASEURL}/api/v1/posts/${id}`, {
@@ -53,4 +68,5 @@ export const removePostThunk = (id) => (dispatch) => {
         dispatch(removePostAC(res));
       }
     });
+
 };

@@ -99,8 +99,6 @@ export default function EditForm() {
           <TextField name="phone" className="TextField" id="outlined-basic" onChange={inpHandlerUserInfo} label={auth.phone} variant="outlined" size="small" />
           <TextField name="email" className="TextField" id="outlined-basic" onChange={inpHandlerUserInfo} label={auth.email} variant="outlined" size="small" />
           <Button className="buttonEdit" onClick={changeHandler} variant="outlined">Изменить данные</Button>
-
-          <TextField name="image" className="TextField" id="outlined-basic" onChange={inpHandlerUserPhoto} label={photoUser?.image || 'Ссылка на Вашу фотографию'} variant="outlined" size="small" />
           <IconButton color="primary" aria-label="upload picture" component="label">
             <input
               hidden
