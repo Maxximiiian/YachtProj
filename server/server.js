@@ -7,6 +7,7 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const bcrypt = require('bcrypt');
 const { send } = require('process');
+const nodemailer = require('nodemailer');
 const {
   PotentialUser, User,
 } = require('./db/models');
@@ -133,7 +134,7 @@ app.delete('/PotentialuserDel', async (req, res) => {
 app.post('/PotentialUserAdd', async (req, res) => {
   // console.log(req.body, 'add potential');
   const {
-    id, name, phone, email,
+    name, phone, email,
   } = req.body.elem;
   // console.log(id, name, phone, email, '11111111111');
   // console.log(req.body.elem, '2222222222222222222');
@@ -141,6 +142,22 @@ app.post('/PotentialUserAdd', async (req, res) => {
   User.create({
     name, phone, email, password: await bcrypt.hash('123', 10),
   });
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.yandex.ru',
+    // port: 465,
+    // secure: true, // true for 465, false for other ports
+    auth: {
+      user: process.env.EMAIL, // generated ethereal user
+      pass: process.env.PASS, // generated ethereal password
+    },
+  });
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: `${email}`,
+    subject: 'Привет, это ЯхтКлуб!',
+    text: 'Ваша заявка принята!',
+  };
+  transporter.sendMail(mailOptions, (err) => console.error(err));
   res.sendStatus(200);
 });
 

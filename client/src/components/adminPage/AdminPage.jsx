@@ -25,8 +25,10 @@ export default function AdminPage() {
       },
       body: JSON.stringify({ id })
     });
+
     setDelStatePotential(Math.random());
   };
+
   return (
     <div className="general">
       <PotentialUserTable
