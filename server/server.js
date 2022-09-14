@@ -6,7 +6,10 @@ const path = require('path');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const bcrypt = require('bcrypt');
+
 const { send } = require('process');
+const nodemailer = require('nodemailer');
+
 const {
   PotentialUser, User, Location, Way,
 } = require('./db/models');
@@ -14,6 +17,7 @@ const postsRoutes = require('./Routes/postsRoutes');
 const locationRouter = require('./Routes/locationRouter');
 const authRoutes = require('./Routes/authRoutes');
 const photoRoutes = require('./Routes/photoRoutes');
+const likedRoutes = require('./Routes/likedRoutes');
 
 const app = express();
 
@@ -79,7 +83,7 @@ app.post('/adminRegistration', async (req, res) => {
       });
       return res.json(newUser);
     }
-    res.status(400).json({ message: 'That name already exists' });
+    // res.status(400).json({ message: 'That name already exists' });
   } catch (err) {
     console.error(err);
   }
@@ -124,12 +128,28 @@ app.delete('/PotentialuserDel', async (req, res) => {
 
 app.post('/PotentialUserAdd', async (req, res) => {
   const {
-    id, name, phone, email,
+    name, phone, email,
   } = req.body.elem;
 
   User.create({
-    id, name, phone, email,
+    name, phone, email, password: await bcrypt.hash('123', 10),
   });
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.yandex.ru',
+    // port: 465,
+    // secure: true, // true for 465, false for other ports
+    auth: {
+      user: process.env.EMAIL, // generated ethereal user
+      pass: process.env.PASS, // generated ethereal password
+    },
+  });
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: `${email}`,
+    subject: 'Привет, это ЯхтКлуб!',
+    text: 'Ваша заявка принята!',
+  };
+  transporter.sendMail(mailOptions, (err) => console.error(err));
   res.sendStatus(200);
 });
 app.post('/getAllUsersLocation', async (req, res) => {
@@ -164,6 +184,7 @@ app.delete('/userTripDel', async (req, res) => {
 });
 
 app.use('/api/v1', postsRoutes);
+app.use('/api/v2', likedRoutes);
 app.use('/api/v1', authRoutes);
 app.use('/api/v1', locationRouter);
 app.use('/api/v1/photo', photoRoutes);

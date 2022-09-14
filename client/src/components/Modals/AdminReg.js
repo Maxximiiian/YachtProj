@@ -7,17 +7,21 @@ import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import { MuiTelInput } from 'mui-tel-input';
 import zIndex from '@mui/material/styles/zIndex';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { SET_SHOW_FORM } from '../../redux/types/types';
 
-export default function AdminReg() {
+export default function AdminReg({ delPotentialAddUser }) {
   // const dispatch = useDispadispatchtch();
   const [phoneValue, setPhoneValue] = useState('+79');
   const [inpState, setInpState] = useState({ admin: [] });
   const inpHandler = (e) => setInpState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-
+  const dispatch = useDispatch();
   const phoneChange = (newValue) => {
     setPhoneValue(newValue);
     setInpState((prev) => ({ ...prev, phone: phoneValue }));
+  };
+  const clickShowForm = () => {
+    dispatch({ type: SET_SHOW_FORM });
   };
   const adminRegistration = async (e) => {
     e.preventDefault();
@@ -31,7 +35,10 @@ export default function AdminReg() {
       body: JSON.stringify(inpState)
     });
     if (response.ok) {
-    //   const data = await response.json();
+      // delPotentialAddUser();
+      clickShowForm();
+
+      //   const data = await response.json();
 
     //   dispatch(setAuth(data));
     //   navigate('/');
@@ -42,6 +49,7 @@ export default function AdminReg() {
       });
     }
   };
+
   const ITEM_HEIGHT = 35;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -143,7 +151,7 @@ export default function AdminReg() {
                   </Select>
                 </FormControl>
               </div>
-              <Button className="buttonEdit" onClick={adminRegistration} variant="outlined">Войти</Button>
+              <Button className="buttonEdit" onClick={adminRegistration} variant="outlined">Зарегистрировать</Button>
             </Box>
           </List>
         </Box>

@@ -16,19 +16,17 @@ import './BlogPosts.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { AddPostsThunk, getAllPostsThunk } from '../../redux/actions/postsAction';
+import { AddPostsThunk, getAllLocationPostsThunk, getAllPostsThunk } from '../../redux/actions/postsAction';
 import { addLocationAC } from '../../redux/actions/locationsAction';
+import AllPosts from './AllPosts';
 
-export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCoords }) {
-  // const BLYA = [...currentCoords];
-  console.log('fghfghfghfghfg', currentCoords);
+export default function BlogPosts({
+  blogPostsState, setBlogPostsState, currentCoords, pickedBaloon
+}) {
   const { auth } = useSelector((state) => state);
   const [locationInput, setLocationInput] = useState({ coords: currentCoords, name: '', userId: auth.id });
 
-  console.log('locationInput', locationInput);
-
   const changeLocationInputHandler = (e) => {
-    console.log('handlerInput', currentCoords);
     setLocationInput(
       (prev) => ({ ...prev, [e.target.name]: e.target.value, coords: currentCoords })
     );
@@ -38,10 +36,9 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
   const [add, setAdd] = useState(false);
   const [addPost, setAddPost] = React.useState(false);
   const [addLocation, setAddLocation] = React.useState(false);
-  const [input, setInput] = useState({});
+  const [input, setInput] = useState({ userId: auth.id });
   const dispatch = useDispatch();
   const posts = useSelector((store) => store.posts);
-  console.log('ppppp', posts);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -61,11 +58,11 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
   const handleTextBodyInputChange = (e) => {
     setInput((prev) => ({ ...prev, body: e.target.value }));
   };
-  console.log(input);
 
   const submitHandler = (e) => {
+    console.log('inputData', input);
     e.preventDefault();
-    dispatch(AddPostsThunk(input));
+    dispatch(AddPostsThunk({ ...input, coords: pickedBaloon }));
   };
 
   const locationAddHandler = async (e) => {
@@ -78,14 +75,20 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
     });
     if (response.ok) {
       const data = await response.json();
-      // console.log('=====================f=DATAAA', data);
       dispatch(addLocationAC(data));
     }
   };
 
+  console.log('pickedBaloon=====', pickedBaloon);
+
   useEffect(() => {
-    dispatch(getAllPostsThunk());
-  }, []);
+    console.log('=========', pickedBaloon);
+    if (pickedBaloon) {
+      dispatch(getAllLocationPostsThunk(pickedBaloon));
+    } else {
+      dispatch(getAllPostsThunk());
+    }
+  }, [pickedBaloon]);
 
   const list = (anchor) => (
     <Box
@@ -118,11 +121,11 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
       </Box>
       {!addPost ? null
         : (
-          <Box component="form" onSubmit={submitHandler}>
+          <Box component="form">
             <CardContent>
               <TextField className="TextField" name="title" value={input.title} onChange={handleTextTitleInputChange} fullWidth size="small" placeholder="Заголовок" color="info" />
               <TextField className="TextField" name="body" value={input.body} onChange={handleTextBodyInputChange} fullWidth size="large" placeholder="Текст" sx={{ marginTop: '2rem', textColor: 'primary' }} />
-              <Button type="submit" onClick={submitHandler} sx={{ backgroundColor: 'transparent', color: 'azure', marginLeft: '40%' }} endIcon={<SendIcon />}>
+              <Button type="button" onClick={submitHandler} sx={{ backgroundColor: 'transparent', color: 'azure', marginLeft: '40%' }} endIcon={<SendIcon />}>
                 Добавить
               </Button>
             </CardContent>
@@ -139,52 +142,13 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
             </CardContent>
           </Box>
         )}
-      <Box sx={{
-        backgroundColor: '#f8f9fa24',
-        borderRadius: '25px',
-        margin: '10px'
-      }}
-      >
-        <Typography component="legend" sx={{ marginTop: '3rem' }} />
-        <CardHeader
-          sx={{
-            color: 'azure'
-          }}
-          avatar={(
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
-            </Avatar>
-        )}
-          action={(
-            <IconButton aria-label="settings" />
-        )}
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            A million voices
-          </Typography>
-          <Typography sx={{ color: 'azure' }} variant="body2">
-            We are the worlds people
-            Different yet were the same
-            We believe
-            We believe in a dream
-
-            Praying for peace and healing
-            I hope we can start again
-            We believe
-            We believe in a dream
-          </Typography>
-        </CardContent>
-        <ButtonGroup>
-          <IconButton color="primary" aria-label="add to shopping cart" fontSize="large">
-            <ThumbUpOffAltIcon sx={{ marginLeft: '1rem' }} />
-          </IconButton>
-          <IconButton color="primary" aria-label="add to shopping cart" fontSize="large">
-            <ThumbDownOffAltIcon sx={{ marginLeft: '1rem' }} />
-          </IconButton>
-        </ButtonGroup>
+      <Box>
+        {posts?.map((el) => (
+          <AllPosts
+            // key={el.id}
+            post={el}
+          />
+        ))}
       </Box>
     </Box>
   );

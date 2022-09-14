@@ -84,7 +84,7 @@ const ImageMarked = styled('span')(({ theme }) => ({
 }));
 
 export default function CompliteWindow() {
- const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const onClickPonyatno = () => {
     dispatch({ type: SET_SHOW_COMPLITED });

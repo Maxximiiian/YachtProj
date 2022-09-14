@@ -1,26 +1,18 @@
-import React from 'react';
-// import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllPostsThunk } from '../../redux/actions/postsAction';
 import PrivatePost from './PrivatePost';
 
-const posts = [
-  {
-    title: 'Bob', body: 'stupid', locationId: 1, userId: 1, wayId: 1
-  },
-
-  {
-    title: 'Bob', body: 'stupid', locationId: 1, userId: 1, wayId: 1
-  },
-  {
-    title: 'Bob', body: 'stupid', locationId: 1, userId: 1, wayId: 1
-  }
-];
-
 export default function MainPrivate() {
-//   const posts = useSelector((store) => store.posts);
-  // const user = useSelector((store) => store.posts);
+  const posts = useSelector((store) => store.posts);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllPostsThunk());
+  }, []);
+
   return (
     <div className="container-main">
-      {posts?.map((el) => (
+      {posts?.slice(0, 5).map((el) => (
         <PrivatePost
           post={el}
         />
