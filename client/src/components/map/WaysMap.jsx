@@ -7,12 +7,13 @@ import { NavLink } from 'react-router-dom';
 import './Map.css';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import BlogPosts from '../BlogPosts/BlogPosts';
 import { getAllLocationsThunk } from '../../redux/actions/locationsAction';
+import WaysSidebar from '../BlogPosts/WaysSidebar';
 
 const { ymaps } = window;
 
-export default function Map() {
+export default function WaysMap() {
+  const [waysInput, setWaysInput] = useState({ points: [] });
   const [pickedBaloon, setPickedBaloon] = useState(null);
   console.log(pickedBaloon);
   const [myMap, setMap] = useState(null);
@@ -169,6 +170,13 @@ export default function Map() {
     }
 
     // / /////////////////////////////////////////////////////////////////////////////////
+    // Создание макета балуна на основе Twitter Bootstrap.
+
+    // Создание вложенного макета содержимого балуна.
+
+    // Создание метки с пользовательским макетом балуна.
+
+    // / /////////////////////////////////////////////////////////////////////////////////
     document.querySelector('#set-balloon-header').addEventListener('click', () => {
       window.myPlacemark.properties.set(
         'balloonHeader',
@@ -228,6 +236,7 @@ export default function Map() {
 
     // Скрываем хинт при открытии балуна.   // ВАЖНООООО
     myMap.events.add('balloonopen', (e) => {
+    //   console.log('aaaa', e.get('coords'));
       myMap.hint.close();
     });
     return null;
@@ -241,6 +250,34 @@ export default function Map() {
     iconImageOffset: [-19, -36]
 
   });
+
+  /// ////////////////////////////////////////////////////////////////////////////////
+
+  const myPolyline = new ymaps.Polyline([
+  // Указываем координаты вершин ломаной.
+    [55.80, 37.50],
+    [55.80, 3.40],
+    [5.70, 37.50],
+    [5.70, 3.40]
+  ], {
+  // Описываем свойства геообъекта.
+  // Содержимое балуна.
+    balloonContent: 'Ломаная линия'
+  }, {
+  // Задаем опции геообъекта.
+  // Отключаем кнопку закрытия балуна.
+    balloonCloseButton: false,
+    // Цвет линии.
+    strokeColor: '#ff0000',
+    // Ширина линии.
+    strokeWidth: 4,
+    // Коэффициент прозрачности.
+    strokeOpacity: 0.5
+  });
+
+  // Добавляем линии на карту.
+  myMap?.geoObjects
+    .add(myPolyline);
 
   //   if (map) {
   //     const myGeocoder = ymaps.geocode('Южнобутовская 66');
@@ -267,7 +304,7 @@ export default function Map() {
       locations.forEach((x, index) => {
         const myPlacemark = new ymaps.Placemark([Number(x.coordX), Number(x.coordY)], {
           balloonHeader: `${x.name}`,
-          balloonContent: { id: x.id }
+          balloonContent: 'ыыыыыыы'
         }, {
           balloonShadow: false,
           balloonLayout: MyBalloonLayout,
@@ -308,7 +345,7 @@ export default function Map() {
       <div id="map" className="mapContainer">
         <button type="button" id="set-balloon-header" className="btn">Задать заголовок балуна</button>
         <button type="button" id="set-balloon-content" className="btn">Задать содержимое балуна</button>
-        <BlogPosts
+        <WaysSidebar
           blogPostsState={blogPostsState}
           setBlogPostsState={setBlogPostsState}
           currentCoords={currentCoords}

@@ -1,7 +1,8 @@
 import React from 'react';
+import WaysMap from '../map/WaysMap';
 
 export default function Ways() {
   return (
-    <div>vy govorili chto tut budet ways</div>
+    <WaysMap />
   );
 }

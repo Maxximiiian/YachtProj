@@ -75,7 +75,7 @@ export default function SideBarFormLogIn() {
   return (
     <div style={{ width: 'max-content', marginLeft: 'auto' }}>
       {['right'].map((anchor) => (
-        <React.Fragment key={anchor} id="test_test">
+        <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}><Avatar src="/broken-image.jpg" /></Button>
           <SwipeableDrawer
             id="check_this"
