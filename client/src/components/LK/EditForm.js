@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import './editForm.css';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { getUserPhoto, getUserPhotoThunk, userPhotoChange_THUNK } from '../../redux/actions/photoActions';
+import { getUserPhoto, getUserPhotoThunk } from '../../redux/actions/photoActions';
 import { userInfoChange_THUNK } from '../../redux/actions/authActions';
 
 export default function EditForm() {
