@@ -11,6 +11,7 @@ export default function Info() {
   const onClickBut = () => {
     setViewFormState(!viewFormState);
   };
+
   return (
     <Box
       sx={{
@@ -26,8 +27,13 @@ export default function Info() {
     >
       <div className="about">
         <h1>О нас</h1>
-        <div className="info">
-          много текста
+        <div className="info" style={{ padding: '15px' }}>
+          Морской Парусный Клуб «Sailing club» — это яхт-клуб,
+          в котором вы найдёте самые лучшие морские локации и маршруты со всего мира.
+          Вы сможете узнать у нас, как стать яхтсменом или
+          владельцем яхты и сможете, воспользовавшись нашими услугами,
+          пройти весь путь яхтсмена — от развлечения
+          к увлечению, от члена команды парусной яхты до ее владельца.
         </div>
       </div>
       <ButtonForm onClickBut={onClickBut} />
@@ -35,7 +41,10 @@ export default function Info() {
       {viewFormState ? (
         <div>
 
-          <ConectionForm />
+          <ConectionForm
+            setViewFormState={setViewFormState}
+            viewFormState={viewFormState}
+          />
           {/* <ButtonCend /> */}
         </div>
 

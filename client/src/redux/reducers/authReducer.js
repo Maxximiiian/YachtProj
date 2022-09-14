@@ -5,9 +5,9 @@ export default (state = {}, action) => {
   console.log(payload, 'payload>>>>>>>>>>>>');
   switch (type) {
     case SET_AUTH:
-      return payload;
+      return payload || state;
     case LOGOUT:
-      return state;
+      return {};
     default:
       return state;
   }

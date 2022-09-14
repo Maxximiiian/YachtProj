@@ -5,6 +5,7 @@ import photoReducer from './photoReducer';
 import postsReducer from './postsReducer';
 import locationsReducer from './locationsReducer';
 import showFormReducer from './showFormReducer';
+import showComplitedReducer from './showComplitedReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   posts: postsReducer,
   locations: locationsReducer,
   showForm: showFormReducer,
-  photoUser: photoReducer
+  photoUser: photoReducer,
+  showComplited: showComplitedReducer
 });
 
 export default rootReducer;
