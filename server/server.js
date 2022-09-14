@@ -140,7 +140,7 @@ app.post('/PotentialUserAdd', async (req, res) => {
   // console.log(req.body.elem, '2222222222222222222');
 
   User.create({
-    id, name, phone, email,
+    name, phone, email, password: await bcrypt.hash('123', 10),
   });
   res.sendStatus(200);
 });

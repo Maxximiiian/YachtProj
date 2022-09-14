@@ -21,15 +21,10 @@ import { addLocationAC } from '../../redux/actions/locationsAction';
 import AllPosts from './AllPosts';
 
 export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCoords }) {
-  // const BLYA = [...currentCoords];
-  console.log('fghfghfghfghfg', currentCoords);
   const { auth } = useSelector((state) => state);
   const [locationInput, setLocationInput] = useState({ coords: currentCoords, name: '', userId: auth.id });
 
-  console.log('locationInput', locationInput);
-
   const changeLocationInputHandler = (e) => {
-    console.log('handlerInput', currentCoords);
     setLocationInput(
       (prev) => ({ ...prev, [e.target.name]: e.target.value, coords: currentCoords })
     );
@@ -42,7 +37,6 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
   const [input, setInput] = useState({});
   const dispatch = useDispatch();
   const posts = useSelector((store) => store.posts);
-  console.log('ppppp', posts);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -62,7 +56,6 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
   const handleTextBodyInputChange = (e) => {
     setInput((prev) => ({ ...prev, body: e.target.value }));
   };
-  console.log(input);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -79,7 +72,6 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
     });
     if (response.ok) {
       const data = await response.json();
-      // console.log('=====================f=DATAAA', data);
       dispatch(addLocationAC(data));
     }
   };

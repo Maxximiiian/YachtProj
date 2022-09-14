@@ -24,10 +24,11 @@ const pages = ['Points', 'Ways', 'Admin'];
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  console.log(window.location.href, '000000000000000');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.auth);
+  const photoUser = useSelector((state) => state.photoUser);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -138,6 +139,8 @@ function NavBar() {
                 >
                   Admin
                 </Button>
+                {(window.location.href === 'http://localhost:3000/admin')
+                && (
                 <Button
                   component={Link}
                   to="/admin"
@@ -146,11 +149,13 @@ function NavBar() {
                 >
                   Add user
                 </Button>
+                )}
+
               </Box>
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                    <Avatar alt="Remy Sharp" src={`http://localhost:3002/images/${photoUser?.image}` || ''} />
                   </IconButton>
                 </Tooltip>
                 <Menu
