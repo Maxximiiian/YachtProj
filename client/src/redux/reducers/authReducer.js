@@ -6,7 +6,7 @@ export default (state = {}, action) => {
     case SET_AUTH:
       return payload;
     case LOGOUT:
-      return state;
+      return {};
     default:
       return state;
   }
