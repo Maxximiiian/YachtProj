@@ -7,12 +7,17 @@ import { red } from '@mui/material/colors';
 import { Box } from '@mui/system';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBestPostThunk, getAllPostsThunk, removelikeThunk } from '../../redux/actions/postsAction';
+import {
+  addBestPostThunk, getAllPostsThunk, removelikeThunk, removePostThunk
+} from '../../redux/actions/postsAction';
 
 export default function AllPosts({ post }) {
   const {
     title, body, locationId, wayId, User, createdAt, Likes
   } = post;
+
+  // const location = useSelector((store) => store.locations);
+  // const { name } = location;
 
   const data = new Date(createdAt).toLocaleDateString();
 
@@ -31,6 +36,11 @@ export default function AllPosts({ post }) {
     e.preventDefault();
     dispatch(removelikeThunk({ postId: post.id, userId: User?.id }));
     fetchLike();
+  };
+
+  const removePost = (e) => {
+    e.preventDefault();
+    dispatch(removePostThunk(post.id));
   };
 
   return (
@@ -71,24 +81,24 @@ export default function AllPosts({ post }) {
         </Typography>
       </CardContent>
       <ButtonGroup>
-        <IconButton color="success">
-          {Likes.filter((el) => el.userId === auth.id).length === 0
-            ? (
-              <Button variant="text" onClick={addLike} text="LIKE">
-                <ThumbUpIcon fontSize="large" sx={{ marginLeft: '1rem', color: 'yellow' }} />
-                {Likes.length}
-              </Button>
-            )
-            : (
-              <Button variant="text" onClick={deleteHandler} text="DISLIKE">
-                <ThumbUpIcon fontSize="large" sx={{ marginLeft: '1rem', color: 'red' }} style={{ transform: 'rotate(180deg)' }} />
-                {Likes.length}
-              </Button>
-            )}
-        </IconButton>
+        {/* <IconButton color="success"> */}
+        {Likes.filter((el) => el.userId === auth.id).length === 0
+          ? (
+            <Button variant="text" onClick={addLike} text="LIKE">
+              <ThumbUpIcon fontSize="large" sx={{ marginLeft: '1rem', color: 'yellow' }} />
+              {Likes.length}
+            </Button>
+          )
+          : (
+            <Button variant="text" onClick={deleteHandler} text="DISLIKE">
+              <ThumbUpIcon fontSize="large" sx={{ marginLeft: '1rem', color: 'red' }} style={{ transform: 'rotate(180deg)' }} />
+              {Likes.length}
+            </Button>
+          )}
+        {/* </IconButton> */}
       </ButtonGroup>
       <ButtonGroup>
-        <Button variant="text" text="REMOVE">
+        <Button onClick={removePost} variant="text" text="REMOVE">
           <DeleteSharpIcon fontSize="large" sx={{ marginLeft: '14rem', color: 'red' }} />
         </Button>
       </ButtonGroup>
