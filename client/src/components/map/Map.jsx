@@ -284,6 +284,7 @@ export default function Map() {
           ymaps.geocode(myPlacemark.geometry.getCoordinates(), {
             results: 1
           }).then((data) => setPickedBaloon(data.metaData.geocoder.request));
+          setBlogPostsState({ ...blogPostsState, right: true });
           // .then((res) => {
           //   const newContent = res.geoObjects.get(0)
           //     ? res.geoObjects.get(0).properties.get('name')
@@ -312,6 +313,7 @@ export default function Map() {
           blogPostsState={blogPostsState}
           setBlogPostsState={setBlogPostsState}
           currentCoords={currentCoords}
+          pickedBaloon={pickedBaloon}
         />
       </div>
     </div>
