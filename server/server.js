@@ -83,7 +83,7 @@ app.post('/adminRegistration', async (req, res) => {
       });
       return res.json(newUser);
     }
-    res.status(400).json({ message: 'That name already exists' });
+    // res.status(400).json({ message: 'That name already exists' });
   } catch (err) {
     console.error(err);
   }
