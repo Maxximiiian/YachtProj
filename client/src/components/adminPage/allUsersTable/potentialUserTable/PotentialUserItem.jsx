@@ -28,7 +28,8 @@ export default function PotentialUserItem({ elem, DelUser2, delPotentialAddUser 
     <Box sx={{
       backgroundColor: '#f8f9fa24',
       borderRadius: '25px',
-      margin: '10px'
+      margin: '10px',
+      width: '95%'
     }}
     >
 

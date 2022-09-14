@@ -36,8 +36,10 @@ export default function AdminPage() {
         setDelStatePotential={setDelStatePotential}
         delPotentialAddUser={delPotentialAddUser}
       />
-      <AllUsersTable delStatePotential={delStatePotential} />
-      {showForm && (<AdminReg />)}
+      <div>
+        <AllUsersTable delStatePotential={delStatePotential} />
+        {showForm && (<AdminReg />)}
+      </div>
     </div>
   );
 }
