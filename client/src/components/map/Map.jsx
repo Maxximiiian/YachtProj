@@ -169,32 +169,6 @@ export default function Map() {
     }
 
     // / /////////////////////////////////////////////////////////////////////////////////
-    // Создание макета балуна на основе Twitter Bootstrap.
-
-    // Создание вложенного макета содержимого балуна.
-
-    // Создание метки с пользовательским макетом балуна.
-
-    /// ///////////////////////////////////////////////////////////////
-
-    /// ///////////////////////////////////////////////////////////////
-    const myPlacemark = window.myPlacemark = new ymaps.Placemark(myMap.getCenter(), {
-      balloonHeader: 'Заголовок балуна',
-      balloonContent: 'Контент балуна'
-    }, {
-      balloonShadow: false,
-      balloonLayout: MyBalloonLayout,
-      balloonContentLayout: MyBalloonContentLayout,
-      balloonPanelMaxMapArea: 0
-      // Не скрываем иконку при открытом балуне.
-      // hideIconOnBalloonOpen: false,
-      // И дополнительно смещаем балун, для открытия над иконкой.
-      // balloonOffset: [3, -40]
-    });
-
-    myMap.geoObjects.add(myPlacemark);
-
-    // / /////////////////////////////////////////////////////////////////////////////////
     document.querySelector('#set-balloon-header').addEventListener('click', () => {
       window.myPlacemark.properties.set(
         'balloonHeader',
@@ -254,7 +228,6 @@ export default function Map() {
 
     // Скрываем хинт при открытии балуна.   // ВАЖНООООО
     myMap.events.add('balloonopen', (e) => {
-      console.log('aaaa', e.get('coords'));
       myMap.hint.close();
     });
     return null;

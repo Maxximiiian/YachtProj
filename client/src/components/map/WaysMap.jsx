@@ -176,25 +176,6 @@ export default function WaysMap() {
 
     // Создание метки с пользовательским макетом балуна.
 
-    /// ///////////////////////////////////////////////////////////////
-
-    /// ///////////////////////////////////////////////////////////////
-    const myPlacemark = window.myPlacemark = new ymaps.Placemark(myMap.getCenter(), {
-      balloonHeader: 'Заголовок балуна',
-      balloonContent: 'Контент балуна'
-    }, {
-      balloonShadow: false,
-      balloonLayout: MyBalloonLayout,
-      balloonContentLayout: MyBalloonContentLayout,
-      balloonPanelMaxMapArea: 0
-      // Не скрываем иконку при открытом балуне.
-      // hideIconOnBalloonOpen: false,
-      // И дополнительно смещаем балун, для открытия над иконкой.
-      // balloonOffset: [3, -40]
-    });
-
-    myMap.geoObjects.add(myPlacemark);
-
     // / /////////////////////////////////////////////////////////////////////////////////
     document.querySelector('#set-balloon-header').addEventListener('click', () => {
       window.myPlacemark.properties.set(
@@ -255,7 +236,7 @@ export default function WaysMap() {
 
     // Скрываем хинт при открытии балуна.   // ВАЖНООООО
     myMap.events.add('balloonopen', (e) => {
-      console.log('aaaa', e.get('coords'));
+    //   console.log('aaaa', e.get('coords'));
       myMap.hint.close();
     });
     return null;
@@ -323,7 +304,7 @@ export default function WaysMap() {
       locations.forEach((x, index) => {
         const myPlacemark = new ymaps.Placemark([Number(x.coordX), Number(x.coordY)], {
           balloonHeader: `${x.name}`,
-          balloonContent: { id: x.id }
+          balloonContent: 'ыыыыыыы'
         }, {
           balloonShadow: false,
           balloonLayout: MyBalloonLayout,
