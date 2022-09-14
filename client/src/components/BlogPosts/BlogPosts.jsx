@@ -135,6 +135,7 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
       <Box>
         {posts?.map((el) => (
           <AllPosts
+            // key={el.id}
             post={el}
           />
         ))}
