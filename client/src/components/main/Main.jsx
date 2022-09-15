@@ -4,6 +4,7 @@ import CompliteWindow from '../info/CompliteWindow';
 import Info from '../info/Info';
 import MainPrivate from './MainPrivate';
 import NewsBlog from './NewsBlog';
+import video5 from '../../assests/video5.mp4';
 
 export default function Main() {
   const user = useSelector((store) => store.auth);
@@ -13,6 +14,7 @@ export default function Main() {
 
   return (
     <div className="main-div" style={{}}>
+      <video src={video5} style={{ position: 'absolute', width: '100%' }} autoPlay loop muted />
       {!user.id
       && (
         showComplited.status ? (<CompliteWindow />) : (<Info />)
