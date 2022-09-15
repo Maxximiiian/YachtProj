@@ -24,11 +24,11 @@ export default function PersonalPage() {
     console.log('!!', editFormState);
   };
   const photoUser = useSelector((state) => state.photoUser);
-  useEffect(() => {
-    if (auth.id) {
-      dispatch(getUserPhotoThunk(auth.id));
-    }
-  }, [auth]);
+  // useEffect(() => {
+  //   if (auth.id) {
+  //     dispatch(getUserPhotoThunk(auth.id));
+  //   }
+  // }, [auth]);
   console.log('redux photoUser in pers page', photoUser?.image, auth);
 
   //   const user = useSelector((state) => state);
