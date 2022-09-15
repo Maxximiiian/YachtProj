@@ -73,11 +73,10 @@ function App() {
           {auth
         && (
         <>
-          <Route path="/" element={(<Main />)} />
-          <Route path="/admin" element={(<RequireAuth><AdminPage /></RequireAuth>)} />
+          <Route path="/" element={<Main />} />
+          <Route path="/admin" element={<RequireAuth><AdminPage /></RequireAuth>} />
           <Route path="/map" element={(<RequireAuth><Map /></RequireAuth>)} />
-          <Route path="/ways" element={(<RequireAuth><Ways /></RequireAuth>)} />
-          <Route path="/perspage" element={(<RequireAuth><PersonalPage /></RequireAuth>)} />
+          <Route path="/perspage" element={<RequireAuth><PersonalPage /></RequireAuth>} />
           {/* <Route path="/adminreg" element={<PersonalPage />} /> */}
         </>
         )}

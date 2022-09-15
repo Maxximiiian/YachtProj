@@ -28,7 +28,7 @@ import { getPhotoLocationThunk } from '../../redux/actions/photoLocationAction';
 export default function BlogPosts({
   blogPostsState, setBlogPostsState, currentCoords, pickedBaloon
 }) {
-  const { auth, locationPhoto } = useSelector((state) => state);
+  const { auth } = useSelector((state) => state);
   const [locationInput, setLocationInput] = useState({ coords: currentCoords, name: '', userId: auth.id });
 
   const changeLocationInputHandler = (e) => {
@@ -49,7 +49,7 @@ export default function BlogPosts({
   const dispatch = useDispatch();
   const posts = useSelector((store) => store.posts);
 
-  console.log(inpStatelocationPhoto);
+  console.log('POSTS V 50 STROKE', posts);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (

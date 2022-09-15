@@ -9,14 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Location }) {
+    static associate({ Post }) {
       // define association here
-      this.belongsTo(Location, { foreignKey: 'locationId' });
+      this.belongsTo(Post, { foreignKey: 'postId' });
     }
   }
   LocationPhoto.init({
     image: DataTypes.STRING,
-    locationId: DataTypes.INTEGER,
+    postId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'LocationPhoto',

@@ -152,13 +152,13 @@ export default function Map() {
     dispatch(getAllLocationsThunk());
   }, []);
 
-  const center = [55.7536760175035, 37.61988016065489];
+  const center = [45, 60];
 
   function init() {
     if (!myMap) {
       const m = new ymaps.Map('map', {
         center,
-        zoom: 2
+        zoom: 3
       }, {
         searchControlProvider: 'yandex#search'
       });
@@ -307,8 +307,6 @@ export default function Map() {
   return (
     <div>
       <div id="map" className="mapContainer">
-        <button type="button" id="set-balloon-header" className="btn">Задать заголовок балуна</button>
-        <button type="button" id="set-balloon-content" className="btn">Задать содержимое балуна</button>
         <BlogPosts
           blogPostsState={blogPostsState}
           setBlogPostsState={setBlogPostsState}
@@ -316,6 +314,8 @@ export default function Map() {
           pickedBaloon={pickedBaloon}
         />
       </div>
+      <button type="button" id="set-balloon-header" className="btn">Задать заголовок балуна</button>
+      <button type="button" id="set-balloon-content" className="btn">Задать содержимое балуна</button>
     </div>
   );
 }

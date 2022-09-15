@@ -22,7 +22,6 @@ router.post('/posts', multer.single('photoLocation'), async (req, res) => {
   const { userId } = req.session;
   console.log(req.body, 'req BODY');
   console.log(req.file, 'req FILE');
-
   try {
     const matchCoords = coords.split(',');
     const pickedLocation = await Location.findOne({
@@ -32,13 +31,17 @@ router.post('/posts', multer.single('photoLocation'), async (req, res) => {
       },
     });
     const post = await Post.create({ ...req.body, userId, locationId: pickedLocation.id });
-    const newPost = await Post.findOne({ where: { id: post.id }, include: [User, Like] });
     const locationPhoto = await LocationPhoto.create({
       image: req.file.filename,
-      locationId: pickedLocation.id,
+      postId: post.id,
     });
-    const newPhoto = await LocationPhoto.findAll({ where: { locationId: pickedLocation.id } });
-    return res.json({ newPost, newPhoto });
+    const newPost = await Post.findOne({
+      where: { id: post.id },
+      include: [User, Like, LocationPhoto],
+    });
+    console.log('yyYYYYYYYYYYYYYY', newPost);
+    // const newPhoto = await LocationPhoto.findAll({ where: { locationId: pickedLocation.id } });
+    return res.json(newPost);
   } catch (error) {
     console.log(error);
     return res.sendStatus(500);
