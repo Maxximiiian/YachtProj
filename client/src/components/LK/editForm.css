@@ -8,10 +8,12 @@ color: #F0FFFF !important;
 position: relative;
 left: -70%;
 margin-top: 50px !important;
+position: initial;
 
 }
 .TextField{
     color: #F0FFFF !important;
+    padding-left: 100px;
 }
 .TextField:hover{
     background-color: #b3b3b34b;
@@ -27,5 +29,11 @@ margin-top: 50px !important;
 }
 .css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input{
     background:#aeafaf60 !important;
+}
+.css-h4y409-MuiList-root {
+    padding-left: 30px !important;
+}
+.css-1ivbec4-MuiList-root {
+    padding-left: 15px !important;
 }
 /* sx={{ backgroundColor: 'transparent', color: '#F0FFFF' }} */

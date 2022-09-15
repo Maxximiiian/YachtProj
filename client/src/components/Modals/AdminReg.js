@@ -74,7 +74,7 @@ export default function AdminReg({ delPotentialAddUser }) {
   ];
 
   return (
-    <>
+    <div>
       <div
         className="background"
         style={{
@@ -158,7 +158,7 @@ export default function AdminReg({ delPotentialAddUser }) {
         </Box>
         {' '}
       </Container>
-    </>
+    </div>
 
   );
 }
