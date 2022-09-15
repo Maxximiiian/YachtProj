@@ -1,5 +1,5 @@
 import {
-  Avatar, Button, ButtonGroup, CardContent, CardHeader, IconButton, Typography
+  Avatar, Button, ButtonGroup, CardContent, CardHeader, IconButton, ImageList, ImageListItem, Typography
 } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
@@ -12,6 +12,8 @@ import {
 } from '../../redux/actions/postsAction';
 
 export default function AllPosts({ post }) {
+  const { locationPhoto } = useSelector((state) => state);
+  console.log(locationPhoto);
   const {
     title, body, locationId, wayId, User, createdAt, Likes
   } = post;
@@ -66,6 +68,32 @@ export default function AllPosts({ post }) {
         title={User?.name}
         subheader={data}
       />
+      {/* <img src={`http://localhost:3002/images/${locationPhoto?.image}`} alt="hui" /> */}
+      <ImageList
+        sx={{ width: 50, height: 45 }}
+        variant="quilted"
+      >
+
+        <ImageListItem key={locationPhoto?.image}>
+          <img
+            src={`http://localhost:3002/images/${locationPhoto[0]?.image}`}
+              // {...srcset(item.img, 121, item.rows, item.cols)}
+            alt="img"
+            loading="lazy"
+          />
+        </ImageListItem>
+
+        {/* {locationPhoto.map((item) => (
+          <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
+            <img
+              src={`http://localhost:3002/images/${locationPhoto?.image}`}
+              // {...srcset(item.img, 121, item.rows, item.cols)}
+              alt={item.title}
+              loading="lazy"
+            />
+          </ImageListItem>
+        ))} */}
+      </ImageList>
       <CardContent>
         <Typography sx={{ color: 'azure' }} gutterBottom variant="h5" component="div">
           {title}
