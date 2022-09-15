@@ -35,7 +35,7 @@ export default function AllUsersTable({ delStatePotential }) {
     <>
       <div className="titleeH5"><h5>Все зарегистрированные пользователи</h5></div>
       {' '}
-      <Stack spacing={2} sx={{ width: 500, margin: '10px' }}>
+      <Stack spacing={2} sx={{ width: '70%', margin: '10px' }}>
         <Autocomplete
           freeSolo
           id="free-solo-2-demo"

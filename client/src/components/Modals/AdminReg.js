@@ -82,7 +82,8 @@ export default function AdminReg({ delPotentialAddUser }) {
           height: '100%',
           backdropFilter: 'blur(2.2px)',
           backgroundColor: 'rgb(30 33 47 / 36%)',
-          position: 'absolute'
+          position: 'absolute',
+          left: '0%'
 
         }}
       />
@@ -103,7 +104,7 @@ export default function AdminReg({ delPotentialAddUser }) {
           role="presentation"
           className="editForm"
         >
-          <List sx={{ paddingLeft: '40px', color: '#F0FFFF' }}>Регистрация пользователя</List>
+          <List sx={{ paddingLeft: '41px', color: '#F0FFFF' }}>Регистрация пользователя</List>
           <Divider />
           <List>
             <Box
@@ -114,7 +115,7 @@ export default function AdminReg({ delPotentialAddUser }) {
             >
               <TextField name="name" onChange={inpHandler} className="TextField" id="outlined-basic" label="Имя пользователя" variant="outlined" size="small" />
               <TextField name="email" onChange={inpHandler} className="TextField" id="outlined-basic" label="Электронная почта" variant="outlined" size="small" />
-              <MuiTelInput name="phone" value={phoneValue} onChange={phoneChange} />
+              <MuiTelInput name="phone" className="TextField" value={phoneValue} onChange={phoneChange} />
               <TextField type="password" onChange={inpHandler} name="password" className="TextField" id="outlined-basic" label="Пароль" variant="outlined" size="small" />
               <TextField type="password" onChange={inpHandler} name="repeatPassword" className="TextField" id="outlined-basic" label="Повторите пароль" variant="outlined" size="small" />
               <div>
@@ -128,7 +129,7 @@ export default function AdminReg({ delPotentialAddUser }) {
                     name="admin"
                     value={inpState.admin}
                     onChange={inpHandler}
-                    input={<OutlinedInput />}
+                    input={<OutlinedInput className="TextField" />}
                     renderValue={(selected) => {
                       if (selected.length === 0) {
                         return <em>Статус</em>;
