@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPostsThunk } from '../../redux/actions/postsAction';
 import PrivatePost from './PrivatePost';
+import './PrivatePost.css';
 
 export default function MainPrivate() {
   const posts = useSelector((store) => store.posts);

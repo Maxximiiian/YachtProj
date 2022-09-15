@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userSignInThunk } from '../../redux/actions/authActions';
 
-export default function SideBarFormLogIn() {
+export default function SideBarFormLogIn({ handleCloseUserMenu }) {
   const [state, setState] = React.useState({ right: false });
   const [input, setInput] = React.useState({});
   const [error, setError] = React.useState(false);
@@ -37,6 +37,7 @@ export default function SideBarFormLogIn() {
     dispatch(userSignInThunk(input));
     setInput({});
     toggleDrawer(false);
+    handleCloseUserMenu();
     nav('/');
   };
 

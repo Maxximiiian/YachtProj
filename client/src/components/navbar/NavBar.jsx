@@ -42,6 +42,7 @@ function NavBar() {
   };
 
   const handleCloseUserMenu = () => {
+    console.log('close usermenu');
     setAnchorElUser(null);
   };
 
@@ -74,7 +75,7 @@ function NavBar() {
               textDecoration: 'none'
             }}
           >
-            SAILING CLUB
+            THE SAILING CLUB
           </Typography>
           {user.id ? (
             <>
@@ -190,7 +191,7 @@ function NavBar() {
           )
             : (
               <div className="public-nav-bar" style={{ width: 'max-content', marginLeft: 'auto' }}>
-                <NavLink to="/"><SideBarFormLogIn /></NavLink>
+                <NavLink to="/"><SideBarFormLogIn handleCloseUserMenu={handleCloseUserMenu} /></NavLink>
               </div>
             ) }
         </Toolbar>

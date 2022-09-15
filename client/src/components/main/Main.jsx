@@ -13,8 +13,7 @@ export default function Main() {
   console.log(showComplited);
 
   return (
-    <div className="main-div" style={{}}>
-      <video src={video5} style={{ position: 'absolute', width: '100%' }} autoPlay loop muted />
+    <div className="main-div">
       {!user.id
       && (
         showComplited.status ? (<CompliteWindow />) : (<Info />)
