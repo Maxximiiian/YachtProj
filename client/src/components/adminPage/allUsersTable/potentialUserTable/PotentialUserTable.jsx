@@ -43,6 +43,7 @@ export default function PotentialUserTable({
           options={potentialUsres.map((user) => user.name)}
           renderInput={(params) => (
             <TextField
+              style={{ border: 'solid white' }}
               name="name"
               {...params}
               label="Поиск"
