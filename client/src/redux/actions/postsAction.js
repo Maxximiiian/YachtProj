@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   ADD_LIKE, ADD_POSTS, GET_POSTS, REMOVE_LIKE, REMOVE_POSTS
 } from '../types/types';
+import { addLocationPhoto, getLocationPhoto } from './photoLocationAction';
 
 export const addPostsAC = (payload) => ({ type: ADD_POSTS, payload });
 export const getPostsAC = (payload) => ({ type: GET_POSTS, payload });
@@ -13,6 +14,23 @@ export const AddPostsThunk = (input) => (dispatch) => {
   console.log(input);
   axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/posts`, input)
     .then((res) => dispatch(addPostsAC(res.data)))
+    .catch((error) => console.log(error));
+};
+export const AddPostsPhotoThunk = (data) => (dispatch) => {
+  console.log('input, file', data);
+  fetch(`${process.env.REACT_APP_BASEURL}/api/v1/postsphoto`, {
+    method: 'post',
+    // headers: {
+    //   'Content-Type': 'multipart/form-data'
+    // },
+    credentials: 'include',
+    body: data
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      dispatch(addPostsAC(res.newPost));
+      dispatch(addLocationPhoto(res.newPhoto));
+    })
     .catch((error) => console.log(error));
 };
 

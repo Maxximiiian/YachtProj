@@ -1,6 +1,6 @@
 const app = require('express').Router();
 // const multer = require('multer');
-const { UserPhoto } = require('../db/models');
+const { UserPhoto, LocationPhoto } = require('../db/models');
 const multer = require('../middlewares/multer');
 
 // const upload = multer({ dest: 'uploads/' });
@@ -44,5 +44,18 @@ app.post(
     }
   },
 );
+
+app.post('/getPhotoLocation', async (req, res) => {
+  const { id } = req.body;
+  console.log('=============>>>>>', req.body);
+
+  try {
+    const result = await LocationPhoto.findAll({ where: { userId: id } });
+    console.log('result', result);
+    res.json(result);
+  } catch (error) {
+    res.json(error);
+  }
+});
 
 module.exports = app;

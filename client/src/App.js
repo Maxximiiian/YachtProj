@@ -44,6 +44,7 @@ function App() {
   return (
     <>
       <Navbar />
+
       <Routes>
         {!auth
         && <Route path="/" element={<Info />} />}

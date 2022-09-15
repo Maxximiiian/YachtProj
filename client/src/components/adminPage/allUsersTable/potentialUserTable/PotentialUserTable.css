@@ -11,7 +11,7 @@
 }
 .userInfo {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: baseline;
 }
 /* import GroupAddIcon from '@mui/icons-material/GroupAdd'; иконка на добовление потенциального*/

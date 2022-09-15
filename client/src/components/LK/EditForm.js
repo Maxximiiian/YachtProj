@@ -31,12 +31,7 @@ export default function EditForm() {
     image: photoUser?.image
   });
 
-  const [imgAvatar, setImgAvatart] = useState();
-  const [inpFile, setInpFile] = useState(null);
   const inpHandlerUserInfo = (e) => setInpStateUserInfo(
-    (prev) => ({ ...prev, [e.target.name]: e.target.value })
-  );
-  const inpHandlerUserPhoto = (e) => setInpStateUserPhoto(
     (prev) => ({ ...prev, [e.target.name]: e.target.value })
   );
 
@@ -51,6 +46,7 @@ export default function EditForm() {
     try {
       const data = new FormData();
       data.append('avatar', inpStateUserPhoto.image);
+      console.log(data, 'data na fr');
       await fetch('api/v1/photo/changePhoto', {
         method: 'post',
         // headers: {
@@ -81,7 +77,7 @@ export default function EditForm() {
   return (
     <Box
       sx={{
-        height: '100%', margin: '15px'
+        height: '100%', MarginTop: '50px'
       }}
       role="presentation"
       className="editForm"

@@ -19,7 +19,7 @@ export default function ItemUser({ elem, DelUser }) {
     >
 
       <CardContent sx={{
-        display: 'flex', justifyContent: 'space-around', alignItems: 'baseline', backgroundColor: '#282b18d1', borderRadius: '14px'
+        display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', backgroundColor: '#282b18d1', borderRadius: '14px'
       }}
       >
         <CardHeader
