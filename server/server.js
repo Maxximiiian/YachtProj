@@ -11,7 +11,7 @@ const { send } = require('process');
 const nodemailer = require('nodemailer');
 
 const {
-  PotentialUser, User,
+  PotentialUser, User, Location, Way,
 } = require('./db/models');
 const postsRoutes = require('./Routes/postsRoutes');
 const locationRouter = require('./Routes/locationRouter');
@@ -150,6 +150,36 @@ app.post('/PotentialUserAdd', async (req, res) => {
     text: 'Ваша заявка принята!',
   };
   transporter.sendMail(mailOptions, (err) => console.error(err));
+  res.sendStatus(200);
+});
+app.post('/getAllUsersLocation', async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const allUserLocations = await Location.findAll({ where: { userId } });
+    res.json(allUserLocations);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+app.post('/getAllUsersTrips', async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const allUserTrips = await Way.findAll({ where: { userId } });
+
+    res.json(allUserTrips);
+  } catch (error) {
+    res.json(error);
+  }
+});
+app.delete('/userLocDel', async (req, res) => {
+  const { id } = req.body;
+  Location.destroy({ where: { id } });
+  res.sendStatus(200);
+});
+app.delete('/userTripDel', async (req, res) => {
+  const { id } = req.body;
+  Way.destroy({ where: { id } });
   res.sendStatus(200);
 });
 

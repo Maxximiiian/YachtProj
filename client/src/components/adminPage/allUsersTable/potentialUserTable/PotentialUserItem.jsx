@@ -46,11 +46,8 @@ export default function PotentialUserItem({ elem, DelUser2, delPotentialAddUser 
             <h6>{elem.phone}</h6>
           </Typography>
           <UserAboutButton onClickAbout={onClickAbout} />
-          <UserAddButton
-            delPotentialAddUser={delPotentialAddUser}
-            elem={elem}
-          />
-          <ButtunPotentialDell DelUser2={DelUser2} elem={elem} />
+          <UserAddButton delPotentialAddUser={delPotentialAddUser} elem={elem} />
+          <ButtunPotentialDell DelUser={DelUser2} elem={elem} />
         </div>
         {stateAbout && (
         <div className="userAbout">
