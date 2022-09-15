@@ -15,7 +15,6 @@ export default function Main() {
 
   return (
     <div className="main-div">
-    
       {!user.id
       && (
         showComplited.status ? (<CompliteWindow />) : (<Info />)

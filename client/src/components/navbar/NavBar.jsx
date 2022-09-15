@@ -125,15 +125,17 @@ function NavBar() {
                 >
                   Points
                 </Button>
-                <Button
-                  component={Link}
-                  to="/admin"
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  Admin
-                </Button>
-                )}
+                {user.admin ? (
+                  <Button
+                    component={Link}
+                    to="/admin"
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    Admin
+                  </Button>
+                ) : null }
+
                 {(window.location.href === 'http://localhost:3000/admin')
                 && (
                 <Button
