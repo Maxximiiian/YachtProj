@@ -12,7 +12,7 @@ export default function Main() {
   console.log(showComplited);
 
   return (
-    <div className="main-div" style={{}}>
+    <div className="main-div">
       {!user.id
       && (
         showComplited.status ? (<CompliteWindow />) : (<Info />)

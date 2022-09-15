@@ -17,7 +17,7 @@ export default function PrivatePost({ post }) {
     <Box
       className="box"
       sx={{
-        backgroundColor: '#070705bd !important',
+        backgroundColor: '#07070575!important',
         borderRadius: '25px',
         margin: '10px',
         marginLeft: 'auto'
