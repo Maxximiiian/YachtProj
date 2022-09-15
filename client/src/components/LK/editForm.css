@@ -30,10 +30,11 @@ position: initial;
 .css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input{
     background:#aeafaf60 !important;
 }
-.css-h4y409-MuiList-root {
-    padding-left: 30px !important;
-}
+
 .css-1ivbec4-MuiList-root {
     padding-left: 15px !important;
 }
 /* sx={{ backgroundColor: 'transparent', color: '#F0FFFF' }} */
+.css-1cbi2ef {
+    margin-left: 30px;
+}
