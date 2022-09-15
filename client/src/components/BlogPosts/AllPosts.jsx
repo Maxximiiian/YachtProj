@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   addBestPostThunk, getAllPostsThunk, removelikeThunk, removePostThunk
 } from '../../redux/actions/postsAction';
+import './BlogPosts.css';
 
 export default function AllPosts({ post }) {
   const { locationPhoto } = useSelector((state) => state);
@@ -70,7 +71,9 @@ export default function AllPosts({ post }) {
       />
       {/* <img src={`http://localhost:3002/images/${locationPhoto?.image}`} alt="hui" /> */}
       <ImageList
-        sx={{ width: 200, height: 150, alignItems: 'center' }}
+        sx={{
+          width: 200, height: 150, alignItems: 'center', marginLeft: '40px', borderRadius: '30px'
+        }}
         variant="quilted"
       >
         {locationPhoto[0][0]?.image ? (
