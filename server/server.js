@@ -146,8 +146,8 @@ app.post('/PotentialUserAdd', async (req, res) => {
   const mailOptions = {
     from: process.env.EMAIL,
     to: `${email}`,
-    subject: 'Привет, это ЯхтКлуб!',
-    text: 'Ваша заявка принята!',
+    subject: 'Сообщение от The Sailing Club',
+    text: `Добрый день, уважаемый ${name}! Ваша заявка на регистрацию в нашем сервисе для выпускников успешно одобрена! Для входа на сайт, пожалуйста, используйте пароль: "123", а также Ваш электронный адрес: ${email}. Приятных Вам путешействий и попутного ветра!`,
   };
   transporter.sendMail(mailOptions, (err) => console.error(err));
   res.sendStatus(200);

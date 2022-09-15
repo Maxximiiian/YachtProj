@@ -8,10 +8,14 @@ import TextField from '@mui/material/TextField';
 import './SideBarFormLogIn.css';
 import { Avatar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { userSignInThunk } from '../../redux/actions/authActions';
+import { getUserPhotoThunk } from '../../redux/actions/photoActions';
 
-export default function SideBarFormLogIn() {
+
+export default function SideBarFormLogIn({ handleCloseUserMenu }) {
+ const auth = useSelector((state) => state.auth);
   const [state, setState] = React.useState({ right: false });
   const [input, setInput] = React.useState({});
   const [error, setError] = React.useState(false);
@@ -35,10 +39,13 @@ export default function SideBarFormLogIn() {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(userSignInThunk(input));
+    // dispatch(getUserPhotoThunk(auth.id));
     setInput({});
     toggleDrawer(false);
+    handleCloseUserMenu();
     nav('/');
   };
+
 
   // onClick={() => setState((prev) => ({ ...prev, [anchor]: false }))}
 
