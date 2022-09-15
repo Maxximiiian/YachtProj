@@ -33,12 +33,14 @@ export default function AdminPage() {
 
   return (
     <div className="general">
-      <PotentialUserTable
-        delStatePotential={delStatePotential}
-        setDelStatePotential={setDelStatePotential}
-        delPotentialAddUser={delPotentialAddUser}
-      />
-      <div>
+      <div className="PotentialUserTable">
+        <PotentialUserTable
+          delStatePotential={delStatePotential}
+          setDelStatePotential={setDelStatePotential}
+          delPotentialAddUser={delPotentialAddUser}
+        />
+      </div>
+      <div className="AllUsersTable">
         <AllUsersTable delStatePotential={delStatePotential} />
         {showForm && (<AdminReg />)}
       </div>

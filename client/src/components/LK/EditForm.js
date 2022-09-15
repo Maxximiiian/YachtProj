@@ -81,7 +81,7 @@ export default function EditForm() {
   return (
     <Box
       sx={{
-        height: '100%', margin: '15px'
+        height: '100%', MarginTop: '50px'
       }}
       role="presentation"
       className="editForm"

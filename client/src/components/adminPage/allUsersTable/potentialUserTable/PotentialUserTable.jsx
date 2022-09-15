@@ -35,7 +35,7 @@ export default function PotentialUserTable({
     <div className="conteiner3">
       <div className="titleeH5"><h5>Потенциальнае пользователи</h5></div>
 
-      <Stack spacing={2} sx={{ width: 500, margin: '10px' }}>
+      <Stack spacing={2} sx={{ width: '70%', margin: '10px' }}>
         <Autocomplete
           freeSolo
           id="free-solo-2-demo"
