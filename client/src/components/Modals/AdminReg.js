@@ -79,11 +79,12 @@ export default function AdminReg({ delPotentialAddUser }) {
         className="background"
         style={{
           width: '100%',
-          height: '100%',
+          height: '220%',
           backdropFilter: 'blur(2.2px)',
           backgroundColor: 'rgb(30 33 47 / 36%)',
           position: 'absolute',
-          left: '0%'
+          left: '0%',
+          top: '9%'
 
         }}
       />
@@ -94,7 +95,9 @@ export default function AdminReg({ delPotentialAddUser }) {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          position: 'absolute'
+          position: 'relative',
+          left: '-60%',
+          top: '-110%'
         }}
       >
         <Box

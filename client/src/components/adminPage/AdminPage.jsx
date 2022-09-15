@@ -9,6 +9,7 @@ export default function AdminPage() {
   const [delStatePotential, setDelStatePotential] = useState(0);
 
   const { showForm } = useSelector((store) => store);
+  console.log(showForm, 'ccccccccccccccccccccccccc');
 
   const delPotentialAddUser = async (id, elem) => {
     console.log('function start');
