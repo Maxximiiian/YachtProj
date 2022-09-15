@@ -16,6 +16,7 @@ export const AddPostsThunk = (input) => (dispatch) => {
     .then((res) => dispatch(addPostsAC(res.data)))
     .catch((error) => console.log(error));
 };
+
 export const AddPostsPhotoThunk = (data) => (dispatch) => {
   console.log('input, file', data);
   fetch(`${process.env.REACT_APP_BASEURL}/api/v1/posts`, {
@@ -28,8 +29,8 @@ export const AddPostsPhotoThunk = (data) => (dispatch) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      dispatch(addPostsAC(res.newPost));
-      dispatch(addLocationPhoto(res.newPhoto));
+      dispatch(addPostsAC(res));
+      // dispatch(addLocationPhoto(res.newPhoto));
     })
     .catch((error) => console.log(error));
 };
@@ -71,11 +72,27 @@ export const getAllLocationPostsThunk = (pickedBaloon) => (dispatch) => {
   }).then((res) => res.json())
     // .then((res) => console.log(res))
     .then((data) => {
-      dispatch(getPostsAC(data.currLocationPosts));
-      dispatch(getLocationPhoto(data.currLocationPhotos));
+      dispatch(getPostsAC(data));
     })
     .catch((err) => console.log(err));
 };
+
+// export const AddPostsPhotoThunk = (data) => (dispatch) => {
+//   console.log('input, file', data);
+//   fetch(`${process.env.REACT_APP_BASEURL}/api/v1/posts`, {
+//     method: 'post',
+//     // headers: {userId
+//     //   'Content-Type': 'multipart/form-data'
+//     // },
+//     credentials: 'include',
+//     body: data
+//   })
+//     .then((res) => res.json())
+//     .then((res) => {
+//       dispatch(addPostsAC(res));
+//       // dispatch(addLocationPhoto(res.newPhoto));
+//     })
+//     .catch((error) => console.log(error));
 
 export const removePostThunk = (id) => (dispatch) => {
   console.log(id);

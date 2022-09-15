@@ -343,8 +343,6 @@ export default function WaysMap() {
   return (
     <div>
       <div id="map" className="mapContainer">
-        <button type="button" id="set-balloon-header" className="btn">Задать заголовок балуна</button>
-        <button type="button" id="set-balloon-content" className="btn">Задать содержимое балуна</button>
         <WaysSidebar
           blogPostsState={blogPostsState}
           setBlogPostsState={setBlogPostsState}
