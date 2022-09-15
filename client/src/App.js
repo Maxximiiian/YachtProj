@@ -19,6 +19,7 @@ import { getUserPhotoThunk } from './redux/actions/photoActions';
 
 function App() {
   const auth = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
   console.log(auth);
   // const { loading } = useSelector((s) => s);
   // const dispatch = useDispatch();
@@ -37,10 +38,10 @@ function App() {
   //     });
   // }, []);
 
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userCheck());
   }, []);
+
   useEffect(() => {
     if (auth.id) {
       dispatch(getUserPhotoThunk(auth.id));
