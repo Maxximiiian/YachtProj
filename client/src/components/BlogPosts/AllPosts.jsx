@@ -13,7 +13,7 @@ import {
 
 export default function AllPosts({ post }) {
   const { locationPhoto } = useSelector((state) => state);
-  console.log(locationPhoto);
+  console.log('TOCHNO BLYS TO VHTO NYDHNGFNFGn', locationPhoto?.[0]?.[0]?.image);
   const {
     title, body, locationId, wayId, User, createdAt, Likes
   } = post;
@@ -70,18 +70,19 @@ export default function AllPosts({ post }) {
       />
       {/* <img src={`http://localhost:3002/images/${locationPhoto?.image}`} alt="hui" /> */}
       <ImageList
-        sx={{ width: 50, height: 45 }}
+        sx={{ width: 200, height: 150, alignItems: 'center' }}
         variant="quilted"
       >
-
-        <ImageListItem key={locationPhoto?.image}>
-          <img
-            src={`http://localhost:3002/images/${locationPhoto[0]?.image}`}
+        {locationPhoto[0][0]?.image ? (
+          <ImageListItem key={locationPhoto[0]?.image}>
+            <img
+              src={`http://localhost:3002/images/${locationPhoto?.[0]?.[0]?.image}`}
               // {...srcset(item.img, 121, item.rows, item.cols)}
-            alt="img"
-            loading="lazy"
-          />
-        </ImageListItem>
+              alt="img"
+              loading="lazy"
+            />
+          </ImageListItem>
+        ) : <></>}
 
         {/* {locationPhoto.map((item) => (
           <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
