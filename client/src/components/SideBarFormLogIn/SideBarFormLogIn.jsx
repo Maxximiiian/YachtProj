@@ -13,9 +13,9 @@ import { useEffect } from 'react';
 import { userSignInThunk } from '../../redux/actions/authActions';
 import { getUserPhotoThunk } from '../../redux/actions/photoActions';
 
-export default function SideBarFormLogIn() {
-  const auth = useSelector((state) => state.auth);
 
+export default function SideBarFormLogIn({ handleCloseUserMenu }) {
+ const auth = useSelector((state) => state.auth);
   const [state, setState] = React.useState({ right: false });
   const [input, setInput] = React.useState({});
   const [error, setError] = React.useState(false);
@@ -42,6 +42,7 @@ export default function SideBarFormLogIn() {
     // dispatch(getUserPhotoThunk(auth.id));
     setInput({});
     toggleDrawer(false);
+    handleCloseUserMenu();
     nav('/');
   };
 

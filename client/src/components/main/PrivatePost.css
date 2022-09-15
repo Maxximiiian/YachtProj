@@ -1,12 +1,85 @@
 .container-main{
     display: flex;
     justify-content: center;
-    margin-left: 60%;
-    margin-right: 10%;
-    margin-top: 1rem;
+    margin-top: 3.3rem;
     flex-flow: column;
 }
 
 .box{
     width: 35rem;
 }
+
+@property --rotate {
+    syntax: "<angle>";
+    initial-value: 132deg;
+    inherits: false;
+  }
+  
+  :root {
+    --card-height: 80vh;
+    --card-width: calc(var(--card-height) / 1);
+  }
+  
+  .box {
+    padding: 3px;
+    position: relative;
+    border-radius: 6px;
+    align-content: flex-start;
+    justify-content: flex-end;
+    font-size: 1.5em;
+    color: rgb(88 199 250 / 0%);
+    cursor: pointer;
+    font-family: cursive;
+  }
+  
+  .box:hover {
+    color: #070705bd(88 199 250 / 100%);
+    transition: color 1s;
+  }
+  
+  .box:hover:before, .card:hover:after {
+    animation: none;
+    opacity: 0;
+  }
+  
+  
+  .box::before {
+    content: "";
+    background-image: linear-gradient(
+      var(--rotate)
+      , #5ddcff, #070506bd 50%, #070705bd);
+      position: absolute;
+      z-index: -1;
+      top: -1%;
+      left: -2%;
+      animation: spin 2.5s linear infinite;
+  }
+  
+  .box::after {
+    position: absolute;
+    content: "";
+    top: calc(var(--card-height) / 6);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    filter: blur(calc(var(--card-height) / 6));
+    background-image: linear-gradient(
+      var(--rotate)
+      ,  #5ddcff, #070506bd 50%, #070705bd);
+      opacity: 1;
+    transition: opacity .5s;
+    animation: spin 3s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      --rotate: 0deg;
+    }
+    100% {
+      --rotate: 360deg;
+    }
+  }
