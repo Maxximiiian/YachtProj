@@ -31,12 +31,7 @@ export default function EditForm() {
     image: photoUser?.image
   });
 
-  const [imgAvatar, setImgAvatart] = useState();
-  const [inpFile, setInpFile] = useState(null);
   const inpHandlerUserInfo = (e) => setInpStateUserInfo(
-    (prev) => ({ ...prev, [e.target.name]: e.target.value })
-  );
-  const inpHandlerUserPhoto = (e) => setInpStateUserPhoto(
     (prev) => ({ ...prev, [e.target.name]: e.target.value })
   );
 
@@ -51,6 +46,7 @@ export default function EditForm() {
     try {
       const data = new FormData();
       data.append('avatar', inpStateUserPhoto.image);
+      console.log(data, 'data na fr');
       await fetch('api/v1/photo/changePhoto', {
         method: 'post',
         // headers: {
@@ -100,7 +96,6 @@ export default function EditForm() {
           <TextField name="email" className="TextField" id="outlined-basic" onChange={inpHandlerUserInfo} label={auth.email} variant="outlined" size="small" />
           <Button className="buttonEdit" onClick={changeHandler} variant="outlined">Изменить данные</Button>
 
-          <TextField name="image" className="TextField" id="outlined-basic" onChange={inpHandlerUserPhoto} label={photoUser?.image || 'Ссылка на Вашу фотографию'} variant="outlined" size="small" />
           <IconButton color="primary" aria-label="upload picture" component="label">
             <input
               hidden

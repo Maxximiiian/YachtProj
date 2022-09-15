@@ -1,6 +1,7 @@
 import * as React from 'react';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CardHeader from '@mui/material/CardHeader';
 import { red } from '@mui/material/colors';
 import {
@@ -14,14 +15,16 @@ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import SendIcon from '@mui/icons-material/Send';
 import './BlogPosts.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { AddPostsThunk, getAllPostsThunk } from '../../redux/actions/postsAction';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { AddPostsPhotoThunk, AddPostsThunk, getAllPostsThunk } from '../../redux/actions/postsAction';
 import { addLocationAC } from '../../redux/actions/locationsAction';
 import AllPosts from './AllPosts';
+import { getPhotoLocationThunk } from '../../redux/actions/photoLocationAction';
 
 export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCoords }) {
-  const { auth } = useSelector((state) => state);
+  const { auth, locationPhoto } = useSelector((state) => state);
   const [locationInput, setLocationInput] = useState({ coords: currentCoords, name: '', userId: auth.id });
 
   const changeLocationInputHandler = (e) => {
@@ -35,8 +38,13 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
   const [addPost, setAddPost] = React.useState(false);
   const [addLocation, setAddLocation] = React.useState(false);
   const [input, setInput] = useState({});
+  const [inpStatelocationPhoto, setinpStatelocationPhoto] = useState({
+    image: null
+  });
   const dispatch = useDispatch();
   const posts = useSelector((store) => store.posts);
+
+  console.log(inpStatelocationPhoto);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -56,11 +64,41 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
   const handleTextBodyInputChange = (e) => {
     setInput((prev) => ({ ...prev, body: e.target.value }));
   };
+  // const locationPhotoHandler = (file) => {
+  //   console.log('file', file);
+  //   setinpStatelocationPhoto((prev) => ({ ...prev, file }));
+  // };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(AddPostsThunk(input));
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!', inpStatelocationPhoto.image);
+    const data = new FormData();
+    data.append('photoLocation', inpStatelocationPhoto.image);
+    data.append('title', input.title);
+    data.append('body', input.body);
+    console.log('data', data);
+    dispatch(AddPostsPhotoThunk(data));
   };
+
+  // const sendPhotoLocation = useCallback(async () => {
+  //   try {
+  //     const data = new FormData();
+  //     data.append('avatar', inpStatelocationPhoto.image);
+  //     await fetch('api/v1/photo/changePhoto', {
+  //       method: 'post',
+
+  //       credentials: 'include',
+  //       body: data
+  //     }).then((res) => res.json())
+  //       .then((res) => {
+  //         console.log(res);
+
+  //         // dispatch(getUserPhoto(res));
+  //       });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, [inpStatelocationPhoto]);
 
   const locationAddHandler = async (e) => {
     e.preventDefault();
@@ -78,6 +116,9 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
 
   useEffect(() => {
     dispatch(getAllPostsThunk());
+  }, []);
+  useEffect(() => {
+    dispatch(getPhotoLocationThunk());
   }, []);
 
   const list = (anchor) => (
@@ -115,6 +156,18 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
             <CardContent>
               <TextField className="TextField" name="title" value={input.title} onChange={handleTextTitleInputChange} fullWidth size="small" placeholder="Заголовок" color="info" />
               <TextField className="TextField" name="body" value={input.body} onChange={handleTextBodyInputChange} fullWidth size="large" placeholder="Текст" sx={{ marginTop: '2rem', textColor: 'primary' }} />
+              <IconButton color="primary" aria-label="upload picture" component="label">
+                <input
+                  hidden
+                  accept="image/*"
+                  type="file"
+              // onChange={(e) => setInpStateUserPhoto({ imageimage: e.target.files[0] })}
+                  onChange={(e) => setinpStatelocationPhoto({ image: e.target.files[0] })}
+                />
+                <AttachFileIcon sx={{ color: 'azure' }} />
+              </IconButton>
+              <Button type="submit" sx={{ backgroundColor: 'transparent', color: 'azure' }} endIcon={<PhotoCamera />} />
+
               <Button type="submit" onClick={submitHandler} sx={{ backgroundColor: 'transparent', color: 'azure', marginLeft: '40%' }} endIcon={<SendIcon />}>
                 Добавить
               </Button>
@@ -145,6 +198,7 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
 
   return (
     <div style={{ width: 'max-content', marginLeft: 'auto' }}>
+
       {['right'].map((anchor) => (
         <React.Fragment key={anchor}>
 
