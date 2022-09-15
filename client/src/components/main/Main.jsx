@@ -4,7 +4,7 @@ import CompliteWindow from '../info/CompliteWindow';
 import Info from '../info/Info';
 import MainPrivate from './MainPrivate';
 import NewsBlog from './NewsBlog';
-// import video5 from '../../assests/video5.mp4';
+import volvo from '../../assests/Volvo.mp4';
 
 export default function Main() {
   const user = useSelector((store) => store.auth);
@@ -15,6 +15,7 @@ export default function Main() {
 
   return (
     <div className="main-div">
+    
       {!user.id
       && (
         showComplited.status ? (<CompliteWindow />) : (<Info />)

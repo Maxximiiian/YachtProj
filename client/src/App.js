@@ -16,9 +16,11 @@ import Ways from './components/Ways/Ways';
 import { setAuthAC, userCheck } from './redux/actions/authActions';
 import { unsetLoad } from './redux/actions/loadActions';
 import { getUserPhotoThunk } from './redux/actions/photoActions';
+import volvo from './assests/Volvo.mp4';
 
 function App() {
   const auth = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
   console.log(auth);
   // const { loading } = useSelector((s) => s);
   // const dispatch = useDispatch();
@@ -37,10 +39,10 @@ function App() {
   //     });
   // }, []);
 
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userCheck());
   }, []);
+
   useEffect(() => {
     if (auth.id) {
       dispatch(getUserPhotoThunk(auth.id));
@@ -49,12 +51,26 @@ function App() {
 
   return (
     <>
+      <video
+        src={volvo}
+        style={{
+          position: 'fixed',
+          height: '100vh',
+          width: '100vw',
+          backgroundSize: 'cover',
+          objectFit: 'fill',
+          backgroundPosition: 'center center'
+        }}
+        autoPlay
+        loop
+        muted
+      />
       <Navbar />
-
-      <Routes>
-        {!auth
+      <div style={{ position: 'relative' }}>
+        <Routes>
+          {!auth
         && <Route path="/" element={<Info />} />}
-        {auth
+          {auth
         && (
         <>
           <Route path="/" element={<Main />} />
@@ -64,7 +80,8 @@ function App() {
           {/* <Route path="/adminreg" element={<PersonalPage />} /> */}
         </>
         )}
-      </Routes>
+        </Routes>
+      </div>
     </>
   );
 }

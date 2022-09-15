@@ -1,7 +1,7 @@
 .container-main{
     display: flex;
     justify-content: center;
-    margin-top: 3.3rem;
+    margin-top: 3rem;
     flex-flow: column;
 }
 

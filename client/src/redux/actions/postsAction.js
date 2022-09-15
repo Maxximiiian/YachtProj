@@ -37,7 +37,6 @@ export const AddPostsPhotoThunk = (data) => (dispatch) => {
 
 export const getAllPostsThunk = () => (dispatch) => {
   axios.get(`${process.env.REACT_APP_BASEURL}/api/v1/posts`)
-    .then((res) => console.log(res))
     .then((res) => dispatch(getPostsAC(res.data)))
     .catch((err) => console.log(err));
 };

@@ -9,7 +9,7 @@ export default (state = {}, action) => {
       return payload[0];
 
       // case UNSET_LOAD:
-      //   return false;
+      //   return false;s
 
     default:
       return state;

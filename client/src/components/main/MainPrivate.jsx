@@ -9,6 +9,7 @@ export default function MainPrivate() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllPostsThunk());
+    console.log('/////////', posts);
   }, []);
 
   return (
