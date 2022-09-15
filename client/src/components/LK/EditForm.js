@@ -56,13 +56,6 @@ export default function EditForm() {
         body: data
       }).then((res) => res.json())
         .then((res) => {
-          console.log(res);
-
-          // dispatch(getUserPhoto())
-          // const resPath = res.data.path;
-          // const fileP = resPath.split('/');
-          // setAvatar(`/Images/${fileP[fileP.length - 1]}`);
-          // dispatch(setUserImgTHUNK({ str: `/Images/${fileP[fileP.length - 1]}`, id }));
           dispatch(getUserPhoto(res));
         });
       // axios.post('api/v1/photo/changePhoto', data, {

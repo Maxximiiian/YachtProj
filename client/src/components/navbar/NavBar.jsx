@@ -79,6 +79,7 @@ function NavBar() {
           </Typography>
           {user.id ? (
             <>
+              {/* {auth.admin === true ? ()} */}
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
                   size="large"
@@ -132,6 +133,9 @@ function NavBar() {
                 >
                   Ways
                 </Button>
+
+                {user.admin
+                && (
                 <Button
                   component={Link}
                   to="/admin"
@@ -140,6 +144,7 @@ function NavBar() {
                 >
                   Admin
                 </Button>
+                )}
                 {(window.location.href === 'http://localhost:3000/admin')
                 && (
                 <Button

@@ -91,13 +91,13 @@ export default function AdminReg({ delPotentialAddUser }) {
       <Container
         maxWidth="sm"
         sx={{
-          padding: 7,
+          padding: 5,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           position: 'relative',
-          left: '-60%',
-          top: '-110%'
+          left: '-80%',
+          top: '-70%'
         }}
       >
         <Box

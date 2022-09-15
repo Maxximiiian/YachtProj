@@ -13,7 +13,7 @@ import {
 
 export default function AllPosts({ post }) {
   const { locationPhoto } = useSelector((state) => state);
-  console.log('TOCHNO BLYS TO VHTO NYDHNGFNFGn', locationPhoto?.[0]?.[0]?.image);
+  console.log('TOCHNO BLYS TO VHTO NYDHNGFNFGn', locationPhoto);
   const {
     title, body, locationId, wayId, User, createdAt, Likes
   } = post;
@@ -82,7 +82,7 @@ export default function AllPosts({ post }) {
               loading="lazy"
             />
           </ImageListItem>
-        ) : <></>}
+        ) : <div />}
 
         {/* {locationPhoto.map((item) => (
           <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
