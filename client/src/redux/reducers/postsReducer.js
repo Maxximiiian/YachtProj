@@ -9,6 +9,7 @@ const postsReducer = (state = [], action) => {
     case ADD_POSTS:
       return [payload, ...state];
     case GET_POSTS:
+      console.log(payload, 'payload>>>>>>>>>>');
       return payload;
     case ADD_LIKE:
       return state.map((el) => {
