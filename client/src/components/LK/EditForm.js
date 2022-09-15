@@ -77,7 +77,7 @@ export default function EditForm() {
   return (
     <Box
       sx={{
-        height: '100%', margin: '15px'
+        height: '100%', MarginTop: '50px'
       }}
       role="presentation"
       className="editForm"
@@ -95,7 +95,6 @@ export default function EditForm() {
           <TextField name="phone" className="TextField" id="outlined-basic" onChange={inpHandlerUserInfo} label={auth.phone} variant="outlined" size="small" />
           <TextField name="email" className="TextField" id="outlined-basic" onChange={inpHandlerUserInfo} label={auth.email} variant="outlined" size="small" />
           <Button className="buttonEdit" onClick={changeHandler} variant="outlined">Изменить данные</Button>
-
           <IconButton color="primary" aria-label="upload picture" component="label">
             <input
               hidden

@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable react/jsx-props-no-spreading */
 import { Autocomplete, Stack, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import PotentialUserItem from './PotentialUserItem';
@@ -33,7 +35,7 @@ export default function PotentialUserTable({
     <div className="conteiner3">
       <div className="titleeH5"><h5>Потенциальнае пользователи</h5></div>
 
-      <Stack spacing={2} sx={{ width: 500, margin: '10px' }}>
+      <Stack spacing={2} sx={{ width: '70%', margin: '10px' }}>
         <Autocomplete
           freeSolo
           id="free-solo-2-demo"
@@ -53,14 +55,16 @@ export default function PotentialUserTable({
           )}
         />
       </Stack>
-      {potentialUsres && potentialUsres.filter((user) => (potentUserSearchState ? user.name.includes(potentUserSearchState) : true)).map((elem) => (
-        <PotentialUserItem
-          key={elem.id}
-          elem={elem}
-          DelUser2={DelUser2}
-          delPotentialAddUser={delPotentialAddUser}
-        />
-      ))}
+      {potentialUsres && potentialUsres
+        .filter((user) => (potentUserSearchState ? user.name.includes(potentUserSearchState) : true))
+        .map((elem) => (
+          <PotentialUserItem
+            key={elem.id}
+            elem={elem}
+            DelUser2={DelUser2}
+            delPotentialAddUser={delPotentialAddUser}
+          />
+        ))}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import {
   ADD_LIKE, ADD_POSTS, GET_POSTS, REMOVE_LIKE, REMOVE_POSTS
 } from '../types/types';

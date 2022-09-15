@@ -6,24 +6,22 @@ import { red } from '@mui/material/colors';
 import {
   Avatar, Box, Button, ButtonGroup, IconButton, SwipeableDrawer, TextField
 } from '@mui/material';
-import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import ToggleButton from '@mui/material/ToggleButton';
-import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
-import DoubleArrowSharpIcon from '@mui/icons-material/DoubleArrowSharp';
-import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
-import SendIcon from '@mui/icons-material/Send';
 
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ButtonDel from '../../buttonDel/ButtonDel';
 import UserAddButton from './userAddButton/UserAddButton';
 import UserAboutButton from './userAboutButton/UserAbotButton';
 import ButtunPotentialDell from './ButtunPotentialDell';
+import { SET_SHOW_FORM } from '../../../../redux/types/types';
 
 export default function PotentialUserItem({ elem, DelUser2, delPotentialAddUser }) {
   const [stateAbout, setStateAbout] = useState(false);
+
   const onClickAbout = () => {
     setStateAbout(!stateAbout);
   };
+
   return (
     <Box sx={{
       backgroundColor: '#f8f9fa24',
@@ -49,7 +47,7 @@ export default function PotentialUserItem({ elem, DelUser2, delPotentialAddUser 
           </Typography>
           <UserAboutButton onClickAbout={onClickAbout} />
           <UserAddButton delPotentialAddUser={delPotentialAddUser} elem={elem} />
-          <ButtunPotentialDell DelUser2={DelUser2} elem={elem} />
+          <ButtunPotentialDell DelUser={DelUser2} elem={elem} />
         </div>
         {stateAbout && (
         <div className="userAbout">

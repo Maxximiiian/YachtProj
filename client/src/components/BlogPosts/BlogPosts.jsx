@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import { AddPostsPhotoThunk, AddPostsThunk, getAllPostsThunk } from '../../redux/actions/postsAction';
+import { AddPostsPhotoThunk, AddPostsThunk, getAllPostsThunk, getAllLocationPostsThunk } from '../../redux/actions/postsAction';
 import { addLocationAC } from '../../redux/actions/locationsAction';
 import AllPosts from './AllPosts';
 import { getPhotoLocationThunk } from '../../redux/actions/photoLocationAction';
@@ -41,6 +41,7 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
   const [inpStatelocationPhoto, setinpStatelocationPhoto] = useState({
     image: null
   });
+  
   const dispatch = useDispatch();
   const posts = useSelector((store) => store.posts);
 
@@ -70,6 +71,7 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
   // };
 
   const submitHandler = (e) => {
+    console.log('inputData', input);
     e.preventDefault();
     console.log('!!!!!!!!!!!!!!!!!!!!!!!', inpStatelocationPhoto.image);
     const data = new FormData();
@@ -78,6 +80,7 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
     data.append('body', input.body);
     console.log('data', data);
     dispatch(AddPostsPhotoThunk(data));
+    dispatch(AddPostsThunk({ ...input, coords: pickedBaloon }));
   };
 
   // const sendPhotoLocation = useCallback(async () => {
@@ -114,12 +117,20 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
     }
   };
 
-  useEffect(() => {
-    dispatch(getAllPostsThunk());
-  }, []);
+  console.log('pickedBaloon=====', pickedBaloon);
+
   useEffect(() => {
     dispatch(getPhotoLocationThunk());
   }, []);
+  
+  useEffect(() => {
+    console.log('=========', pickedBaloon);
+    if (pickedBaloon) {
+      dispatch(getAllLocationPostsThunk(pickedBaloon));
+    } else {
+      dispatch(getAllPostsThunk());
+    }
+  }, [pickedBaloon]);
 
   const list = (anchor) => (
     <Box
@@ -152,10 +163,11 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
       </Box>
       {!addPost ? null
         : (
-          <Box component="form" onSubmit={submitHandler}>
+          <Box component="form">
             <CardContent>
               <TextField className="TextField" name="title" value={input.title} onChange={handleTextTitleInputChange} fullWidth size="small" placeholder="Заголовок" color="info" />
               <TextField className="TextField" name="body" value={input.body} onChange={handleTextBodyInputChange} fullWidth size="large" placeholder="Текст" sx={{ marginTop: '2rem', textColor: 'primary' }} />
+
               <IconButton color="primary" aria-label="upload picture" component="label">
                 <input
                   hidden
@@ -168,7 +180,8 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
               </IconButton>
               <Button type="submit" sx={{ backgroundColor: 'transparent', color: 'azure' }} endIcon={<PhotoCamera />} />
 
-              <Button type="submit" onClick={submitHandler} sx={{ backgroundColor: 'transparent', color: 'azure', marginLeft: '40%' }} endIcon={<SendIcon />}>
+              <Button type="button" onClick={submitHandler} sx={{ backgroundColor: 'transparent', color: 'azure', marginLeft: '40%' }} endIcon={<SendIcon />}>
+
                 Добавить
               </Button>
             </CardContent>

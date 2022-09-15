@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
 import './AllUsersTable.css';
 import TextField from '@mui/material/TextField';
@@ -34,7 +35,7 @@ export default function AllUsersTable({ delStatePotential }) {
     <>
       <div className="titleeH5"><h5>Все зарегистрированные пользователи</h5></div>
       {' '}
-      <Stack spacing={2} sx={{ width: 500, margin: '10px' }}>
+      <Stack spacing={2} sx={{ width: '70%', margin: '10px' }}>
         <Autocomplete
           freeSolo
           id="free-solo-2-demo"
@@ -55,13 +56,15 @@ export default function AllUsersTable({ delStatePotential }) {
         />
       </Stack>
       <div className="conteiner2">
-        {allUsers && allUsers.filter((user) => (allUserSearchState ? user.name.includes(allUserSearchState) : true)).map((elem) => (
-          <ItemUser
-            key={elem.id}
-            elem={elem}
-            DelUser={DelUser}
-          />
-        ))}
+        {allUsers && allUsers
+          .filter((user) => (allUserSearchState ? user.name.includes(allUserSearchState) : true))
+          .map((elem) => (
+            <ItemUser
+              key={elem.id}
+              elem={elem}
+              DelUser={DelUser}
+            />
+          ))}
       </div>
     </>
   );
