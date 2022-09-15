@@ -50,8 +50,8 @@ export default function PersonalPage() {
             <EditIcon className="EditIcon" />
           </IconButton>
 
-        <Avatar alt="photo" src={photoUser?.image ? `http://localhost:3002/images/${photoUser?.image}` : ''} sx={{ width: 250, height: 250 }} />
-        <h3>{auth.name || 'User Name'}</h3>
+          <Avatar alt="photo" src={photoUser?.image ? `http://localhost:3002/images/${photoUser?.image}` : ''} sx={{ width: 250, height: 250 }} />
+          <h3>{auth.name || 'User Name'}</h3>
 
         </div>
         {editFormState ? <EditForm /> : null}

@@ -18,9 +18,9 @@ export const AddPostsThunk = (input) => (dispatch) => {
 };
 export const AddPostsPhotoThunk = (data) => (dispatch) => {
   console.log('input, file', data);
-  fetch(`${process.env.REACT_APP_BASEURL}/api/v1/postsphoto`, {
+  fetch(`${process.env.REACT_APP_BASEURL}/api/v1/posts`, {
     method: 'post',
-    // headers: {
+    // headers: {userId
     //   'Content-Type': 'multipart/form-data'
     // },
     credentials: 'include',
@@ -70,7 +70,10 @@ export const getAllLocationPostsThunk = (pickedBaloon) => (dispatch) => {
     body: JSON.stringify({ pickedBaloon })
   }).then((res) => res.json())
     // .then((res) => console.log(res))
-    .then((data) => dispatch(getPostsAC(data)))
+    .then((data) => {
+      dispatch(getPostsAC(data.currLocationPosts));
+      dispatch(getLocationPhoto(data.currLocationPhotos));
+    })
     .catch((err) => console.log(err));
 };
 

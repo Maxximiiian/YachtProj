@@ -15,6 +15,7 @@ import RequireAuth from './components/RequireAuth/RequireAuth';
 import Ways from './components/Ways/Ways';
 import { setAuthAC, userCheck } from './redux/actions/authActions';
 import { unsetLoad } from './redux/actions/loadActions';
+import { getUserPhotoThunk } from './redux/actions/photoActions';
 
 function App() {
   const auth = useSelector((store) => store.auth);
@@ -40,6 +41,11 @@ function App() {
   useEffect(() => {
     dispatch(userCheck());
   }, []);
+  useEffect(() => {
+    if (auth.id) {
+      dispatch(getUserPhotoThunk(auth.id));
+    }
+  }, [auth]);
 
   return (
     <>

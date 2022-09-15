@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {
-  Location, Post, User, Like,
+  Location, Post, User, Like, LocationPhoto,
 } = require('../db/models');
 
 router.route('/locations')
@@ -40,6 +40,22 @@ router.route('/locationposts')
       ],
       include: [User, Like],
     });
-    res.json(currLocationPosts);
+    const currLocationPhotos = await LocationPhoto
+      .findAll({ where: { locationId: pickedLocation.id } });
+    console.log(currLocationPosts, currLocationPhotos);
+    res.json({ currLocationPosts, currLocationPhotos });
   });
 module.exports = router;
+
+// app.post('/getPhotoLocation', async (req, res) => {
+//   const { id } = req.body;
+//   console.log('=============>>>>>', req.body);
+
+//   try {
+//     const result = await LocationPhoto.findAll({ where: { userId: id } });
+//     console.log('result', result);
+//     res.json(result);
+//   } catch (error) {
+//     res.json(error);
+//   }
+// });

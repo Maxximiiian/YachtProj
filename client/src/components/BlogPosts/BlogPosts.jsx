@@ -18,12 +18,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import { AddPostsPhotoThunk, AddPostsThunk, getAllPostsThunk, getAllLocationPostsThunk } from '../../redux/actions/postsAction';
+import {
+  AddPostsPhotoThunk, AddPostsThunk, getAllPostsThunk, getAllLocationPostsThunk
+} from '../../redux/actions/postsAction';
 import { addLocationAC } from '../../redux/actions/locationsAction';
 import AllPosts from './AllPosts';
 import { getPhotoLocationThunk } from '../../redux/actions/photoLocationAction';
 
-export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCoords }) {
+export default function BlogPosts({
+  blogPostsState, setBlogPostsState, currentCoords, pickedBaloon
+}) {
   const { auth, locationPhoto } = useSelector((state) => state);
   const [locationInput, setLocationInput] = useState({ coords: currentCoords, name: '', userId: auth.id });
 
@@ -41,7 +45,7 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
   const [inpStatelocationPhoto, setinpStatelocationPhoto] = useState({
     image: null
   });
-  
+
   const dispatch = useDispatch();
   const posts = useSelector((store) => store.posts);
 
@@ -78,9 +82,10 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
     data.append('photoLocation', inpStatelocationPhoto.image);
     data.append('title', input.title);
     data.append('body', input.body);
+    data.append('coords', pickedBaloon);
     console.log('data', data);
     dispatch(AddPostsPhotoThunk(data));
-    dispatch(AddPostsThunk({ ...input, coords: pickedBaloon }));
+    // dispatch(AddPostsThunk({ ...input, coords: pickedBaloon, data }));
   };
 
   // const sendPhotoLocation = useCallback(async () => {
@@ -119,10 +124,10 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
 
   console.log('pickedBaloon=====', pickedBaloon);
 
-  useEffect(() => {
-    dispatch(getPhotoLocationThunk());
-  }, []);
-  
+  // useEffect(() => {
+  //   dispatch(getPhotoLocationThunk());
+  // }, []);
+
   useEffect(() => {
     console.log('=========', pickedBaloon);
     if (pickedBaloon) {
@@ -178,7 +183,8 @@ export default function BlogPosts({ blogPostsState, setBlogPostsState, currentCo
                 />
                 <AttachFileIcon sx={{ color: 'azure' }} />
               </IconButton>
-              <Button type="submit" sx={{ backgroundColor: 'transparent', color: 'azure' }} endIcon={<PhotoCamera />} />
+              {/* <Button type="submit" sx={{ backgroundColor: 'transparent',
+              color: 'azure' }} endIcon={<PhotoCamera />} /> */}
 
               <Button type="button" onClick={submitHandler} sx={{ backgroundColor: 'transparent', color: 'azure', marginLeft: '40%' }} endIcon={<SendIcon />}>
 
