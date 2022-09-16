@@ -157,7 +157,7 @@ function NavBar() {
                   </IconButton>
                 </Tooltip>
                 <Menu
-                  sx={{ mt: '45px', marginRight: '25px' }}
+                  sx={{ mt: '45px', marginRig: '25px' }}
                   id="menu-appbar"
                   anchorEl={anchorElUser}
                   anchorOrigin={{
