@@ -79,11 +79,11 @@ export default function AdminReg({ delPotentialAddUser }) {
         className="background"
         style={{
           width: '100%',
-          height: '220%',
+          height: '500%',
           backdropFilter: 'blur(2.2px)',
           backgroundColor: 'rgb(30 33 47 / 36%)',
           position: 'absolute',
-          left: '0%',
+          left: '0',
           top: '0'
 
         }}
