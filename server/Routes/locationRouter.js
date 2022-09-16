@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {
-  Location, Post, User, Like, LocationPhoto,
+  Location, Post, User, Like, LocationPhoto, UserPhoto,
 } = require('../db/models');
 
 router.route('/locations')
@@ -38,54 +38,9 @@ router.route('/locationposts')
       order: [
         ['updatedAt', 'DESC'],
       ],
-      include: [User, Like, LocationPhoto],
+      include: [{ model: User, include: UserPhoto }, Like, LocationPhoto],
     });
 
     res.json(currLocationPosts);
   });
 module.exports = router;
-
-// router.post('/posts', multer.single('photoLocation'), async (req, res) => {
-//   console.log('req SESSION', req.session.userId);
-//   const { coords } = req.body;
-//   const { userId } = req.session;
-//   console.log(req.body, 'req BODY');
-//   console.log(req.file, 'req FILE');
-//   try {
-//     const matchCoords = coords.split(',');
-//     const pickedLocation = await Location.findOne({
-//       where: {
-//         coordX: matchCoords[0],
-//         coordY: matchCoords[1],
-//       },
-//     });
-//     const post = await Post.create({ ...req.body, userId, locationId: pickedLocation.id });
-//     const locationPhoto = await LocationPhoto.create({
-//       image: req.file.filename,
-//       postId: post.id,
-//     });
-//     const newPost = await Post.findOne({
-//       where: { id: post.id },
-//       include: [User, Like, LocationPhoto],
-//     });
-//     console.log('yyYYYYYYYYYYYYYY', newPost);
-//     // const newPhoto = await LocationPhoto.findAll({ where: { locationId: pickedLocation.id } });
-//     return res.json(newPost);
-//   } catch (error) {
-//     console.log(error);
-//     return res.sendStatus(500);
-//   }
-// });
-
-// app.post('/getPhotoLocation', async (req, res) => {
-//   const { id } = req.body;
-//   console.log('=============>>>>>', req.body);
-
-//   try {
-//     const result = await LocationPhoto.findAll({ where: { userId: id } });
-//     console.log('result', result);
-//     res.json(result);
-//   } catch (error) {
-//     res.json(error);
-//   }
-// });

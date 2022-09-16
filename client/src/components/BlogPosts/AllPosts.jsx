@@ -55,6 +55,8 @@ export default function AllPosts({ post }) {
     dispatch(removePostThunk(post.id));
   };
 
+  console.log('User.UserPhotos', User.UserPhotos?.[0]?.image);
+
   return (
     <Box sx={{
       backgroundColor: '#f8f9fa24',
@@ -68,9 +70,16 @@ export default function AllPosts({ post }) {
           color: 'azure'
         }}
         avatar={(
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
-          </Avatar>
+          <IconButton>
+            <Avatar aria-label="recipe" sx={{ width: 50, height: 50 }}>
+              <img
+                src={`http://localhost:3002/images/${User.UserPhotos?.[0]?.image}`}
+                alt="Remy Sharp"
+                loading="lazy"
+                style={{ width: 50, height: 50 }}
+              />
+            </Avatar>
+          </IconButton>
         )}
         action={(
           <IconButton aria-label="settings" />

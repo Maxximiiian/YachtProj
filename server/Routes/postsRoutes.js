@@ -2,7 +2,7 @@ const router = require('express').Router();
 const multer = require('../middlewares/multer');
 
 const {
-  Post, User, Like, LocationPhoto, Location,
+  Post, User, Like, LocationPhoto, Location, UserPhoto,
 } = require('../db/models');
 
 router.route('/posts')
@@ -37,7 +37,7 @@ router.post('/posts', multer.single('photoLocation'), async (req, res) => {
     });
     const newPost = await Post.findOne({
       where: { id: post.id },
-      include: [User, Like, LocationPhoto],
+      include: [{ model: User, include: UserPhoto }, Like, LocationPhoto],
     });
     console.log('yyYYYYYYYYYYYYYY', newPost);
     // const newPhoto = await LocationPhoto.findAll({ where: { locationId: pickedLocation.id } });
