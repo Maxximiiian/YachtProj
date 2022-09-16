@@ -84,7 +84,7 @@ export default function AdminReg({ delPotentialAddUser }) {
           backgroundColor: 'rgb(30 33 47 / 36%)',
           position: 'absolute',
           left: '0%',
-          top: '9%'
+          top: '0'
 
         }}
       />
