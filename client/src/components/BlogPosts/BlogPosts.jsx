@@ -5,7 +5,7 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CardHeader from '@mui/material/CardHeader';
 import { red } from '@mui/material/colors';
 import {
-  Avatar, Box, Button, ButtonGroup, IconButton, Link, SwipeableDrawer, TextField
+  Avatar, Box, Button, ButtonGroup, CircularProgress, IconButton, Link, SwipeableDrawer, TextField
 } from '@mui/material';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -19,7 +19,7 @@ import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import {
-  AddPostsPhotoThunk, AddPostsThunk, getAllPostsThunk, getAllLocationPostsThunk
+  AddPostsPhotoThunk, AddPostsThunk, getAllPostsThunk, getAllLocationPostsThunk, getPostsAC
 } from '../../redux/actions/postsAction';
 import { addLocationAC } from '../../redux/actions/locationsAction';
 import AllPosts from './AllPosts';
@@ -141,7 +141,7 @@ export default function BlogPosts({
     if (pickedBaloon) {
       dispatch(getAllLocationPostsThunk(pickedBaloon));
     } else {
-      dispatch(getAllPostsThunk());
+      // dispatch(getAllPostsThunk());
     }
   }, [pickedBaloon]);
 
