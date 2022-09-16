@@ -18,6 +18,7 @@ import { useState } from 'react';
 import SideBarFormLogIn from '../SideBarFormLogIn/SideBarFormLogIn';
 import { userLogOut } from '../../redux/actions/authActions';
 import { SET_SHOW_FORM } from '../../redux/types/types';
+import './navbar.css';
 
 const pages = ['Points', 'Ways', 'Admin'];
 
@@ -59,7 +60,7 @@ function NavBar() {
     <AppBar position="static" sx={{ boxShadow: 0, backgroundColor: '#53555830' }}>
       <Container maxWidth="100%">
         <Toolbar disableGutters>
-          <SailingIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <SailingIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, marginLeft: '25px' }} />
           <Typography
             variant="h6"
             noWrap
@@ -156,7 +157,7 @@ function NavBar() {
                   </IconButton>
                 </Tooltip>
                 <Menu
-                  sx={{ mt: '45px' }}
+                  sx={{ mt: '45px', marginRight: '25px' }}
                   id="menu-appbar"
                   anchorEl={anchorElUser}
                   anchorOrigin={{
