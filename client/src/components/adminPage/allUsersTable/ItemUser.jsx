@@ -19,7 +19,7 @@ export default function ItemUser({ elem, DelUser }) {
     >
 
       <CardContent sx={{
-        display: 'flex', justifyContent: 'space-around', alignItems: 'baseline', backgroundColor: '#282b18d1', borderRadius: '14px'
+        display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', backgroundColor: '#282b18d1', borderRadius: '14px'
       }}
       >
         <CardHeader
@@ -27,9 +27,7 @@ export default function ItemUser({ elem, DelUser }) {
             color: 'azure'
           }}
           avatar={(
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
-            </Avatar>
+            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" src="" />
           )}
         />
         <Typography gutterBottom variant="h5" component="div">

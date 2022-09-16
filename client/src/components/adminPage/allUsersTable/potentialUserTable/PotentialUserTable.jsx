@@ -1,3 +1,6 @@
+/* eslint-disable max-len */
+/* eslint-disable react/jsx-props-no-spreading */
+import { Autocomplete, Stack, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import PotentialUserItem from './PotentialUserItem';
 import './PotentialUserTable.css';
@@ -7,6 +10,7 @@ export default function PotentialUserTable({
   DelStatePotential, delPotentialAddUser, delStatePotential
 }) {
   const [potentialUsres, setPotentialUsers] = useState([]);
+  const [potentUserSearchState, setPotentUserSearchState] = useState('');
 
   useEffect(() => {
     fetch('http://localhost:3002/getAllPotentialUsers')
@@ -24,17 +28,44 @@ export default function PotentialUserTable({
     });
     setDelStatePotential(Math.random());
   };
+  const potentUserSearch = (e) => {
+    setPotentUserSearchState(e.target.value);
+  };
   return (
     <div className="conteiner3">
       <div className="titleeH5"><h5>Потенциальнае пользователи</h5></div>
-      {potentialUsres && potentialUsres.map((elem) => (
-        <PotentialUserItem
-          key={elem.id}
-          elem={elem}
-          DelUser2={DelUser2}
-          delPotentialAddUser={delPotentialAddUser}
+
+      <Stack spacing={2} sx={{ width: '70%', margin: '10px' }}>
+        <Autocomplete
+          freeSolo
+          id="free-solo-2-demo"
+          disableClearable
+          options={potentialUsres.map((user) => user.name)}
+          renderInput={(params) => (
+            <TextField
+              style={{ border: 'solid white' }}
+              name="name"
+              {...params}
+              label="Поиск"
+              InputProps={{
+                ...params.InputProps,
+                type: 'search'
+              }}
+              onChange={potentUserSearch}
+            />
+          )}
         />
-      ))}
+      </Stack>
+      {potentialUsres && potentialUsres
+        .filter((user) => (potentUserSearchState ? user.name.includes(potentUserSearchState) : true))
+        .map((elem) => (
+          <PotentialUserItem
+            key={elem.id}
+            elem={elem}
+            DelUser2={DelUser2}
+            delPotentialAddUser={delPotentialAddUser}
+          />
+        ))}
     </div>
   );
 }

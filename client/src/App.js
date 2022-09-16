@@ -15,9 +15,12 @@ import RequireAuth from './components/RequireAuth/RequireAuth';
 import Ways from './components/Ways/Ways';
 import { setAuthAC, userCheck } from './redux/actions/authActions';
 import { unsetLoad } from './redux/actions/loadActions';
+import { getUserPhotoThunk } from './redux/actions/photoActions';
+import volvo from './assests/VIDOS.mp4';
 
 function App() {
-  const { auth } = useSelector((store) => store);
+  const auth = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
   console.log(auth);
   // const { loading } = useSelector((s) => s);
   // const dispatch = useDispatch();
@@ -36,30 +39,49 @@ function App() {
   //     });
   // }, []);
 
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userCheck());
   }, []);
 
+  useEffect(() => {
+    if (auth.id) {
+      dispatch(getUserPhotoThunk(auth.id));
+    }
+  }, [auth]);
+
   return (
     <>
+      <video
+        src={volvo}
+        style={{
+          position: 'fixed',
+          height: '100vh',
+          width: '100vw',
+          backgroundSize: 'cover',
+          objectFit: 'fill',
+          backgroundPosition: 'center center'
+        }}
+        autoPlay
+        loop
+        muted
+      />
       <Navbar />
-      <Routes>
-        {!auth
+      <div style={{ position: 'relative' }}>
+        <Routes>
+          {!auth.id
         && <Route path="/" element={<Info />} />}
-        {auth
+          {auth.id
         && (
         <>
-          <Route path="/" element={(<Main />)} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/admin" element={<AdminPage />} />
-          <Route path="/map" element={(<RequireAuth><Map /></RequireAuth>)} />
-          <Route path="/ways" element={<Ways />} />
-          <Route path="/perspage" element={<PersonalPage />} />
+          <Route path="/" element={<Main />} />
+          <Route path="/admin" element={<RequireAuth><AdminPage /></RequireAuth>} />
+          <Route path="/map" element={<RequireAuth><Map /></RequireAuth>} />
+          <Route path="/perspage" element={<RequireAuth><PersonalPage /></RequireAuth>} />
           {/* <Route path="/adminreg" element={<PersonalPage />} /> */}
         </>
         )}
-      </Routes>
+        </Routes>
+      </div>
     </>
   );
 }

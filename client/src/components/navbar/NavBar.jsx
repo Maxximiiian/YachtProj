@@ -18,6 +18,7 @@ import { useState } from 'react';
 import SideBarFormLogIn from '../SideBarFormLogIn/SideBarFormLogIn';
 import { userLogOut } from '../../redux/actions/authActions';
 import { SET_SHOW_FORM } from '../../redux/types/types';
+import './navbar.css';
 
 const pages = ['Points', 'Ways', 'Admin'];
 
@@ -28,6 +29,7 @@ function NavBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.auth);
+  const photoUser = useSelector((state) => state.photoUser);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -41,6 +43,7 @@ function NavBar() {
   };
 
   const handleCloseUserMenu = () => {
+    console.log('close usermenu');
     setAnchorElUser(null);
   };
 
@@ -57,7 +60,7 @@ function NavBar() {
     <AppBar position="static" sx={{ boxShadow: 0, backgroundColor: '#53555830' }}>
       <Container maxWidth="100%">
         <Toolbar disableGutters>
-          <SailingIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <SailingIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, marginLeft: '25px' }} />
           <Typography
             variant="h6"
             noWrap
@@ -73,10 +76,11 @@ function NavBar() {
               textDecoration: 'none'
             }}
           >
-            SAILING CLUB
+            THE SAILING CLUB
           </Typography>
           {user.id ? (
             <>
+              {/* {auth.admin === true ? ()} */}
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
                   size="large"
@@ -122,22 +126,17 @@ function NavBar() {
                 >
                   Points
                 </Button>
-                <Button
-                  component={Link}
-                  to="/ways"
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  Ways
-                </Button>
-                <Button
-                  component={Link}
-                  to="/admin"
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  Admin
-                </Button>
+                {user.admin ? (
+                  <Button
+                    component={Link}
+                    to="/admin"
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    Admin
+                  </Button>
+                ) : null }
+
                 {(window.location.href === 'http://localhost:3000/admin')
                 && (
                 <Button
@@ -153,12 +152,12 @@ function NavBar() {
               </Box>
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <IconButton onClick={handleOpenUserMenu} sx={{ pr: '30px' }}>
+                    <Avatar alt="Remy Sharp" src={`http://localhost:3002/images/${photoUser?.image}` || ''} />
                   </IconButton>
                 </Tooltip>
                 <Menu
-                  sx={{ mt: '45px' }}
+                  sx={{ mt: '45px', marginRight: '25px' }}
                   id="menu-appbar"
                   anchorEl={anchorElUser}
                   anchorOrigin={{
@@ -189,7 +188,7 @@ function NavBar() {
           )
             : (
               <div className="public-nav-bar" style={{ width: 'max-content', marginLeft: 'auto' }}>
-                <NavLink to="/"><SideBarFormLogIn /></NavLink>
+                <NavLink to="/"><SideBarFormLogIn handleCloseUserMenu={handleCloseUserMenu} /></NavLink>
               </div>
             ) }
         </Toolbar>

@@ -1,12 +1,17 @@
 .conteiner3 {
-    display: table;
+    display: flex;
     width: 100%;
-    color: white
+    color: white;
+    flex-direction: column;
+    align-content: space-around;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 10px;
 
 }
 .userInfo {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: baseline;
 }
 /* import GroupAddIcon from '@mui/icons-material/GroupAdd'; иконка на добовление потенциального*/

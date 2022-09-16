@@ -4,9 +4,9 @@ export default (state = {}, action) => {
   const { type, payload } = action;
   switch (type) {
     case SET_AUTH:
-      return payload;
+      return payload || state;
     case LOGOUT:
-      return state;
+      return {};
     default:
       return state;
   }

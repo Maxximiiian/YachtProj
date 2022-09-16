@@ -22,7 +22,6 @@
         margin: 10px;
         height: 100%;
         background-color: #f8f9faa1;
-        
         border-radius: 5px;
         
     }
@@ -39,3 +38,22 @@
     .css-1160xiw-MuiPaper-root-MuiDrawer-paper{
         width: 30%;
     }
+
+.css-ey12m8-MuiImageList-root {
+        display: flex !important;
+        overflow-y: auto !important;
+        list-style: eographic !important;
+        padding: 0 !important;
+        -webkit-overflow-scrolling: touch !important;
+        width: 250px !important;
+        height: 200px !important;
+        -webkit-align-items: center !important;
+        -webkit-box-align: center !important;
+        -ms-flex-align: center !important;
+        margin-left: 40px !important;
+        border-radius: 58% !important;
+        align-items: flex-end !important;
+        justify-content: flex-start !important;
+        flex-direction: row-reverse !important;
+        align-content: stretch !important;
+}

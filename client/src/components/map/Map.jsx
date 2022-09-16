@@ -13,6 +13,8 @@ import { getAllLocationsThunk } from '../../redux/actions/locationsAction';
 const { ymaps } = window;
 
 export default function Map() {
+  const [pickedBaloon, setPickedBaloon] = useState(null);
+  console.log(pickedBaloon);
   const [myMap, setMap] = useState(null);
   const locations = useSelector((state) => state.locations);
   //   console.log('locations', locations);
@@ -150,30 +152,13 @@ export default function Map() {
     dispatch(getAllLocationsThunk());
   }, []);
 
-  const center = [55.7536760175035, 37.61988016065489];
-  //   const center = [20, 20];
-
-  //   const [map, setMap] = useState(null);
-
-  //   function init() {
-  //     if (!myMap) {
-  //       const m = new ymaps.Map('map', {
-  //         center,
-  //         zoom: 2
-  //       }, {
-  //         searchControlProvider: 'yandex#search'
-  //       });
-
-  //       setMap(m);
-
-  //       return null;
-  //     }
+  const center = [45, 60];
 
   function init() {
     if (!myMap) {
       const m = new ymaps.Map('map', {
         center,
-        zoom: 2
+        zoom: 3
       }, {
         searchControlProvider: 'yandex#search'
       });
@@ -182,32 +167,6 @@ export default function Map() {
 
       return null;
     }
-
-    // / /////////////////////////////////////////////////////////////////////////////////
-    // Создание макета балуна на основе Twitter Bootstrap.
-
-    // Создание вложенного макета содержимого балуна.
-
-    // Создание метки с пользовательским макетом балуна.
-
-    /// ///////////////////////////////////////////////////////////////
-
-    /// ///////////////////////////////////////////////////////////////
-    const myPlacemark = window.myPlacemark = new ymaps.Placemark(myMap.getCenter(), {
-      balloonHeader: 'Заголовок балуна',
-      balloonContent: 'Контент балуна'
-    }, {
-      balloonShadow: false,
-      balloonLayout: MyBalloonLayout,
-      balloonContentLayout: MyBalloonContentLayout,
-      balloonPanelMaxMapArea: 0
-      // Не скрываем иконку при открытом балуне.
-      // hideIconOnBalloonOpen: false,
-      // И дополнительно смещаем балун, для открытия над иконкой.
-      // balloonOffset: [3, -40]
-    });
-
-    myMap.geoObjects.add(myPlacemark);
 
     // / /////////////////////////////////////////////////////////////////////////////////
     document.querySelector('#set-balloon-header').addEventListener('click', () => {
@@ -267,9 +226,8 @@ export default function Map() {
       myMap.hint.open(e.get('coords'), 'Кто-то щелкнул правой кнопкой');
     });
 
-    // Скрываем хинт при открытии балуна.
+    // Скрываем хинт при открытии балуна.   // ВАЖНООООО
     myMap.events.add('balloonopen', (e) => {
-      console.log('aaaa');
       myMap.hint.close();
     });
     return null;
@@ -309,7 +267,7 @@ export default function Map() {
       locations.forEach((x, index) => {
         const myPlacemark = new ymaps.Placemark([Number(x.coordX), Number(x.coordY)], {
           balloonHeader: `${x.name}`,
-          balloonContent: 'Контент балуна'
+          balloonContent: { id: x.id }
         }, {
           balloonShadow: false,
           balloonLayout: MyBalloonLayout,
@@ -319,6 +277,22 @@ export default function Map() {
           // hideIconOnBalloonOpen: false,
           // И дополнительно смещаем балун, для открытия над иконкой.
           // balloonOffset: [3, -40]
+        });
+
+        myPlacemark.events.add('balloonopen', (e) => {
+          myPlacemark.properties.set('balloonContent', 'Идет загрузка данных...');
+          ymaps.geocode(myPlacemark.geometry.getCoordinates(), {
+            results: 1
+          }).then((data) => setPickedBaloon(data.metaData.geocoder.request));
+          setBlogPostsState({ ...blogPostsState, right: true });
+          // .then((res) => {
+          //   const newContent = res.geoObjects.get(0)
+          //     ? res.geoObjects.get(0).properties.get('name')
+          //     : 'Не удалось определить адрес.';
+
+          //   // Задаем новое содержимое балуна в соответствующее свойство метки.
+          //   myPlacemark.properties.set('balloonContent', newContent);
+          // });
         });
 
         myMap.geoObjects.add(myPlacemark);
@@ -333,14 +307,15 @@ export default function Map() {
   return (
     <div>
       <div id="map" className="mapContainer">
-        <button type="button" id="set-balloon-header" className="btn">Задать заголовок балуна</button>
-        <button type="button" id="set-balloon-content" className="btn">Задать содержимое балуна</button>
         <BlogPosts
           blogPostsState={blogPostsState}
           setBlogPostsState={setBlogPostsState}
           currentCoords={currentCoords}
+          pickedBaloon={pickedBaloon}
         />
       </div>
+      <button type="button" id="set-balloon-header" className="btn">Задать заголовок балуна</button>
+      <button type="button" id="set-balloon-content" className="btn">Задать содержимое балуна</button>
     </div>
   );
 }

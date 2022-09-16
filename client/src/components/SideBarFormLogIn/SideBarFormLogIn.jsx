@@ -8,10 +8,13 @@ import TextField from '@mui/material/TextField';
 import './SideBarFormLogIn.css';
 import { Avatar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { userSignInThunk } from '../../redux/actions/authActions';
+import { getUserPhotoThunk } from '../../redux/actions/photoActions';
 
-export default function SideBarFormLogIn() {
+export default function SideBarFormLogIn({ handleCloseUserMenu }) {
+  const auth = useSelector((state) => state.auth);
   const [state, setState] = React.useState({ right: false });
   const [input, setInput] = React.useState({});
   const [error, setError] = React.useState(false);
@@ -35,8 +38,10 @@ export default function SideBarFormLogIn() {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(userSignInThunk(input));
+    // dispatch(getUserPhotoThunk(auth.id));
     setInput({});
     toggleDrawer(false);
+    handleCloseUserMenu();
     nav('/');
   };
 
@@ -75,7 +80,7 @@ export default function SideBarFormLogIn() {
   return (
     <div style={{ width: 'max-content', marginLeft: 'auto' }}>
       {['right'].map((anchor) => (
-        <React.Fragment key={anchor} id="test_test">
+        <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}><Avatar src="/broken-image.jpg" /></Button>
           <SwipeableDrawer
             id="check_this"
