@@ -1,5 +1,9 @@
+import {
+  Avatar, Box, CardContent, CardHeader, Typography
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import ButtonLKDel from './ButtonLKDel';
 import LocationItem from './LocationItem';
 
 export default function LocationTable() {
@@ -33,13 +37,34 @@ export default function LocationTable() {
   return (
     <div className="LocationItem">
       <h2 style={{ color: 'white', textAlign: 'center' }}>Мои Локации</h2>
-      { UserlocationState.length && UserlocationState.map((elem) => (
-        <LocationItem
-          elem={elem}
-          onClickLoc={onClickLoc}
-        />
-      )) }
+      { UserlocationState.length !== 0
+        ? (
+          <>
+            {UserlocationState.map((elem) => (
+              <LocationItem
+                elem={elem}
+                onClickLoc={onClickLoc}
+              />
+            )) }
+          </>
+        )
+        : (
+          <Box sx={{
+            backgroundColor: '#f8f9fa24',
+            borderRadius: '25px',
+            margin: '10px'
+          }}
+          >
+            <CardContent sx={{
+              display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', backgroundColor: '#282b18d1', borderRadius: '14px'
+            }}
+            >
+              <Typography gutterBottom variant="h5" component="div">
+                <h4>Чтобы просмотреть свои локации, добавьте их на карту</h4>
+              </Typography>
+            </CardContent>
+          </Box>
+        )}
     </div>
-
   );
 }

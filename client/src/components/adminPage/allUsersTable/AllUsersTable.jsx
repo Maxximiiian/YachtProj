@@ -4,9 +4,12 @@ import './AllUsersTable.css';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
+import { useSelector } from 'react-redux';
 import ItemUser from './ItemUser';
 
 export default function AllUsersTable({ delStatePotential }) {
+  const auth = useSelector((state) => state.auth);
+  console.log('auuuuthhhhha', auth);
   const [allUsers, setAllUsers] = useState([]);
   const [delState, setDelState] = useState(0);
   const [allUserSearchState, setAllUserSearchState] = useState('');
@@ -59,6 +62,7 @@ export default function AllUsersTable({ delStatePotential }) {
       <div className="conteiner2">
         {allUsers && allUsers
           .filter((user) => (allUserSearchState ? user.name.includes(allUserSearchState) : true))
+          .filter((user) => (user.email !== auth.email))
           .map((elem) => (
             <ItemUser
               key={elem.id}

@@ -312,6 +312,7 @@ export default function Map() {
           setBlogPostsState={setBlogPostsState}
           currentCoords={currentCoords}
           pickedBaloon={pickedBaloon}
+          setPickedBaloon={setPickedBaloon}
         />
       </div>
       <button type="button" id="set-balloon-header" className="btn">Задать заголовок балуна</button>

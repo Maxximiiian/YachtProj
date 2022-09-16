@@ -26,7 +26,7 @@ import AllPosts from './AllPosts';
 import { getPhotoLocationThunk } from '../../redux/actions/photoLocationAction';
 
 export default function BlogPosts({
-  blogPostsState, setBlogPostsState, currentCoords, pickedBaloon
+  blogPostsState, setBlogPostsState, currentCoords, pickedBaloon, setPickedBaloon
 }) {
   const { auth } = useSelector((state) => state);
   const [locationInput, setLocationInput] = useState({ coords: currentCoords, name: '', userId: auth.id });
@@ -60,6 +60,10 @@ export default function BlogPosts({
       return;
     }
     setBlogPostsState({ ...blogPostsState, [anchor]: open });
+    setAddPost(false);
+    setPickedBaloon(null);
+    setAddLocation(false);
+    setLocationInput({ coords: currentCoords, name: '', userId: auth.id });
   };
 
   const handleTextTitleInputChange = (e) => {
@@ -85,6 +89,8 @@ export default function BlogPosts({
     data.append('coords', pickedBaloon);
     console.log('data', data);
     dispatch(AddPostsPhotoThunk(data));
+    setAddPost(false);
+    setInput({});
     // dispatch(AddPostsThunk({ ...input, coords: pickedBaloon, data }));
   };
 
@@ -119,6 +125,8 @@ export default function BlogPosts({
     if (response.ok) {
       const data = await response.json();
       dispatch(addLocationAC(data));
+      setAddLocation(false);
+      setLocationInput({ coords: currentCoords, name: '', userId: auth.id });
     }
   };
 
@@ -200,12 +208,19 @@ export default function BlogPosts({
           </Box>
         )}
       <Box>
-        {posts?.map((el) => (
-          <AllPosts
-            // key={el.id}
-            post={el}
-          />
-        ))}
+        {pickedBaloon
+          ? (
+            <div>
+              {posts?.map((el) => (
+                <AllPosts
+                  key={el.id}
+                  post={el}
+                />
+              ))}
+            </div>
+          )
+          : null }
+
       </Box>
     </Box>
   );

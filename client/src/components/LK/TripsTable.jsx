@@ -1,5 +1,7 @@
+import { Box, CardContent, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import LocationItem from './LocationItem';
 import TripItem from './TripItem';
 
 export default function TripsTable() {
@@ -33,13 +35,35 @@ export default function TripsTable() {
   return (
     <div className="locItem">
       <h2 style={{ color: 'white', textAlign: 'center' }}>Мои Маршруты</h2>
-      {UserTripState.length && UserTripState.map((elem) => (
-        <TripItem
-          elem={elem}
-          onClickTrip={onClickTrip}
-        />
-      )) }
-    </div>
+      { UserTripState.length !== 0
+        ? (
+          <>
+            {UserTripState.map((elem) => (
+              <LocationItem
+                elem={elem}
+                onClickTrip={onClickTrip}
+              />
+            )) }
+          </>
+        )
+        : (
+          <Box sx={{
+            backgroundColor: '#f8f9fa24',
+            borderRadius: '25px',
+            margin: '10px'
+          }}
+          >
+            <CardContent sx={{
+              display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', backgroundColor: '#282b18d1', borderRadius: '14px'
+            }}
+            >
+              <Typography gutterBottom variant="h5" component="div">
+                <h4>Чтобы просмотреть свои маршруты, добавьте их на карту</h4>
+              </Typography>
+            </CardContent>
+          </Box>
+        )}
 
+    </div>
   );
 }
