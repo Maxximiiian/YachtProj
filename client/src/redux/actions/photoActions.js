@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-import { GET_USER_PHOTO } from '../types/types';
+import { GET_USER_PHOTO, ADD_USER_PHOTO } from '../types/types';
 
 export const getUserPhoto = (payload) => ({ type: GET_USER_PHOTO, payload });
+export const addUserPhoto = (payload) => ({ type: ADD_USER_PHOTO, payload });
 
 export const getUserPhotoThunk = (id) => (dispatch) => {
   console.log(id);

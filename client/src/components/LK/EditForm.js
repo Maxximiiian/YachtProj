@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import './editForm.css';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { getUserPhoto, getUserPhotoThunk } from '../../redux/actions/photoActions';
+import { addUserPhoto, getUserPhoto, getUserPhotoThunk } from '../../redux/actions/photoActions';
 import { userInfoChange_THUNK } from '../../redux/actions/authActions';
 
 export default function EditForm() {
@@ -56,7 +56,7 @@ export default function EditForm() {
         body: data
       }).then((res) => res.json())
         .then((res) => {
-          dispatch(getUserPhoto(res));
+          dispatch(addUserPhoto(res));
         });
       // axios.post('api/v1/photo/changePhoto', data, {
       //   headers: {

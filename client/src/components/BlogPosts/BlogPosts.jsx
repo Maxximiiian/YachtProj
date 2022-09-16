@@ -150,21 +150,16 @@ export default function BlogPosts({
     >
       <Button sx={{ backgroundColor: 'transparent', color: 'burlywood' }} component={Link} to="/points" onClick={() => setBlogPostsState((prev) => ({ ...prev, [anchor]: false }))}><DoubleArrowSharpIcon /></Button>
       <Box>
-        <Button onClick={() => setAdd(!add)} variant="h1" color="text.secondary" sx={{ marginLeft: '30%' }}>
-          Добавить
-        </Button>
-        { add
-        && (
-        <>
-          <Button onClick={() => { setAddLocation(!addLocation); setAddPost(false); }} variant="h1" color="text.secondary" sx={{ marginLeft: '30%' }}>
-            Локацию
+        {pickedBaloon ? (
+          <Button onClick={() => { setAddPost(!addPost); }} variant="h1" color="text.secondary" sx={{ marginLeft: '35%' }}>
+            Добавить Пост
           </Button>
-          <Button onClick={() => { setAddPost(!addPost); setAddLocation(false); }} variant="h1" color="text.secondary" sx={{ marginLeft: '35%' }}>
-            Пост
+        ) : (
+          <Button onClick={() => { setAddLocation(!addLocation); }} variant="h1" color="text.secondary" sx={{ marginLeft: '30%' }}>
+            Добавить Локацию
           </Button>
+        ) }
 
-        </>
-        )}
       </Box>
       {!addPost ? null
         : (
