@@ -1,12 +1,12 @@
 import {
   Avatar, Button, ButtonGroup,
-  CardContent, CardHeader, IconButton, ImageList, ImageListItem, Typography
+  CardContent, CardHeader, IconButton, ImageList, ImageListItem, Modal, Typography
 } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import { red } from '@mui/material/colors';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addBestPostThunk, getAllPostsThunk, removelikeThunk, removePostThunk
@@ -32,6 +32,9 @@ export default function AllPosts({ post }) {
   // const { name } = location;
 
   // const data = new Date(createdAt).toLocaleDateString();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const dispatch = useDispatch();
   const { auth } = useSelector((s) => s);
@@ -84,6 +87,7 @@ export default function AllPosts({ post }) {
           width: 200, height: 150, alignItems: 'center', marginLeft: '40px', borderRadius: '30px'
         }}
         variant="quilted"
+        onClick={handleOpen}
       >
         <ImageListItem>
           <img
@@ -93,6 +97,34 @@ export default function AllPosts({ post }) {
             loading="lazy"
           />
         </ImageListItem>
+        <div>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            onBlur={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box>
+              <img
+                src={`http://localhost:3002/images/${LocationPhotos?.[0]?.image}`}
+              // {...srcset(item.img, 121, item.rows, item.cols)}
+                alt="img"
+                style={{
+                  maxHeight: 800,
+                  maxWidth: 1200,
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  bgcolor: 'background.paper',
+                  boxShadow: 24,
+                  p: 4
+                }}
+              />
+            </Box>
+          </Modal>
+        </div>
       </ImageList>
       <CardContent>
         <Typography sx={{ color: 'azure' }} gutterBottom variant="h5" component="div">
