@@ -68,14 +68,14 @@ function App() {
       <Navbar />
       <div style={{ position: 'relative' }}>
         <Routes>
-          {!auth
+          {!auth.id
         && <Route path="/" element={<Info />} />}
-          {auth
+          {auth.id
         && (
         <>
           <Route path="/" element={<Main />} />
           <Route path="/admin" element={<RequireAuth><AdminPage /></RequireAuth>} />
-          <Route path="/map" element={(<RequireAuth><Map /></RequireAuth>)} />
+          <Route path="/map" element={<RequireAuth><Map /></RequireAuth>} />
           <Route path="/perspage" element={<RequireAuth><PersonalPage /></RequireAuth>} />
           {/* <Route path="/adminreg" element={<PersonalPage />} /> */}
         </>
