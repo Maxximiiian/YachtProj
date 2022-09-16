@@ -25,14 +25,15 @@ export default function Map() {
   //   const [locations, setLocations] = useState([]);
 
   const MyBalloonContentLayout = ymaps.templateLayoutFactory?.createClass(
-    '<h3 class="popover-title">$[properties.balloonHeader]</h3>'
-    + '<div class="popover-content">$[properties.balloonContent]</div>'
+    '<div style="margin: 10px; ">'
+    + '<h3 class="popover-title">$[properties.balloonHeader]</h3>'
+            + '</div>'
   );
 
   const MyBalloonLayout = ymaps.templateLayoutFactory?.createClass('<div class="popover top">'
         + '<a class="close" href="#">&times;</a>'
         + '<div class="arrow"></div>'
-        + '<div class="popover-inner">'
+        + '<div class="popover-inner" >'
           + '$[[options.contentLayout observeSize minWidth=235 maxWidth=235 maxHeight=350]]'
         + '</div>'
       + '</div>', {
@@ -203,15 +204,8 @@ export default function Map() {
         // toggleDrawer('right', true);
         // setBlogPostsState({ right: true });
         // console.log(blogPostsState);
-
         myMap.balloon.open(coords, {
-          contentHeader: 'Событие!',
-          contentBody: '<button id="yyy">sss</button'
-                    + `<p>Координаты щелчка: ${[
-                      coords[0].toPrecision(6),
-                      coords[1].toPrecision(6)
-                    ].join(', ')}</p>`,
-          contentFooter: '<sup>Щелкните еще раз</sup>'
+          contentHeader: 'Добавление локации...'
         });
       } else {
         myMap.balloon.close();
@@ -266,8 +260,7 @@ export default function Map() {
     if (locations.length && myMap) {
       locations.forEach((x, index) => {
         const myPlacemark = new ymaps.Placemark([Number(x.coordX), Number(x.coordY)], {
-          balloonHeader: `${x.name}`,
-          balloonContent: { id: x.id }
+          balloonHeader: `${x.name}`
         }, {
           balloonShadow: false,
           balloonLayout: MyBalloonLayout,
@@ -280,7 +273,7 @@ export default function Map() {
         });
 
         myPlacemark.events.add('balloonopen', (e) => {
-          myPlacemark.properties.set('balloonContent', 'Идет загрузка данных...');
+          myPlacemark.properties.set('balloonContent');
           ymaps.geocode(myPlacemark.geometry.getCoordinates(), {
             results: 1
           }).then((data) => setPickedBaloon(data.metaData.geocoder.request));
