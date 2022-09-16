@@ -16,7 +16,7 @@ import Ways from './components/Ways/Ways';
 import { setAuthAC, userCheck } from './redux/actions/authActions';
 import { unsetLoad } from './redux/actions/loadActions';
 import { getUserPhotoThunk } from './redux/actions/photoActions';
-import volvo from './assests/Volvo.mp4';
+import volvo from './assests/VIDOS.mp4';
 
 function App() {
   const auth = useSelector((store) => store.auth);
